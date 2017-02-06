@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+    	<meta name="author" content="xx_xh">
+    	
+    	<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+    	
+		<title>资产变更申请</title>
+		
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">固定资产审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">资产变更申请审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item" id="endnode">
+				<switch name="w['status']" >
+				<case value="1" break="1">未审核</case>
+				<case value="2" break="1">审核中</case>
+				<case value="5" break="1">已审核</case>
+				<case value="6" break="1">历史</case>
+				<default />历史
+				</switch>
+				</a>
+			</div>
+			<!--表格-->
+			<div class="date-table">
+				<div class="data-table-head fc-1">
+					<a class='tab-table <if condition="$w[status] eq 1"> tab-active </if>' href="{:U('auditlist',array('status'=>1))}">未审核</a>
+					<a class='tab-table <if condition="$w[status] eq 2"> tab-active </if>'  href="{:U('auditlist',array('status'=>2))}">审核中</a>
+					<a class='tab-table <if condition="$w[status] eq 5"> tab-active </if>'  href="{:U('auditlist',array('status'=>5))}">已审核</a>
+					<a class='tab-table <if condition="$w[status] eq 6"> tab-active </if>'  href="{:U('auditlist',array('status'=>6))}">历史</a>
+				</div>
+				<form class="fr" action="{:U('auditlist',array('status'=>$w['status']))}" method="get" class="dsplin">
+				<div class="sarech-grounp padlf15">
+					
+					<div class="grounp-item">
+						<div class="sarech-item">
+							<span class="sarech-span">物品名称：</span>
+							<input type="text" class="sarech-input" name="goods_name" value="{$w['goods_name']}" />
+						</div>
+					</div>
+					<!-- <div class="grounp-item">
+						<div class="sarech-item">
+							<span class="sarech-span">部门：</span>
+							<input type="text" class="sarech-input" name="depart_name" />
+						</div>
+					</div> -->
+					<div class="grounp-item">
+						<div class="sarech-item">
+							<span class="sarech-span">提交日期：</span>
+							<input type="text" id="addtime" class="sarech-input" name="time" readonly value="{$w['time']}" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="sarech-item">
+							<span class="sarech-span">创建人：</span>
+							<input type="text" class="sarech-input" name="applicant" value="{$w['applicant']}"/>
+						</div>
+					</div>
+					
+				</div>
+				<button class="sarech-btn boxshow01" type="submit">
+					搜索
+				</button>
+				</form>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>变更单号</th>
+						<th>提交时间</th>
+						<th>最后改动时间</th>
+						<th>创建人</th>
+						<th>审核状态</th>
+						<if condition="$w[status] eq 1">
+							<th>操作</th>
+						</if>
+					</tr>
+					<volist name="lists" id="lis">
+						<tr>
+							<td>{$key}</td>
+							<td><a class="fc-10 a-dtl" href="{:U('audit',array('id'=>$lis['id']))}">{$lis.order_sn}</a></td>
+							<td>{$lis.time|dateFormat=###,"Y-m-d H:i"}</td>
+							<td>{$lis.last_op_time|dateFormat=###,"Y-m-d H:i"}</td>
+							<td>{$lis.applicant}</td>
+							<td>
+							 <!-- 1未审核  2审核中 3未通过  4通过 -->
+								<div class="audit_status">
+									<if condition="$lis['status'] eq 2">
+										<img src="__IMG__/shengheing.png"/>
+										<a href="{:U('audit',array('id'=>$lis['id']))}" class="fc-10">审核中</a>
+									<elseif condition="$lis['status'] eq 3" />
+										<img src="__IMG__/nopass.png"/>
+										<a href="{:U('audit',array('id'=>$lis['id']))}" class="fc-6">未通过</a>
+									<elseif condition="$lis['status'] eq 4" />
+										<img src="__IMG__/shenghe.png"/>
+										<a href="{:U('audit',array('id'=>$lis['id']))}" class="fc-4">通过</a>
+									<else />
+										<img src="__IMG__/noshenghe.png"/>
+										<a href="{:U('audit',array('id'=>$lis['id']))}" class="fc-5">未审核</a>
+									</if>
+								</div>
+							</td>
+							<if condition="$w[status] eq 1">
+								<td><if condition="$lis['applicant_id'] eq $admin"><a href="{:U('edit',array('id'=>$lis['id']))}">编辑</a></if></td>
+							</if>
+						</tr>
+					</volist>
+				</table>
+			</div>
+			<div class="change-num ">
+				{$page}
+			</div>
+
+		</div>
+	</body>
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+<script type="text/javascript">
+$(function(){
+	$('#addtime').datetimepicker({
+		format: 'yyyy-mm-dd',
+		language:"zh-CN",
+		minView:2,
+		todayBtn:  1,
+		autoclose:true
+	});
+})
+</script>
+
+</html>

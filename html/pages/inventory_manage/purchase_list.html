@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>采购查询列表</title>
+		<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/common.css" />
+		<link rel="stylesheet" href="../../css/page_element.css" />
+		<link rel="stylesheet" href="../../css/purchaseSty.css" />
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/bootstrap.min.js" ></script>
+	</head>
+
+	<body>
+		<div id="purchase_con">
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">采购查询 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn">新增</span>
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn">打印</span>
+					<span class=" fs-14 boxshow03 top-btn">导出Excel</span>
+				</div>
+			</div>
+			<div class="pur_search_box">
+				<label>
+					<span class="fs-14 fc-2">单号：</span>
+					<input type="text" class="associated-drop big-drop list-top-inputboxshadow"/>
+				</label>
+				<label>
+					<span class="fs-14 fc-2">物品名称：</span>
+					<input type="text" class="associated-drop big-drop list-top-inputboxshadow"/>
+				</label>
+				<label>
+					<span class="fs-14 fc-2">部门：</span>
+					<select class="boxshow02">
+						<option>人事部</option>
+						<option>财务部</option>
+						<option>研发部</option>
+					</select>
+				</label>
+				<label>
+					<input type="text" class="boxshow02" placeholder="例：2016-11-06"/>
+					<span class="fs-14 fc-2">到</span>
+					<input type="text" class="associated-drop big-drop list-top-inputboxshadow" placeholder="例：2016-11-09"/>
+				</label>
+				<label>
+					<a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;">
+						搜索
+					</a>
+				</label>
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<th>采购单号</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>申请人</th>
+						<th>部门</th>
+						<th>申请日期</th>
+						<th>数量</th>
+						<th>预算金额</th>
+					</tr>
+
+					<tr>
+						<td>1</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<div class="change-num ">
+				<div class="munleft dsplin fc-2">
+					<a class="xiahuaxiana">首页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">上一页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">下一页</a>
+					<a class="xiahuaxiana">尾页</a>
+					<div class="jump">
+						<input type="text" value="1" />
+						<span>跳转</span>
+					</div>
+				</div>
+				<div class="munright dsplin fr fc-3 fs-14">
+					<div class="rigback-item dsplin">
+						<span>当前页为第</span>
+						<span id="nownum">1</span>
+						<span>页</span>
+					</div>
+					<div class="rigback-item dsplin">
+						<span>共</span>
+						<span id="totalnum">3</span>
+						<span>页</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 85%;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class=" order-card bgc-1">
+							<!--表单标题部分 start-->
+							<div class="preview_box">云南昆卫教育集团</div>
+							<div class="preview_tit">采购信息</div>
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-list  boxshow02">
+									<tr>
+										<th>采购单号</th>
+										<th>物品名称</th>
+										<th>规格型号</th>
+										<th>申请人</th>
+										<th>部门</th>
+										<th>申请日期</th>
+										<th>数量</th>
+										<th>预算金额</th>
+									</tr>
+
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+							</div>
+							<!--表单内容部分 end-->
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

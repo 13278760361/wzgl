@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+    	<meta name="author" content="xx_xh">
+    	<title>领用申请审核</title>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/calendar.css"/>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css"/>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css"/>
+    	<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    	<script src="__PUBLIC__/js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+    	<script type="text/javascript">
+			$(function() {
+				clickActive(".tab-table", "tab-active")
+			})
+		</script>
+		<!-- 时间插件 -->
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker_blue.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/dropdown.css" />
+	<script src="__PUBLIC__/js/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+	<!-- 时间插件 -->
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">库存审核 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">领用申请审核 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item" id="endnode">
+				<?php if($status==1):?>
+					未审核
+				<?php elseif($status==2):?>
+					审核中
+				<?php elseif($status==3):?>
+					已审核
+				<?php else:?>
+					历史
+				<?php endif;?>
+				</a>
+			</div>
+			<!--表格-->
+			<form action="<?php echo U('check')?>" method="get">
+			<div class="date-table">
+				<div class="data-table-head fc-1">
+					<a class="tab-table <?php if($status==1):?>tab-active<?php endif;?>" href="<?php echo U('check',array('status'=>1))?>">未审核</a>
+					<a class="tab-table <?php if($status==2):?>tab-active<?php endif;?>" href="<?php echo U('check',array('status'=>2))?>">审核中</a>
+					<a class="tab-table <?php if($status==3):?>tab-active<?php endif;?>" href="<?php echo U('check',array('status'=>3))?>">已审核</a>
+					<a class="tab-table <?php if($status==4):?>tab-active<?php endif;?>" href="<?php echo U('check',array('status'=>4))?>">历史</a>
+				</div>
+
+				<div class="sarech-grounp vtm fr">
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">单号：</span>
+							<input type="text" class="sarech-input" name="order_sn" value="<?php echo $order_sn;?>"/>
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">部门：</span>
+							<!-- <input type="text" class="sarech-input" name="depart" value="<?php echo $depart;?>"/> -->
+							<select name="depart" class="position-department-sele bgimg-select" style="width: 100px">
+						<option value="">选择部门</option>
+						<?php foreach($list_dep as $v):?>
+						<option <?php if($depart==$v['id']):?>selected="selected"<?php endif;?> value="<?php echo $v['id']?>"><?php echo $v['fullname']?></option>
+						<?php endforeach;?>
+					</select>
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">提交日期：</span>
+							<input type="text" class="sarech-input" id="starttime" name="apply_time" value="<?php echo date('Y-m-d',$time);?>" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">创建人：</span>
+							<input type="text" class="sarech-input" name="applyer" value="<?php echo $applyer;?>" />
+						</div>
+					</div>
+					<input type="hidden" name="status" value="<?php echo $status;?>">
+					<input class="sarech-btn boxshow01" type="submit" value="查询">
+				</div>
+
+			</div>
+			</form>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>单号</th>
+						<th>申请人</th>
+						<th>部门</th>
+						<th>提交时间</th>
+						<th>最后改动时间</th>
+						<th>创建人</th>
+						<th>审核状态</th>
+						<?php if($status==1):?>
+						<th>操作</th>
+						<?php endif;?>
+					</tr>
+				<?php if($list):?>
+					<?php foreach($list as $k=>$v):?>
+					<tr>
+						<td><?php echo $k+1?></td>
+						<td><a class="fc-10 a-dtl" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>"><?php echo $v['order_sn']?></a></td>
+						<td><?php echo $v['applyer']?></td>
+						<td><?php echo $v['depart_name']?></td>
+						<td><?php echo date('Y-m-d',$v['apply_time'])?></td>
+						<td><?php echo date('Y-m-d',$v['last_op_time'])?></td>
+						<td><?php echo $v['username']?></td>
+						<td>
+							<div class="audit_status">
+								
+								<?php if($v['status']==1):?>
+									<img src="__PUBLIC__/images/noshenghe.png"/>
+								<a class="fc-5" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">未审核</a>
+							<?php elseif($v['status']==2):?>
+								<img src="__PUBLIC__/images/shenghe.png"/>
+								<a class="fc-3" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">审核中</a>
+							<?php elseif($v['status']==3):?>
+								<img src="__PUBLIC__/images/nopass.png"/>
+									<a class="fc-6" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">未通过</a>
+							<?php else:?>
+								<img src="__PUBLIC__/images/shenghe.png"/>
+								<a class="fc-4" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">已通过</a>
+								<?php endif;?>
+							</div>		
+						</td>
+						<?php if($status==1):?>
+						<td>
+
+						<?php if($adminId==$v['create_id']):?>
+						<a href="{:U('edit',array('id'=>$v['r_id']))}">编辑</a>
+					<?php else:?>
+						无操作
+					<?php endif;?>
+					
+						</td>
+						<?php endif;?>
+					</tr>
+				<?php endforeach;?>
+					<?php else:?>
+						<tr>
+							<td colspan="8">没有任何信息</td>
+						</tr>
+					<?php endif;?>
+				</table>
+			</div>
+			<div class="change-num ">
+				<?php echo $page;?>
+			</div>
+
+		</div>
+				<script>
+
+			    $('#starttime').datetimepicker({
+			        format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+			   
+			    
+</script>
+	</body>
+
+</html>

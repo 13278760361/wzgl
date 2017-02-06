@@ -1,0 +1,125 @@
+#purchase_con{
+	width: 100%;
+}
+#purchase_con label{
+	font-weight: normal;
+}
+#purchase_con input{
+	margin-left: 5px;
+	margin-right: 10px;
+}
+#purchase_con select{
+	width: 125px;
+}
+.P_search_input{
+	width: 125px;
+	height: 34px;
+	text-indent: 0.5em;
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius: 4px;
+	box-shadow:0px 1px 3px 0px rgba(211,211,211,0.50);
+}
+.pur_search_box{
+	height: 25px;
+	margin-bottom: 20px;
+}
+
+.pur_search_btn{
+	display: inline-block;
+	width: 50px;
+	height: 23px;
+	text-align: center;
+}
+
+#purchase_con .bg_0D508D{
+	background: #0D508D;
+}
+#purchase_con .bord-r{
+	border-radius: 4px;
+}
+
+#purchase_con .fc_white{
+	color: #FFFFFF;
+}
+
+
+/*采购查询*/
+.date-calender{
+	width: 185px;
+}
+.proposer_de{
+	text-align: center;
+	height: 30px;
+	margin-bottom: 20px;
+}
+
+#purchase_con thead{
+	background: #F6F6F6;
+}
+
+.purchase_remark td{
+	vertical-align: middle !important;
+}
+.purchase_total{
+	width: 100%;
+}
+.purchase_remark textarea{
+	width: 100%;
+}
+
+.pur_operation_f{
+	display: block;
+	width: 100%;
+	line-height: 25px;font-size: 12px;
+	color: #646464;
+	background: #F6F6F6;
+}
+.operaction_box_p{
+	position: relative;
+	padding: 0 !important;
+}
+.pur_operation_det{
+	position: absolute;
+	display: block;
+	width: 100%;
+	top: 50%;
+	font-size: 12px;
+	color: #23B8F0;
+	text-decoration: underline;
+}
+.pur_operation_det:hover{
+	color: #23B8F0;
+	text-decoration: underline;
+}
+
+.purchase_rem{
+	vertical-align: middle !important;
+}
+
+.left_280{
+	width: 280px;float: left;
+}
+
+.right_200{
+	width: 200px;float: right
+}
+.order-card{
+	padding: 5px 15px;
+}
+.preview_box{
+	margin: 0 auto;
+	width: 90%;
+	height: 60px;
+	font-size: 30px;
+	color: #323232;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+
+.preview_tit{
+	margin: 15px;
+	text-align: center;
+	font-size: 20px;
+	color: #323232;
+}

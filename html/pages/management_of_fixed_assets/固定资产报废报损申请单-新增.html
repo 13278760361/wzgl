@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>资产报废报损查询-新增</title>
+		<script type="text/javascript">
+			var nnum = 0;
+			var lastLine = null;
+
+			var initJson = [{// 初始输入框
+				index: 1,
+				text: '1为开头的初始数据'
+			}, {
+				index: 2,
+				text: '2为开头的初始数据'
+			}, {
+				index: 3,
+				text: '3为开头的初始数据'
+			}];
+			
+			/**
+			 * 通过ajax，用初始选择查询的内容
+			 * tips1: 顺序和页面上的顺序保持一致
+			 * tips2: 所有类型不可更改（该是数组就得是数组）
+			 */
+			var ajaxJson = [{
+				flag: false,// 该框体是否可以被修改
+				text: ['内容1']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}, {
+				flag: true,
+				text: ['内容1', '内容2', '内容3', '内容4', '内容5']
+			}];
+			$(function() {
+				lastLine = "<tr>" + $("#addList tbody tr").eq(2).html() + "</tr>";
+				$("#addList td").keydown(enterChange);
+				// $('#datetime').datetimepicker({
+				// 	weekStart: 1,
+				// 	todayBtn: 1,
+				// 	autoclose: 1,
+				// 	todayHighlight: 1,
+				// 	startView: 2,
+				// 	forceParse: 0,
+				// 	showMeridian: 1
+				// });
+				initSelect(initJson);
+				radioChecked("changeCase");
+				radioChecked("agreeyorn");
+			})
+			var initSelect = function(arrays) {
+				var docs = $("ul[name='initSelect']");
+				for(var i = 0; i < docs.length; i++) {
+					var str = '';
+					for(var j = 0; j < arrays.length; j++) {
+						str += '<li>' + arrays[j].index + '.' + arrays[j].text + '</li>';
+					}
+					$(docs[i]).html(str);
+				}
+			}
+
+			var enterChange = function(e) {
+					if(e.which == 13) {
+						var index = $("#addList td").index(this);
+						var max = $("#addList td").length - 1;
+						if(index == max) {
+							var strBe = $("#addList tbody").html();
+							var strNow = strBe + lastLine;
+							$("#addList tbody").html(strNow);
+							$("#addList td").unbind("keydown");
+							$("#addList td").keydown(enterChange);
+						}
+						index++;
+						$("#addList td:eq(" + index + ")").children().focus();
+					}
+				}
+				/*索引*/
+			function indexesblur(h) {
+				$(h).next().hide();
+			}
+			
+			var showLi = function(k) {
+				if ($(k).val()) {
+					$(k).next().show();
+					$(k).next().children().each(function() {
+						$(this).click(function() {
+							var dda = $(this).text();
+							$(k).val(dda);
+							$(k).next().hide();
+						});
+					});
+				} else {
+					$(k).next().hide();
+				}
+			}
+
+			function indexesfocus(k) {
+				var value = $(k).val();
+				if(value) {
+					/*展开隐藏索引列表*/
+					$(k).next().show();
+					/*获取当前输入的值*/
+
+					/*选择的值传入input中*/
+					$(k).next().children().each(function() {
+						$(this).click(function() {
+							var dda = $(this).text();
+							$(k).val(dda);
+							$(k).next().hide();
+							
+							//TODO ajax更新ajaxJson
+
+							$(k).parent().parent().children("td").each(function(index) {
+								if(index > 1) {
+									var str = '';
+									for(var j = 0; j < ajaxJson[index - 2].text.length; j++) {
+										str += '<li>' + ajaxJson[index - 2].text[j] + '</li>';
+									}
+									$(this).children("ul").html(str);
+									
+									//TODO 如果不要自动填充就注释下面这行。
+									$(this).children("input").val(ajaxJson[index - 2].text[0]);
+								}
+							});
+							
+							
+						})
+					})
+				} else {
+					$(k).next().hide();
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产报废报损查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6">512488623</span>
+					</div>
+					<span class="order-tit dtcell">固定资产报废报损申请单</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<span></span>
+								<input type="" class="date-calender-input" id="datetime" value="2016-11-25" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r">
+					<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<td class='order-td-width01'></td>
+							<td class='order-td-width01'>卡片单号</td>
+							<td class='order-td-width01'>资产分类</td>
+							<td class='order-td-width01'>物品名称</td>
+							<td class='order-td-width01'>规格型号</td>
+							<td class='order-td-width01'>单位</td>
+							<td class='order-td-width01'>金额</td>
+							<td class='order-td-width01'>使用人</td>
+							<td class='order-td-width01'>部门</td>
+							<td class='order-td-width01'>开始使用日期</td>
+							<td class='order-td-width01'>使用年限</td>
+						</tr>
+						<tr id="tr1">
+							<td>
+								<div class="wid80">
+									<span class="fs-18" onclick="addrow()"> + </span>
+									<span class="fs-20">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" readonly="readonly" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" disabled="disabled" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="showLi(this)" />
+								<ul class="position-a indexes-list" name="choseSelect">
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wid80">
+									<span class="fs-18" onclick="addrow()"> + </span>
+									<span class="fs-20" onclick="minusrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onkeyup="indexesfocus(this)" />
+								<ul class="position-a indexes-list" name='initSelect'>
+								</ul>
+							</td>
+						</tr>
+					</table>
+					<table class="table table-bordered" id="opinin">
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width03 bord-r dtcell vtm"> 变更说明 </div>
+									<div class="dtcell vtm pad15">
+										<div class="dtable fl">
+											<div class="dtcell audit-person">
+												<div class="radiocheckitem  fs-16">
+													<input type="radio" id="fail" checked="checked" name="changeCase" value="fail">
+													<label name="changeCase" class="label-agree label-checked" for="fail">维修失败</label>
+												</div>
+												<div class="radiocheckitem fs-16">
+													<input type="radio" id="fault" name="changeCase" value="fault">
+													<label class="label-agree" name="changeCase" for="fault">故障</label>
+												</div>
+												<div class="radiocheckitem fs-16">
+													<input type="radio" id="expire" name="changeCase" value="expire">
+													<label class="label-agree" name="changeCase" for="expire">到期</label>
+												</div>
+												<div class="radiocheckitem fs-16">
+													<input type="radio" id="other" name="changeCase" value="other">
+													<label class="label-agree" name="changeCase" for="other">其他</label>
+												</div>
+											</div>
+										</div>
+										<div class="position-r fr wtd-half">
+											<span class="prompt-text position-a fc-7">请说明理由</span>
+											<textarea class="textarea-block bgc-2" rows="2" onkeyup="changePlacehoder(this)"></textarea>
+											<input type="text" style="display:none;">
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm">意见</div>
+									<div class="dtcell pad15">
+
+										<div class="width-all">
+											<div class="position-r">
+												<span class="prompt-text position-a fc-7">原因说明</span>
+												<textarea class=" textarea-block bgc-2" rows="3" onkeyup="changePlacehoder(this)"></textarea>
+												<input type="text" style="display:none;">
+											</div>
+
+											<div class="width-all">
+												<div class="department">
+													<select name="" class="position-department-sele bgimg-select">
+														<option value="">研发部</option>
+														<option value="">人事部</option>
+														<option value="">研发部</option>
+													</select>
+													<div class="dsplin signature">
+														<div class="signature01" style="top: 0;">
+															<span class="signature-mask spanhgt">自动签章</span>
+															<input type="text" class="signature-input sihgt pad15 width-all" onkeyup="changePlacehoder(this)" />
+															<input type="text" style="display:none;">
+
+														</div>
+														<input type="" placeholder="vvvvvv" name="" id="" value="" />
+													</div>
+												</div>
+												<div class="text-right padr15">
+													<div class="audit-person">
+														<div class="radiocheckitem  fs-16">
+															<input type="radio" id="agree" checked="checked" name="agreeyorn" value="agree">
+															<label name="agreeyorn" class="label-checked label-agree" for="agree">同意</label>
+														</div>
+														<div class="radiocheckitem fs-16">
+															<input type="radio" id="disagree" name="agreeyorn" value="disagree">
+															<label class="label-agree" name="agreeyorn" for="disagree">不同意</label>
+														</div>
+														<div class="dsplin change-date-box fs-12 fc-2">
+															<span>日期：</span>
+															<input type="text" readonly class="change-date" />
+														</div>
+													</div>
+												</div>
+												<div class="position-a addlistrow text-center fs-20" onclick="addOpinion('#opinin')">+</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03">返回</span>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

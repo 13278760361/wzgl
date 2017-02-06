@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——领用查询——查看</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/inventory.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+	<include file="Public/header" />
+		
+		<ol class="am-breadcrumb">
+		  <li>
+				<a href="{:U('Menus/stock')}">库存管理</a>
+			</li>
+			<li>
+				<a href="{:U('Receive/index')}">领用查询</a>
+			</li>
+			<li class="am-active">审核</li>
+			<a href="javascript:history.go(-1)" class="callback_btn">返回</a>
+		</ol>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['order_sn']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo date('Y-m-d',$list[0]['apply_time'])?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">申请人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['applyer']?></label>
+			</div><div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">领用部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['depart_name']?></label>
+			</div>
+		</div>
+		
+		<div class="asset_co_box">
+		<?php foreach($list as $k=>$v):?>
+			<div class="asset_con_box">
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['assets_name']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">	<?php echo $v['receive_spec']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">数量</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['number']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">金额</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['price_total']?></label>
+				</div>
+			</div>
+			<?php endforeach;?>
+			
+		</div>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">合计</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['total_price']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">备注</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['re_remark']?></label>
+			</div>
+		</div>
+<style>
+	.mgc:disabled {
+  opacity: 1;
+}
+</style>
+		<div class="aduit_op_box">
+
+			<?php foreach($auditlist as $k=>$v):?>
+			<div class="aduit_option_box">
+				<label class="option_box_lable">
+					<img src="__PUBLIC__/images/ic_error_outline1.png" />
+					<span class="option_box_lable_tit"><?php echo $v['depart_name']?>
+					<?php if($v['audit_status']>2):?>
+						<?php echo $v['username']?>已审核
+					<?php else:?>
+						待<?php echo $v['username']?>审核
+					<?php endif;?>
+					</span>
+				</label>
+				<div class="option_box">
+					<div class="option_box_left">
+						意见
+					</div>
+					<div class="option_box_right">
+						<div class="option_check_box">
+							<label class="agree_left_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_left" name="checkbox_option<?php echo $k?>" value="4" <?php if($isfinish==1||$adminId!=$v['audit_id']):?> disabled="disabled"<?php else:?>ni="agreeRadio"<?php endif;?>  <?php if($v['audit_status']==4):?>checked="checked"<?php endif;?>/> 同意</label>
+							<label class="agree_right_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_right" name="checkbox_option<?php echo $k?>" value="3" <?php if($isfinish==1||$adminId!=$v['audit_id']):?> disabled="disabled"<?php else:?>ni="agreeRadio"<?php endif;?> <?php if($v['audit_status']==3):?>checked="checked"<?php endif;?>/> 不同意</label>
+						</div>
+						<input type="text" <?php if($isfinish==1||$adminId!=$v['audit_id']):?> disabled="disabled"<?php else:?>ni="resion"<?php endif;?> placeholder="请输入意见" class="option_box_input" value="{$v['re_reason']}"/>
+						<input type="text" class="option_box_input"  placeholder="审核日期" <?php if($v['re_time']):?>value="<?php echo date('Y-m-d',$v['re_time'])?>"<?php else:?>value=""<?php endif;?>  <?php if($isfinish==1||$adminId!=$v['audit_id']):?> disabled="disabled"<?php else:?>ni="time" id="appDate"<?php endif;?>/>
+					</div>
+				</div>
+			</div>
+			<?php endforeach;?>
+					<?php if($isfinish!=1):?>
+						<input type="hidden" value="<?php echo $id;?>" ni='id'>
+							<input type="button" class="back_btn" poster="ni" action="<?php echo U('checkaction')?>" value="提交" style="margin-bottom: 2rem;"></input>
+						<?php else:?>
+							<a  href="<?php echo U('check')?>"><input type="button" class="back_btn" value="返回" style="margin-bottom: 2rem;"></input></a>
+						<?php endif;?>
+			
+		</div>
+		<!--日期控件依赖的js-->
+	
+	<script src="__PUBLIC__/js/datejs/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_004.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_005.js" type="text/javascript"></script>
+			<!--日期控件依赖的css-->
+		<link href="__PUBLIC__/css/datecss/mobiscroll_002.css" rel="stylesheet" type="text/css">
+		<link href="__PUBLIC__/css/datecss/mobiscroll.css" rel="stylesheet" type="text/css">
+		<link href="__PUBLIC__/css/datecss/mobiscroll_003.css" rel="stylesheet" type="text/css">
+		<!--日期控件依赖的css-->
+	<!--日期控件依赖的js-->
+	</body>
+<script>
+	$(function(){
+				var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'datetime'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 10 //结束年份
+			};
+  	$("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	
+	})
+</script>
+</html>

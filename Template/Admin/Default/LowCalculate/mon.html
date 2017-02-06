@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="author" content="xx_xh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<title>
+<if condition="$tdk">{$tdk['title']}</if>
+</title>
+</head>
+
+<body>
+<!--页面内容-->
+<div class="container-fluid"> 
+  <!--页面导航条-->
+  <div class="nav"> <a class="nav-item">低值品管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">低值品审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">低值品月结 </a>
+    <div class="topbtn fr"> 
+<span class=" fs-14 boxshow03 top-btn"><a href="{:u('Admin/LowCalculate/export/type/mon',I())}" style="color:white;">导出Excel</a></span> </div>
+  </div>
+  <!--内容-->
+  <div class="table-responsive mrg-t50">
+    <table class="table table-bordered table-striped  boxshow02">
+      <thead class="bgc-2">
+        <tr>
+          <th rowspan="2">序号</th>
+          <th rowspan="2">资产分类</th>
+          <th rowspan="2">物品名称</th>
+          <th rowspan="2">规格型号</th>
+          <th colspan="2">期初结存</th>
+          <th colspan="2">本期入库</th>
+          <th colspan="2">增值税</th>
+          <th colspan="2">本期出库</th>
+          <th colspan="2">本期报废报损</th>
+          <th colspan="2">本期维修</th>
+          <th colspan="2">本期结存</th>
+        </tr>
+        <tr style="background: #F6F6F6;">
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo"  >
+          <tr>
+            <td>{$i+$index}</td>
+            <td>{$vo.catname}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.spec}</td>
+            <td>{$vo.last_num}</td>
+            <td>{$vo.last_total}</td>
+            <td>{$vo.ent_num}</td>
+            <td>{$vo.ent_total}</td>
+            <td>{$vo.total}</td>
+            <td>{$vo.totaltaxval}</td>
+            <td>{$vo.out_num}</td>
+            <td>{$vo.out_total}</td>
+            <td>{$vo.scrap_num}</td>
+            <td>{$vo.acrap_total}</td>
+            <td>{$vo.repair_num}</td>
+            <td>{$vo.repair_total}</td>
+            <td>{$vo.current_num}</td>
+            <td>{$vo.current_total}</td>
+          </tr>
+        </volist>
+        <tr>
+          <td colspan="4" class="bgc-2">上期结存合计</td>
+          <td colspan="6">{$last_all_total}</td>
+          <td colspan="4" class="bgc-2">本期结存合计</td>
+          <td colspan="4">{$current_all_total}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<if condition="empty($orgid)" >
+      <div class="textcenter mrg-t50">
+        <input type="hidden" mon="type" value="1">
+        <input type="hidden" nomon="type" value="2">
+        <span class="back-btn dsplin fs-16    <if condition="$monStatus eq 0"> boxshow04
+        <else/>
+        boxshow05
+        </if>
+        
+        "
+        <if condition="$monStatus eq 0"> poster="mon" action="{:U('monA')}" </if>
+        >月结</span> <span class="back-btn dsplin fs-16   <if condition="$monStatus eq 1"> boxshow04
+        <else/>
+        boxshow05
+        </if>
+        "
+        <if condition="$monStatus eq 1"> poster="nomon" action="{:U('monA')}" </if>
+        style="margin-left: 20px;">反月结</span> 
+    </div>
+    
+  </if>     
+      <div class="change-num "> {$page} </div>
+    </div>
+  </if>   
+</body>
+</html>

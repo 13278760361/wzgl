@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>供应商查询——修改</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/inventory.css" />
+	</head>
+
+	<body>
+			<include file="Public/header" />
+		<include file="Public/nav" />
+		<form class="am-form am-form-horizontal">
+			<div class="form_color_white">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">企业名称</label>
+					<div class="am-u-sm-8">
+						<input type="text" id="doc-ipt-3 sys_input" placeholder="请输入" value="<?php echo $d['company_name']?>" ni="company_name">
+					</div>
+				</div>
+
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">法人代表</label>
+					<div class="am-u-sm-8">
+						<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['legaler']?>" ni="legaler">
+					</div>
+				</div>
+
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">营业执照号</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['business_no']?>" ni="business_no">
+		</div>
+	</div>
+<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">注册资金</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['register_price']?>" ni="register_price">
+		</div>
+	</div>
+
+<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">税务登记号</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['tax_no']?>"  ni="tax_no">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">企业规模</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['scale']?>" ni="scale">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">组织机构代码</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['org_code']?>" ni="org_code">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">公司类型</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['type']?>" ni="type">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">供应商类别</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['supplier_type']?>" ni="supplier_type">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">邮政编码</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['post_code']?>" ni="post_code">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">经营范围</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['management']?>" ni="management">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">主营业务</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['service']?>" ni="service">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">企业地址</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['company_url']?>" ni="company_url">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">开户银行</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['bank']?>" ni="bank">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">银行账号</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['bank_account']?>" ni="bank_account">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">质量管理体系认证名称</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['certification']?>" ni="certification">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">证书编号</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['certificate_num']?>" ni="certificate_num">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">证书有效期</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['certificate_date']?>" ni="certificate_date">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">发证机构</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['certification_org']?>" ni="certification_org">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">联系人</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['contacts']?>" ni="contacts">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">职务</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['job']?>" ni="job">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">电话</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['tel_phone']?>" ni="tel_phone">
+		</div>
+	</div>
+	<div class="am-form-group">
+		<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">移动电话</label>
+		<div class="am-u-sm-8">
+			<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" value="<?php echo $d['mobile_phone']?>" ni="mobile_phone">
+		</div>
+	</div>
+	<input type="hidden" ni="id" value="<?php echo $d['id']?>">
+			<input type="button" class="back_btn" value="提交" poster="ni" action="<?php echo U('edit')?>"></input>
+		</form>
+	</body>
+		<include file="Public/footer" />
+  <script type="text/javascript" src="__JS__/dropload.min.js"></script>
+</html>

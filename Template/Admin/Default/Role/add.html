@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>系统设置——名称</title>
+	<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+	<link rel="stylesheet" href="__CSS__/page_element.css" />
+	<link rel="stylesheet" href="__CSS__/common.css" />
+	<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+	<link rel="stylesheet" href="__CSS__/system_setting.css" />
+	<link rel="stylesheet" href="__JS__/ztree/demo.css" type="text/css">
+	<link rel="stylesheet" href="__JS__/ztree/metroStyle/metroStyle.css" type="text/css">
+</head>
+<body>
+	<div id="setting_name_con">
+		<div class="nav">
+			<a class="nav-item">系统设置 </a>
+			<img src="__IMG__/ic_keyboard_arrow_right.png" />
+			<a class="nav-item">系统设置 </a>
+			<img src="__IMG__/ic_keyboard_arrow_right.png" />
+			<a class="nav-item">名称 </a>
+		</div>
+		<div class="setting_name_box padt30 boxshow02">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label font14_64">角色名称</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" role="title" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label font14_64">配置权限</label>
+					<div class="col-sm-10">
+						<div class="jurisdiction_box">
+							<ul id="treeDemo" class="ztree" style="width:100%;margin-top:0px;"></ul>
+						</div>
+					</div>
+					<input type="hidden" role="rules" id="rules">
+				</div>
+				<div class="textcenter mrg-t50 padb30 notprint">
+					<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline" poster="role" action="__SELF__">确定</span>
+					<a class="back-btn dpl fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle" href="{:U('index')}">取消</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/ronshn.js"></script>
+<script type="text/javascript" src="__JS__/ztree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__JS__/ztree/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript">
+var setting = {
+    view:{selectedMulti:false},
+    check:{enable:true,autoCheckTrigger:true},
+    data:{simpleData:{enable:true}},
+    callback:{onCheck:onCheck}
+};
+$(function(){
+    $.ajax({
+        async:false,cache:false,type:'POST',
+        dataType:"json",data:{},url:"{:U('getNode')}",
+        error: function(){msg('请求失败');},
+        success:function(data){
+        	$.fn.zTree.init($("#treeDemo"),setting,data);
+        }
+    });
+    
+});
+function onCheck(e,treeId,treeNode){
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+    nodes = zTree.getCheckedNodes(true);
+    var rules=[];
+    for(var i=0,l=nodes.length;i<l;i++){rules.push(nodes[i].id);}
+    $("#rules").val(rules);
+}
+</script>
+</html>

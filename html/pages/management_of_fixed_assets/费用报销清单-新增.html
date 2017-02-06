@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>费用报销清单-查看</title>
+		<script type="text/javascript">
+			$(function(){
+				var newtime = getNewTime();//当前日期
+				$("#bxdate").val(newtime);
+				$("#bxdate").prev()
+			})
+		</script>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">报销单 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<div class="dtable date-calender order-td-width02">
+							<span class="date-calender-name">使用单位：</span>
+							<div class="">
+								<select name="" class="date-calender-input bgc-2 boxshow06">
+									<option value="">人事部</option>
+									<option value="">人事部</option>
+									<option value="">人事部</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<span class="order-tit dtcell">费用报销清单</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender order-td-width02">
+							<span class="date-calender-name">报销日期：</span>
+							<div class="">
+								<span></span>
+								<input type="text" class="date-calender-input bgc-2 boxshow06"  id="bxdate"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box">
+					<table class="table table-bordered" id="addList">
+						<tr>
+							<td rowspan="2" class="width-333 vtm">用途</td>
+							<td colspan="2" class="width-333 vtm">报销数量</td>
+							<td rowspan="2" class="width-333 vtm">财务科审核意见</td>
+						</tr>
+						<tr>
+							<td class="width-167">单据张数</td>
+							<td class="width-167" onclick="changePlacehoder(this)">金额</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td" />
+							</td>
+							<td>
+								<input type="text" class="input-td" />
+							</td>
+							<td>
+								<input type="text" class="input-td" />
+							</td>
+							<td rowspan="10"> 
+								<div class="position-r width-all">
+									<span class="prompt-text position-a fc-7">原因说明</span>
+									<textarea class="textarea-block textarea-block_cost bgc-2" onkeyup="changePlacehoder(this)"></textarea>
+									<input type="text" style="display:none;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+							<td>
+								<input type="text" class="input-td"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4" class="last_tr">
+								<table class="width-all">
+									<tr>
+										<td class="bord-r bord-b">
+											<div class="order-td-width03 vtm">金额合计（大写）</div>
+										</td>
+										<td class="bord-r bord-b">
+											<div>
+												<textarea class="wtd-half" rows="1"></textarea>
+												<div class="dsplin " style=" width: 150px;">
+													<div class=" bgc-2 boxshow06">
+														<div class="input-group">
+														  <span class="input-group-addon" >&yen; :</span>
+														  <input type="text" class="form-control-alt01 fc-3 bgc-2 boxshow06" placeholder="2000" value="200">
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td class="bord-r bord-b">
+											<div class="order-td-width03 vtm">课题</div>
+										</td>
+										<td class="bord-b">
+											<textarea class="width-all" rows="3" cols=""></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td class="bord-r">
+											<div class="order-td-width03 vtm">付讫记录</div>
+										</td>
+										<td class="bord-r">
+											<div class="dtable">
+
+												<div class="dtcell ">
+													<div class="dtable width-all">
+														<span class="dtcell dtcl-span">现金：</span>
+														<input type="" class="dtcl-input dtcell bgc-2 boxshow06	" />
+													</div>
+
+												</div>
+												<div class="dtcell">
+													<div class="dtable width-all">
+														<span class="dtcell dtcl-span">现金：</span>
+														<input type="" class="dtcl-input dtcell bgc-2 boxshow06" />
+													</div>
+
+												</div>
+												<div class="dtcell">
+													<div class="dtable width-all">
+														<span class="dtcell dtcl-span">转账：</span>
+														<input type="" class="dtcl-input dtcell bgc-2 boxshow06" />
+													</div>
+
+												</div>
+											</div>
+										</td>
+										<td class="bord-r">
+											<div class="order-td-width03 vtm">审核签章</div>
+										</td>
+										<td>
+											<textarea class="width-all" rows="3" cols=""></textarea>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+					</table>
+					<div class="dtable" style="margin: 20px;">
+						<div class="dtcell">
+							<div class="input-group">
+								<span class="input-group-btn">
+								<b class="btn btn-default" style="border: 0; border-radius: 0;">单位负责人: </b>
+							</span>
+								<input type="text" class="form-control bgc-2 boxshow06" value="2000" style=" border-radius: 0;">
+							</div>
+						</div>
+						<div class="dtcell">
+							<div class="input-group">
+								<span class="input-group-btn">
+								<b class="btn btn-default" style="border: 0; border-radius: 0;">保管验收或证明: </b>
+							</span>
+								<input type="text" class="form-control bgc-2 boxshow06" value="2000" style=" border-radius: 0;">
+							</div>
+						</div>
+						<div class="dtcell">
+							<div class="input-group">
+								<span class="input-group-btn">
+								<b class="btn btn-default" style="border: 0; border-radius: 0;">经报人: </b>
+							</span>
+								<input type="text" class="form-control bgc-2 boxshow06" value="2000" style=" border-radius: 0;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03">提交</span>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

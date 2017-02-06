@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>卡片管理</title>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">卡片管理 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn"><a href="{:U('asset_to_trea')}" style="color:#fff;">出库转资产</a></span>
+					 <span class=" fs-14 boxshow03 top-btn"><a href="{:U('add')}" style="color:#fff;">新增</a></span>
+					 <span class=" fs-14 boxshow03 top-btn"><a class=" fs-14 boxshow03 top-btn" poster="del" action="{:U('del')}"  style="color:#fff;">删除</a></span>
+					<!--<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span> 
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> -->
+					<a class=" fs-14 boxshow03 top-btn" style="color:#fff" uploader='111' action="{:U('Upload/import')}" success="tt">卡片导入</a>
+					<a class=" fs-14 boxshow03 top-btn" style="color:#fff" onclick="exporter();">导出excel</a>
+				</div>
+			</div>
+			<!--表格-->
+			<div class="date-table padb15 notprint">
+				<form method="get" action="{:U('index')}" id="seach_form" class="dsplin">
+					<div class="dsplin fs-14 dsplin_0">
+						<div class="dsplin card-num">
+							<span>单号：</span>
+							<input type="text" class="associated-drop big-drop list-top-inputboxshadow" name="card_sn" value="{$card_sn}"/>
+						</div>
+
+						<span>物品名称：</span><input name="goods_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$goods_name}" />
+						
+						<span class="fs-14 fc-2">物品归类：</span>
+						<select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+							<option value="0">--请选择归类--</option>
+							<volist name="types" id="vo">
+								<option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+							</volist>
+						</select>
+					
+						<span class="fs-14 fc-2">物品分类：</span>
+						<select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<notempty name="cateS">
+							<volist name="cateS" id="vo">
+								<option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+							</volist>
+						</notempty>
+						</select>
+					
+						<span>部门：</span>
+						<select name="department" class="associated-drop big-drop
+						 list-top-inputboxshadow" style="width:150px;">
+						    <option value="0">--请选择部门--</option>
+							<volist name="departs" id="vo">
+							<option <if condition="$department eq $vo['id']">selected="selected"</if>  value="{$vo.id}">{$vo.fullname}</option>
+							</volist>
+						</select>
+						<!-- <input type="text" name="department" class="list-top-input list-top-inputboxshadow" value="{$department}"/> -->
+
+						<input name="str_time" class="associated-drop big-drop list-top-inputboxshadow mrg_r0" id="str_time" placeholder="例如：1992-12-29" readonly value="{$str_time}"/>
+
+						<span class="time-interval">到</span>
+
+						<input name="end_time" class="associated-drop big-drop list-top-inputboxshadow mrg_r0" id="end_time" placeholder="例如：1992-12-29" readonly value="{$end_time}"/> &nbsp;
+						
+					</div>
+					<a class=" sarech-btn boxshow01" id="seach" style="vertical-align: text-bottom;">
+						搜索
+					</a>
+				
+				
+				</form>
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>
+						<if condition="$unable_del eq 1">
+						<span class="piaochecked CheckAll">
+                            <input type="checkbox" class="cbdemo2">
+                        </span>
+                        </if>
+						<label for="check4" class="mrg-lf15">序号</label></th>
+						<th>资产代码</th>
+						<th>资产分类</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>供应商</th>
+						<th>部门</th>
+						<th>保管人</th>
+						<th>存放地点</th>
+						<th>数量</th>
+						<th>金额</th>
+						<th>开始使用时间</th>
+					</tr>
+				    <foreach name="list" item="vo" key="k">
+					<tr>
+						<td><if condition="$unable_del eq 1">
+						<span class="piaocheck">
+                            <input type="checkbox" name="demo-radio" class="cbdemo2" del='ids' value="{$vo['id']}">
+                        </span>
+                        </if><label for="check4" style="margin-left: 35px">
+						{$k+1}</label></td>
+						<td><a class="fc-10 a-dtl" href="{:U('edit',array('id'=>$vo[id]))}">{$vo.order_sn}</a></td>
+						<td>{$vo.cate_name}</td>
+						<td>{$vo.assets_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.company_name}</td>
+						<td>{$vo.department}</td>
+						<td>{$vo.keeper}</td>
+						<td>{$vo.store_address}</td>
+						<td>{$vo.num}</td>
+						<td>{$vo.original_value}</td>
+						<td>{$vo.start_date}</td>
+					</tr>
+					</foreach>
+					<tr>
+		                <td colspan="1" class="bgc-5">当页总数量</td>
+		                <td colspan="1">{$p_num}</td>
+		                <td colspan="1" class="bgc-5">当页总金额</td>
+		                <td colspan="2">{$p_total}</td>
+		                
+		                <td colspan="1" class="bgc-5">总数量</td>
+		                <td colspan="2">{$s_num}</td>
+		                <td colspan="1" class="bgc-5">总金额</td>
+		                <td colspan="3">{$s_total}</td>
+            		</tr>
+				</table>
+				<!--卡片管理   角标a标签-->
+				
+			</div>
+			<div class="padb30">
+				<div class="fr fs-14">
+					<div class="dsplin">
+						<img src="__IMG__//er.png"/>
+						<a href="{:U('qrcode_list')}" class="download-a vtm">二维码下载</a>
+					</div>
+					<a class="download-a vtm" href="{:U('Upload/download',array('name'=>'卡片导入模板（文件为.xls格式的，不超过2M的excel）','ctr'=>'Cards'))}">卡片模板下载</a>
+					
+				</div>
+			</div>
+			<div class="change-num notprint padt30">
+				{$page}
+				
+			</div>
+
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width:90%">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped table-list  boxshow02">
+								<tr>
+									<th>序号</th>
+									<th>卡片单号</th>
+									<th>资产分类</th>
+									<th>物品名称</th>
+									<th>规格型号</th>
+									<th>供应商</th>
+									<th>部门</th>
+									<th>保管人</th>
+									<th>存放地点</th>
+									<th>金额</th>
+									<th>开始使用时间</th>
+								</tr>
+								<foreach name="list" item="vo" key="k">
+								<tr>
+									<td>{$k+1}</td>
+									<td><a href="{:U('edit',array('id'=>$vo[id]))}">{$vo.order_sn}</a></td>
+									<td>{$vo.cate_name}</td>
+									<td>{$vo.assets_name}</td>
+									<td>{$vo.spec}</td>
+									<td>{$vo.company_name}</td>
+									<td>{$vo.department}</td>
+									<td>{$vo.keeper}</td>
+									<td>{$vo.store_address}</td>
+									<td>{$vo.original_value}</td>
+									<td>{$vo.start_date}</td>
+								</tr>
+								</foreach>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade notprint" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+		  <div class="modal-dialog"  style="width: 800px;">
+		    <div class="modal-content">
+		     
+				<div class="modal-body">
+					<div class="table-responsive">
+						<h3 style="color:red;text-align:center;">导入失败的物品</h3>
+						<table class="table table-bordered table-striped table-list  boxshow02 errorlist">
+							<tr>
+								<!-- <th field="sn">序号</th> -->
+								<th field="assets_name">物品名称</th>
+								<th field="spec">规格型号</th>
+								<th field="department">部门</th>
+								<th field="keeper">保管人</th>
+								<th field="company_name">供应商</th>
+								<th field="original_value">原值</th>
+								<th field="cards_num">数量</th>
+								<th field="start_date">开始使用时间</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-default" onclick="exporterErr();">打印</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</body>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.report.js" type="text/javascript" charset="utf-8"></script>
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+
+<script type="text/javascript">
+var dd=new Array();
+	$(function() {
+			$('#str_time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		    $('#end_time').datetimepicker({
+		        format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		   
+		});
+	$("#seach").click(function(){
+		$('#seach_form').submit();
+	});
+
+	var page=1;
+	var xl = new Report({'name':'卡片导出数据','padding':1,'space':1});
+	function exporter()
+	{
+		if(page==1){loader();}
+		var ff=function(d){
+			//console.log(d);
+			if(d&&$.isArray(d))
+				{
+					xl.addrows(d);
+					page++;exporter();
+				}else{
+					//'id'=>'序号','cate_sn'=>'资产编码','type'=>'所属分类','assets_name'=>'资产名称','p_org_name'=>'所属单位','org_name'=>'使用部门','user'=>'使用人','spec'=>'规格型号','add_method'=>'增加方式','use_status'=>'使用状态','unit'=>'单位','original_value'=>'原值','start_date'=>'会计投入使用时间','service_life'=>'会计预计使用年限','depr_method'=>'折旧方法','mon_depr_amount'=>'会计月折旧额','mon_depr_sum'=>'会计累计折旧','k_net_worth'=>'会计折余折旧','net_salvage'=>'会计净残值率','net_residual_value'=>'会计净残值','keeper'=>'保管人','store_address'=>'保管地点','department'=>'保管部门','company_name'=>'供应商','tel_phone'=>'供应商联系电话','contacts'=>'供应商联系人','inputer'=>'添加人','taxpayer_type'=>'纳税人类型','vat_rate'=>'增值税税率'
+					xl.grid({'id':'序号','cate_sn':'资产编码','type':'所属分类','assets_name':'资产名称','p_org_name':'所属单位','org_name':'使用部门','user':'使用人','spec':'规格型号','add_method':'增加方式','use_status':'使用状态','unit':'单位','original_value':'原值','start_date':'会计投入使用时间','service_life':'会计预计使用年限','depr_method':'折旧方法','mon_depr_amount':'会计月折旧额','mon_depr_sum':'会计累计折旧','k_net_worth':'会计折余折旧','net_salvage':'会计净残值率','net_residual_value':'会计净残值','keeper':'保管人','store_address':'保管地点','department':'保管部门','company_name':'供应商','tel_phone':'供应商联系电话','contacts':'供应商联系人','inputer':'添加人','taxpayer_type':'纳税人类型','vat_rate':'增值税税率'}).exporter();
+					unmask();
+				}
+			}
+		submiter({type:'get',url:"{:U('c_export')}",data:{page:page,ctr:'Cards',card_sn:"{$card_sn}",goods_name:"{$goods_name}",department:"{$department}",str_time:"{$str_time}",end_time:"{$end_time}"},call:ff});
+	}
+var errxl=new Report({'name':'卡片导入失败数据','padding':1,'space':1});
+function exporterErr() {
+	errxl.addrows(dd);
+	//'type'=>'所属分类','assets_name'=>'物品名称','p_org_name'=>'所属单位','org_name'=>'使用部门','user'=>'使用人','spec'=>'规格型号','add_method'=>'增加方式','use_status'=>'使用状态','unit'=>'单位','original_value'=>'原值','start_date'=>'开始使用时间','service_life'=>'使用年限','depr_method'=>'折旧方法','net_salvage'=>'净残值率','keeper'=>'保管人','store_address'=>'保管地点','department'=>'保管部门','company_name'=>'供应商','tel_phone'=>'供应商联系电话','contacts'=>'供应商联系人','inputer'=>'添加人','taxpayer_type'=>'纳税人类型','vat_rate'=>'增值税税率'
+		errxl.grid({'type':'所属分类','assets_name':'物品名称','p_org_name':'所属单位','org_name':'使用部门','user':'使用人','spec':'规格型号','add_method':'增加方式','use_status':'使用状态','unit':'单位','original_value':'原值','start_date':'开始使用时间','service_life':'使用年限','depr_method':'折旧方法','net_salvage':'净残值率','keeper':'保管人','store_address':'保管地点','department':'保管部门','company_name':'供应商','tel_phone':'供应商联系电话','contacts':'供应商联系人','inputer':'添加人','taxpayer_type':'纳税人类型','vat_rate':'增值税税率','error':'失败原因'}).exporter();
+		unmask();
+	
+}
+function tt(d) {
+	var f=d['info'];
+	if ($.isPlainObject(f)) {
+		ajaxmsg(f);
+	}else{
+		dd=f;
+		for(var i =0;i<f.length;i ++) {
+			var tr='';var td='';
+			$('.errorlist').find('[field]').each(function() {
+				var field=$(this).attr('field');
+				td +='<td>'+f[i][field]+'</td>';
+			})
+			tr='<tr>'+td+'</tr>';
+			$('.errorlist tbody').append(tr);
+		}
+		//dd="";
+		$('#myModal1').modal('show');
+	}
+}
+$(".piaochecked").bind("click",function(){
+        $(this).hasClass("on_check")?$(this).removeClass("on_check"):$(this).addClass("on_check");
+        $(this).hasClass("on_check")?$(this).children("input").attr("checked","checked"):$(this).children("input").removeAttr("checked","checked");
+    });
+    $(".piaocheck").bind("click",function(){
+        $(this).hasClass("on_check")?$(this).removeClass("on_check"):$(this).addClass("on_check");
+        $(this).hasClass("on_check")?$(this).children("input").attr("checked","checked"):$(this).children("input").removeAttr("checked","checked");
+    });
+	//全选、全不选
+	$(".CheckAll").click(function() {
+        if($(this).hasClass("on_check")) { // 全选
+            $("input[name='demo-radio']").each(function() {
+                $(".piaocheck").addClass("on_check");
+                $(".piaocheck").children("input").attr("checked","checked");
+            });
+        }else { // 取消全选
+			$("input[name='demo-radio']").each(function() {
+                $(".piaocheck").removeClass("on_check");
+                $(".piaocheck").children("input").removeAttr("checked","checked");
+			});
+		}
+	});
+    //子类input全部选中时，全选按钮点亮；没有全部选中时，全选按钮不点亮
+    var allLength=$(".piaocheck").children("input[type=checkbox]").length;
+    $(".piaocheck").children("input[type=checkbox]").each(function(){
+        $(this).bind('click',function(){
+            var selectedLength=$(".piaocheck").children("input[type=checkbox]:checked").length;
+            if(selectedLength==allLength){
+                $('.piaochecked').addClass("on_check");
+                $('.piaochecked').children("input").attr("checked","checked");
+            }else{
+                $('.piaochecked').removeClass("on_check");
+                $('.piaochecked').children("input").removeAttr("checked","checked");
+            }
+        })
+    })
+	//删除行
+	$("#sys_delete_tr").click(function() {
+		$("input:checked").not(".CheckAll").each(function() {
+			 $(this).closest('tr').remove();
+		});
+	});
+$('[name="type_id"]').change(function(){
+	loader();
+	$('select[name="cate_id"]').html('');
+	$v=$(this).find('option:checked').val();
+	var ff=function(d){
+		if(d&&$.isArray(d)){
+			var h='';
+			for (var i = 0; i < d.length; i++) {
+				h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+			}
+			$('select[name="cate_id"]').html(h);
+		}
+		unmask();
+	}
+	submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+})	
+</script>
+</html>

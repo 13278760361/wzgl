@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>资产维修申请单</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产审核 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产维修申请审核 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">未审核</a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn">预览</span>
+					<span class=" fs-14 boxshow03 top-btn">打印</span>
+				</div>
+			</div>
+			<div class="date-table">
+				<div class="data-table-head fc-1">
+					<a class="tab-table tab-active">未审核</a>
+					<a class="tab-table">审核中</a>
+					<a class="tab-table">已审核</a>
+					<a class="tab-table">历史</a>
+				</div>
+				<div class="sarech-grounp vtm">
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">资产名称：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">维修时间：</span>
+
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item padr15">
+						<div class="dtable">
+							<span class="sarech-span padr15">到</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">创建人：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<a class="sarech-btn boxshow01">
+						查询
+					</a>
+				</div>
+
+			</div>
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6">512488623</span>
+					</div>
+					<span class="order-tit dtcell">资产维修申清单</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<span></span>
+								<input type="datetime-local" class="date-calender-input" />
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box">
+					<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<td class="order-td-width01">卡片单号</td>
+							<td class="order-td-width01">资产分类</td>
+							<td class="order-td-width01">物品名称</td>
+							<td class="order-td-width01">规格型号</td>
+							<td class="order-td-width01">单位</td>
+							<td class="order-td-width01">金额</td>
+							<td class="order-td-width01">保管人</td>
+							<td class="order-td-width01">部门</td>
+							<td class="order-td-width01">存放地点</td>
+							<td class="order-td-width01">维修原因</td>
+							<td class="order-td-width01">维修日期</td>
+						</tr>
+						<tr id="tr1">
+							<td class="position-r">
+								123456789
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+						</tr>
+						<tr>
+							
+						</tr>
+					</table>
+				</div>
+				<div class="table-order-box position-r">
+					<table class="table table-bordered" id="opinin">
+						<tr>
+							<td colspan="6" style="padding: 0;">
+								<table class="table" style="margin-bottom: 0;">
+									<tr>
+										<td class="order-td-width02  bord-r bord-b">意见</td>
+										<td class="bord-b" colspan="3">
+											<div class="">
+												<div class="position-r">
+													<span class="prompt-text position-a fc-7">原因说明</span>
+													<textarea class="textarea-block bgc-2" rows="3" onkeyup="changePlacehoder(this)"></textarea>
+													<input type="text" style="display:none;">
+												</div>
+												<div class="dtable width-all">
+													<div class="dtcell">
+														<span>人事部：</span>
+														<div class="dsplin signature">
+
+															<span class="signature-mask">自动签章</span>
+															<input type="" class="signature-input" onkeyup="changePlacehoder(this)" />
+															<input type="text" style="display:none;">
+														</div>
+
+													</div>
+													<div class="dtcell audit-person">
+														<div class="radiocheckitem  fs-16">
+															<input type="radio" id="agree02" checked="checked" name="agreeyorn02" value="agree02">
+															<label name="agreeyorn02" class="label-checked label-agree" for="agree02">同意</label>
+														</div>
+														<div class="radiocheckitem fs-16">
+															<input type="radio" id="disagree02" name="agreeyorn02" value="disagree02">
+															<label class="label-agree" name="agreeyorn02" for="disagree02">不同意</label>
+														</div>
+														<div class="dsplin change-date-box fs-12 fc-2">
+															<span>日期：</span>
+															<input type="text" class="change-date" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class=" bord-r order-td-width02">维修完成情况</td>
+										<td class=" bord-r"><input type="text" class="input-td" /></td>
+										<td class=" bord-r order-td-width02">维修金额</td>
+										<td><input type="text" class="input-td" /></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50">
+					<span class="back-btn dpl fs-16 boxshow03">返回</span>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				clickActive(".tab-table", "tab-active")
+				radioChecked("changeCase");
+				radioChecked("agreeyorn");
+				radioChecked("agreeyorn02");
+			})
+		</script>
+	</body>
+
+</html>

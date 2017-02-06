@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产报废报损查询——详情</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" /> 
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body>
+		<div id="nav_tit">
+			<div class="Yves">Yves</div>
+			<div class="nav_font">物资管理平台</div>
+			<div class="enve">
+				<img href="__IMG__/envelope_ico.png" />
+			</div>
+			<div class="scan">
+				<img href="__IMG__/scan_ico.png" />
+			</div>
+		</div>
+
+		<div id="nav_box">
+			<a class="nav_ico">首页</a>
+			<a class="nav_ico">库存管理</a>
+			<a class="nav_ico nav_active">资产管理</a>
+			<a class="nav_ico">系统设置</a>
+		</div>
+		
+		<ol class="am-breadcrumb">
+		  <li>
+				<a href="#">资产管理</a>
+			</li>
+			<li>
+				<a href="#">资产报废报损查询</a>
+			</li>
+			<li class="am-active">详情</li>
+			<a href="" class="callback_btn">返回</a>
+		</ol>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.order_sn}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.time}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">报废说明</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.remark}</label>
+			</div>
+		</div>
+		
+	<volist name="goods_lists" id="vo">		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">卡片单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.order_sn}</label>
+			</div>
+			
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.assets_name}</label>
+			</div>
+
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产分类</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.cate_name}</label>
+			</div>
+			
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.spec}</label>
+			</div>
+
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单位</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.unit}</label>
+			</div>
+
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">原值</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.original_value}</label>
+			</div>
+			
+		<!-- 	<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">销售二部</label>
+			</div> -->
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">购入日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.start_date}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">使用年限</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.service_life}</label>
+			</div>
+		</div>
+	</volist>	
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">报废说明</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.remark}</label>
+			</div>
+		</div>
+		
+<volist name="audits_lists" id = "v">
+		<div class="asset_postil_box">      
+			<div class="asset_postil">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin">
+						                        <if condition="$v['status'] eq 0"> 
+												  未操作
+												 <elseif condition="$v['status']  eq 1"/>
+												 不通过
+												 <else />
+                                                 通过
+												 </if>
+					</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">{$v.depart_name}</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$v.name}</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$v.time}</label>
+				</div>
+				<div class="cle"></div>
+			</div>	
+		</div>
+	</volist>		
+	</body>
+
+</html>

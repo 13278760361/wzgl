@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=11,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__JS__/chosen/chosen.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+		
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<title>卡片管理-新增</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid notprint">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">卡片管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal" onclick="showH()">预览</span>
+					<span class=" fs-14 boxshow03 top-btn"  onclick="printH()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<div class="dtable date-calender">
+							<!-- <span class="fc-2">单号：</span>
+							<span class="fc-6">512488623</span> -->
+						</div>
+					</div>
+					<span class="order-tit dtcell">固定资产卡片</span>
+					
+					<div class=" order-date dtcell">
+						<div class="dtable date-calender">
+						<if condition="$is_supper eq 1">
+							 <form method="get" action="{:U('add')}" class="width195 width_auto">
+		                        <span class="fs-14 fc-2 mrg-lf15">部门：</span>
+		                        <select caradd="depart" name="org" class="width_auto" onchange="$('form.width195').submit();">
+		                            <option value="0">--请选择部门--</option>
+		                            <volist name="top_departs" id="vo">
+		                            <option value="{$vo.id}" <if condition="$org eq $vo[id]"> selected='selected' </if>>{$vo.fullname}</option>
+		                            </volist>
+		                        </select>
+		                       </form>
+						</if>
+						</div>
+					
+					</div>
+					
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<form id="form_cards">
+				<div class="table-order-box mrg-t15">
+					<table class="table table-bordered" id="addList">
+						<tr>
+							<td class='order-td-width01'>物品名称</td>
+							<td class='order-td-width02'>
+							<input type="" field="assets_name" caradd="assets_name" id="" class="width-all" value="{$ginfo.assets_name}" />
+							<input type="text" hidden="hidden" caradd="id" field="id" class="width-all" value="{$ginfo.id}">
+							</td>
+							<td class='order-td-width01'>资产分类</td>
+							<td colspan="3"><input type="text" field="cate_name" nofocus="cate_name" class="width-all" value="{$ginfo.cate_name}" readonly="" /></td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>归类</td>
+							<td><input type="text" field="type_name" nofocus="type_name" class="width-all" readonly="" value="{$ginfo.type_name}" /></td>
+							<td class='order-td-width01'>资产代码</td>
+							<td colspan="3">
+								<input type="text" field="c_sn" class="width-all" caradd="c_sn" readonly="" value="{$ginfo.sn}" placeholder="保存后自动生成">
+							</td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>规格型号</td>
+							<td><input type="text"  class="width-all" caradd="spec" field="spec" value="{$ginfo.spec}" /></td>
+							<td class='order-td-width01'>使用部门</td>
+							<td style="padding:0;">
+							<select caradd="use_depart" class="bgimg-select02 associated-drop big-drop list-top-inputboxshadow padb_8">
+								<option value="0">--请选择--</option>
+								<volist name="list_dep" id="vo">
+									<option value="{$vo.id}">{$vo.fullname}</option>
+								</volist>
+							</select>
+							</td>
+							<td>使用人</td>
+							<td><input type="text" caradd="user" class="width-all" /></td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>增加方式</td>
+							<td style="padding: 0">
+							<select caradd="add_method" class="bgimg-select02 associated-drop big-drop list-top-inputboxshadow padb_8">
+								<volist name="add_method" id="vo">
+									<option value="{$vo}">{$vo}</option>
+								</volist>
+							</select>
+							</td>
+							<td class=order-td-width01>存放地点</td>
+							<td colspan="3"><input type="text" false="不能为空！" class="width-all" caradd="store_address" /></td>
+						</tr>
+						<tr>
+							<td>保管人</td>
+							<td><input type="text"  class="width-all" caradd="keeper" false="不能为空！"/></td>
+							<td class='order-td-width01'>保管部门</td>
+							<td style="padding:0;">
+							<select caradd="keep_depart" class="bgimg-select02 associated-drop big-drop list-top-inputboxshadow padb_8">
+								<option value="0">--请选择--</option>
+								<volist name="list_dep" id="vo">
+									<option value="{$vo.depart_name}">{$vo.fullname}</option>
+								</volist>
+							</select>
+							</td>
+							<td>数量</td>
+							<td><input type="text" caradd="cards_num" false="不能为空！" value="{$ginfo.num}" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td class="service_life">使用年限</td>
+							<td><input type="text" placeholder="如果是工作量算法请填写总工作量" class="width-all" caradd="service_life" false="不能为空！"/></td>
+							<td>月工作量</td>
+							<td><input type="text"  class="width-all" caradd="month_works" readonly="" /></td>
+							<td class='order-td-width01'>折旧方法</td>
+							<td style="padding: 0">
+								<select caradd="depr_method" class="bgimg-select02 associated-drop big-drop list-top-inputboxshadow padb_8">
+								<foreach name="depr_method" item="vo" key="k">
+									<option value="{$k}">{$vo}</option>
+								</foreach>
+								</select>
+							</td>
+							
+						</tr>
+
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td>开始时间</td>
+							<td><input type="text" caradd="start_date" value="" class="width-all" id="startDate" false="不能为空！" readonly/></td>
+							<td>已计提月份</td>
+							<td><input type="text" caradd="mon_total" class="width-all" placeholder="请先填写使用年限"/></td>
+							<td>币种</td>
+							<td><input type="text" caradd="currency" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>原值</td>
+							<td><input type="text" caradd="original_value" class="width-all"/></td>
+							<td class='order-td-width01'>净残值率</td>
+							<td><input type="text" caradd="net_salvage" class="width-all"/></td>
+							<td class='order-td-width01'>净残值</td>
+							<td><input type="text" caradd="net_residual_value" readonly="" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>累计折旧</td>
+							<td><input type="text" caradd="mon_depr_sum" readonly="" class="width-all"/></td>
+							<td>月折旧率</td>
+							<td><input type="text" caradd="mon_depr_rate" readonly="" class="width-all"/></td>
+							<td>月折旧额</td>
+							<td><input type="text" caradd="mon_depr_amount" readonly="" class="width-all"/></td>
+						</tr>
+
+						<tr>
+							<td>净值</td>
+							<td><input type="text" caradd="net_worth" readonly="" class="width-all"/></td>
+							<td>剩余可提折旧</td>
+							<td><input type="text" caradd="k_net_worth" readonly="" class="width-all"/></td>
+							<td>供应商</td>
+							<td><input type="text" caradd="supper_id" false="不能为空！" class="width-all" value="{$ginfo.company_name}" /></td>
+						</tr>
+						<tr>
+							<td>纳税人类型</td>
+							<td style="padding: 0">
+								<select caradd="taxpayer_type" class="bgimg-select02 associated-drop big-drop list-top-inputboxshadow padb_8">
+									<option value="小规模纳税人">小规模纳税人</option>
+									<option value="一般纳税人">一般纳税人</option>
+								</select>
+							</td>
+							<td>增值税税率</td>
+							<td><input type="text" caradd="vat_rate" class="width-all" false="不能为空！"/></td>
+							<td>税额</td>
+							<td><input type="text" caradd="tax_val" readonly="" class="width-all"/></td>
+						</tr>
+						<tr>
+						<td>备&nbsp;&nbsp;&nbsp;注</td>
+							<td colspan="5">
+								<textarea caradd="remark" class="width-all" placeholder="备注100字以内"></textarea>
+							</td>
+						</tr>
+					</table>
+					<!-- <table class="table table-bordered">
+						<tr>
+							<td rowspan="2" class='order-td-width02'>
+								<img src="../../images/icon1.png" width="120px"/>
+								<div>
+									<a class="boxshow07 rqcode-btn">生成二维码</a>
+								</div>
+								
+								
+							</td>
+							<td class='order-td-width01'>物品名称</td>
+							<td><input type="text"  class="width-all"/></td>
+							<td class='order-td-width01'>规格型号</td>
+							<td><input type="text"  class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>保管人</td>
+							<td><input type="text"  class="width-all"/></td>
+							<td>存放地</td>
+							<td><input type="text"  class="width-all"/></td>
+						</tr>
+					</table> -->
+					<div class="detaile-top dtable">
+
+						<div class=" ordernum dtcell width-40">
+							<div class="dtable">
+								<span class="dtcell">录入人：</span>
+								<input type="text" caradd="inputer" class="list-top-input list-top-inputboxshadow border-show" />
+							</div>
+						</div>
+						<div class=" order-date dtcell width-40">
+							<div class="dtable">
+								<span class="dtcell">录入日期：</span>
+								<input type="text" caradd="input_time" value="" class="list-top-input list-top-inputboxshadow border-show" id="inputTime" readonly />
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<!--表单内容部分 end-->
+				<div class="mrg-t50 text-center notprint">
+					<!-- <span class="back-btn dpl fs-16 boxshow03" id="submit" onclick="add()">提交</span> -->
+					<input type="hidden" caradd="ct_id" value="{$_GET['ct_id']}">
+					<span class="back-btn dpl fs-16 boxshow03" action="{:U('add')}" poster="caradd">提交</span>
+				</div>
+				</form>
+			</div>
+
+		</div>
+		
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  style="width: 90%;">
+		    <div class="modal-content">
+				<div class="modal-body">
+
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="__JS__/ronshn.table.js" type="text/javascript"></script>
+<script src="__JS__/filltable.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		var lastLine = null;
+		$(function() {
+			$('#inputTime').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		    $('#startDate').datetimepicker({
+		        format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		    Filltable("#addList",{input:'assets_name',data:"{:U('get_goods')}",datatype:'post'});
+			
+		});
+
+		$("select[caradd='depr_method']").change(function(){
+
+			var depr = $(this).val();
+			var month_works = 0;
+		
+			if(depr==2){
+				$("input[caradd='month_works']").removeAttr("readonly");
+				month_works = $("input[caradd='month_works']").val();
+				$('.service_life').text("工作总量");
+
+			}else{
+				$("input[caradd='month_works']").attr("readonly","readonly");
+				$("input[caradd='month_works']").val('');
+				$('.service_life').text("使用年限");
+			}
+			// var service_life = $("input[caradd='service_life']").val();
+			// var mon_total = $("input[caradd='mon_total']").val();
+			// var original_value = $("input[caradd='original_value']").val();
+			// var net_salvage = $("input[caradd='net_salvage']").val();
+			// var start_date = $("input[caradd='start_date']").val();
+			
+			// $.post("{:U('depr')}",
+			// 	{
+			// 		depr:depr,
+			// 		service_life:service_life,
+			// 		mon_total:mon_total,
+			// 		original_value:original_value,
+			// 		net_salvage:net_salvage,
+			// 		start_date:start_date,
+			// 		month_works:month_works
+
+			// },function(data,status){
+			// 	var datas = eval('('+data+')');
+			// 	//console.log(datas.net_residual_value);
+			// 	$("input[caradd='net_residual_value']").val(datas.net_residual_value);
+			// 	$("input[caradd='mon_depr_rate']").val(datas.mon_depr_rate+'%');
+			// 	$("input[caradd='mon_depr_amount']").val(datas.mon_depr_amount);
+			// 	$("input[caradd='net_worth']").val(datas.net_worth);
+			// 	$("input[caradd='k_net_worth']").val(datas.k_net_worth);
+			// });
+		});
+		$("input[caradd='vat_rate']").blur(function(){
+			
+			var orgval = $("input[caradd='original_value']").val();
+			var vat = $(this).val();
+			var tax = orgval*vat/100;
+			$("input[caradd='tax_val']").val(tax.toFixed(2));
+		});
+		$("input[caradd='mon_total']").focus(function(){
+
+			var startDate = $("input[caradd='start_date']").val();
+			var serviceLife = $("input[caradd='service_life']").val();
+			
+			$.post("{:U('depr')}",{start_date:startDate,service_life:serviceLife},function(data,status){
+				var datas = eval('('+data+')');
+				$("input[caradd='mon_total']").val(datas.sueM);
+			});
+
+			//startDate = startDate.replace(/-/g,'/');
+			// var oldTime = new Date(startDate);
+			// var newTime = new Date();
+			// var month = oldTime.getMonth()+1;//获取开始使用时间的月份
+			// var olY = oldTime.getYear();//获取开始使用时间的年份
+			// var nmonth = newTime.getMonth()+1;
+
+			// var nY = newTime.getYear();//获取当前年份
+			// var service_life = $("input[name='service_life']").val();//获取预计使用年限
+			// var sueY =nY-olY;//已使用的年份
+			// var sueM = sueY*12+(nmonth-month); //已使用的月份
+			// if(month == nmonth){
+			// 	$(this).val(0);
+			// }else{
+			// 	$(this).val(sueM);
+			// }
+
+		});
+		//
+		$("input[caradd='net_salvage']").blur(function(){
+			var depr = $("select[caradd='depr_method']").val();
+			var month_works = 0;
+			if(depr==1){
+				$("input[caradd='month_works']").removeAttr("readonly");
+				month_works = $("input[caradd='month_works']").val();
+			}else{
+				$("input[caradd='month_works']").attr("readonly","readonly");
+				$("input[caradd='month_works']").val('');
+			}
+			
+			var service_life = $("input[caradd='service_life']").val();
+			var mon_total = $("input[caradd='mon_total']").val();
+			var original_value = $("input[caradd='original_value']").val();
+			var net_salvage = $("input[caradd='net_salvage']").val();
+			var start_date = $("input[caradd='start_date']").val();
+			
+			if(service_life==""){
+				alert("请填写使用年限");
+				return false;
+			}
+			if(original_value==""){
+				alert("请填写原值");
+				return false;
+			}
+		//	var mon_total = $("input[name='mon_total']").val();
+			if(mon_total==''){
+				alert("请先填写已计提月份");
+				return false;
+			}
+			if(net_salvage==""){
+				alert("请填写净残值率");
+				return false;
+			}
+			$.post("{:U('depr')}",
+				{
+					depr:depr,
+					service_life:service_life,
+					mon_total:mon_total,
+					original_value:original_value,
+					net_salvage:net_salvage,
+					start_date:start_date,
+					month_works:month_works
+
+			},function(data,status){
+				var datas = eval('('+data+')');
+				//console.log(datas.net_residual_value);
+				$("input[caradd='net_residual_value']").val(datas.net_residual_value);
+				$("input[caradd='mon_depr_rate']").val(datas.mon_depr_rate+'%');
+				$("input[caradd='mon_depr_amount']").val(datas.mon_depr_amount);
+				$("input[caradd='mon_depr_sum']").val(datas.mon_depr_sum);
+				$("input[caradd='net_worth']").val(datas.net_worth);
+				$("input[caradd='k_net_worth']").val(datas.k_net_worth);
+			});
+			
+		});
+		// $("input[caradd='assets_name']").keydown(function(){
+		// 	var gname = $(this).val();
+		// 	$.post("{:U('get_goods')}",{goods_name:gname},function(data,status){
+		// 		var ds = eval('('+data+')');
+		// 		console.log(ds);
+		// 	});
+		// });
+		// function add(){
+		// 	document.getElementById("form_cards").submit();
+		// }
+// var dd=[{'a':'111a','b':'111b','c':'111c'},{'a':'111sss','b':'111ss','c':'111ss'},{'a':'444a','b':'44b','c':'44c'}];
+		function printH() {
+				var selectarr=[];//克隆出来的select没有选中状态
+				$('select').each(function(){
+					var c=$(this).find('option:selected');
+					if (c.val()&&c.val()!=0) {
+						selectarr.push($(this).find('option:selected').text())
+					}else{
+						selectarr.push(' ')
+					}
+					
+				})
+				var pr=$('.prinrH');
+				if (pr.size()>0) {
+					pr.html('');
+				}else{
+					pr=$('<div class="prinrH"></div>');
+					$('body').append(pr);
+				}
+
+				var html=$('.order-card').clone(true);
+				html.removeClass('order-card')
+				pr.append(html);
+				pr.find('.notprint').remove();
+				pr.find('input').each(function(){
+					var type=$(this).attr('type');
+					if (type=='radio') {
+						return true;
+					}else{
+						if ($(this).hasClass('Prdate')) {
+							$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+						}else{
+							$(this).replaceWith($(this).val())
+						}
+					}
+				});
+				pr.find('textarea').each(function(){
+					$(this).replaceWith('<div style="height:70px"></div>')
+				});
+				pr.find('select').each(function(i){
+					$(this).replaceWith('<span>部门：'+selectarr[i]+'</span>')
+				});
+				pr.find('table').each(function(){
+					$(this).removeClass('.table-bordered');
+					$(this).attr({'border':'1'})
+				});
+				pr.find('td').each(function(){
+					$(this).css('border','none');
+				});
+				window.print();
+			}
+			function showH(){
+				$('#myModal .modal-body .showHtml').remove();
+				var selectarr=[];//克隆出来的select没有选中状态
+				$('select').each(function(){
+					var c=$(this).find('option:selected');
+					if (c.val()&&c.val()!=0) {
+						selectarr.push($(this).find('option:selected').text())
+					}else{
+						selectarr.push(' ')
+					}
+					
+				})
+				var pr=$('.showHtml');
+				if (pr.size()>0) {
+					pr.html('');
+				}else{
+					pr=$('<div class="showHtml"></div>');
+					$('#myModal .modal-body').append(pr);
+				}
+
+				var html=$('.order-card').clone(true);
+				html.removeClass('order-card');
+				pr.append(html);
+				pr.find('.notprint').remove();
+				pr.find('input').each(function(){
+					var type=$(this).attr('type');
+					if (type=='radio') {
+						return true;
+					}else{
+						if ($(this).hasClass('Prdate')) {
+							$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+						}else{
+							$(this).replaceWith($(this).val())
+						}
+					}
+				});
+				pr.find('textarea').each(function(){
+					$(this).replaceWith('<div style="height:70px"></div>')
+				});
+				pr.find('select').each(function(i){
+					$(this).replaceWith('<span style="line-height: 37px">'+selectarr[i]+'</span>')
+				});
+				// pr.find('table').each(function(){
+				// 	$(this).removeClass('.table-bordered');
+				// 	$(this).attr({'border':'1'})
+				// });
+				// pr.find('td').each(function(){
+				// 	$(this).css('border','none');
+				// });
+
+			}
+	</script>
+	</body>
+		
+</html>

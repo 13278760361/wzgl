@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>物资管理系统--登录</title>
+	<link rel="stylesheet" href="__CSS__/amazeui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+</head>
+<body style="background: #F0F0F0;">
+	<div id="login_con">
+		<div class="login_ico">
+			<img src="__IMG__/logo.png" />
+		</div>
+		<p class="sys_tit">物资管理平台</p>
+		<div class="am-form login_form" >
+		  <input type="text" class="am-form-field form-control" login="username" placeholder="请输入用户名" />
+		  <input type="password" class="am-form-field form-control" login="password" placeholder="请输入密码" />
+		  <button class="am-btn am-btn-secondary login_btn" poster="login" action="__SELF__">登录</button>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<script type="text/javascript" src="__JS__/ronshn.js"></script>
+<script type="text/javascript">
+$(function(){$("[login='username']").focus();});
+$(document).keyup(function(e){if(e.keyCode==13){$("[poster]").click();}})
+</script>
+</html>

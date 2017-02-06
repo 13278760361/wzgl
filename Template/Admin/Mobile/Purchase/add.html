@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——采购查询——新增</title>
+		<!--日期控件依赖的css-->
+		<link href="__CSS__/datecss/mobiscroll_002.css" rel="stylesheet" type="text/css">
+		<link href="__CSS__/datecss/mobiscroll.css" rel="stylesheet" type="text/css">
+		<link href="__CSS__/datecss/mobiscroll_003.css" rel="stylesheet" type="text/css">
+		<!--日期控件依赖的css-->
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+		<link rel="stylesheet" href="__CSS__/inventory.css" />
+		<style type="text/css">
+		.search_html{
+			position:absolute;
+			margin-left: 1%;
+			width:88%;
+			max-height:200px;
+			border:1px solid #ccc;
+			background:white;
+			display:none;
+		}
+		.search_html li{
+			padding: 6px 0;
+			list-style: none;
+			text-indent: 0.5em;
+			cursor: pointer;
+		}
+		.search_html li:hover{
+			background: #23B8F0;
+			color: #FFF;
+		}
+	</style>
+	</head>
+
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<form class="am-form am-form-horizontal">
+			<div class="form_color_white">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">单号</label>
+					<div class="am-u-sm-8">
+						<input type="text" id="doc-ipt-3 sys_input"  purchase-shop="order_sn" placeholder="自动生成" value="{$order_sn}">
+					</div>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">申请人</label>
+					<div class="am-u-sm-8">
+						<input type="text" id="doc-ipt-3 sys_input" purchase-shop="applyer" placeholder="请输入">
+					</div>
+				</div>
+				<if condition="$is_supper eq 1">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">部门</label>
+					<div class="am-u-sm-8">
+						<!-- <input type="text" id="doc-ipt-3 sys_input"  placeholder="自动生成"> -->
+						<select purchase-shop="depart" class="goods_select" id="departmentClickBtn">
+							<option value="0">--请选择部门--</option>
+							<volist name="top_departs" id="vo">
+								<option value="{$vo.id}"  <if condition="$org eq $vo[id]"> selected='selected' </if>>{$vo.fullname}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				</if>
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">申请日期</label>
+					<div class="am-u-sm-8">
+						<input name="appDate" id="appDate" purchase-shop="apply_time" type="text" placeholder="请选择日期">
+					</div>
+				</div>
+			</div>
+			
+			<div id="goods_add_box" class="bord_top_ddd m-box">
+				<div class="form_color_white goods_add_box m-sub">
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品名称</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" field="assets_name" placeholder="请输入">
+						</div>
+					</div>
+					<div class="am-form-group" style="display:none">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品名称</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" field="goods_id" placeholder="请输入">
+						</div>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">规格型号</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" field="spec" placeholder="请输入">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">数量</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" field="num" placeholder="请输入">
+						</div>
+					</div>
+
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">预算单价</label>
+						<div class="am-u-sm-8">
+							<input type="number" id="doc-ipt-pwd-2" field="bud_price" placeholder="请输入">
+						</div>
+					</div>
+					
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">预算金额</label>
+						<div class="am-u-sm-8">
+							<div class="am-form-group am-form-select">
+								<input type="number" id="doc-ipt-pwd-2" field="bud_total" name='total' placeholder="请输入">
+							</div>
+<!--							<span id="update_asset">修改</span>-->
+							<span id="delete_goods" onclick="delete_goods(this)">删除</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="goods_add_btn" class="bord_top_ddd bord_no_bottom">
+				<img src="__IMG__/jia.png" />
+				<span>增加物品</span>
+			</div>
+			
+			<div class="bord_no_bottom">
+				<div class="audit_add_box">
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">合计</label>
+						<div class="am-u-sm-8">
+							<input type="number" purchase-shop="total_price" id="doc-ipt-pwd-2" placeholder="自动生成">
+						</div>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">备注</label>
+						<div class="am-u-sm-8">
+							<input type="text" purchase-shop="remark" id="doc-ipt-pwd-2" placeholder="可不填">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="audit_add_box">
+				<div class="audit_add_box a_box not_dele">
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">审核</label>
+						<div class="am-u-sm-8">
+							<div class="am-form-group am-form-select">
+								<select class="goods_select" purchase-shop="audit">
+									<volist name="list_dep" id="vo">
+										<option value="{$vo.id}">{$vo.fullname}</option>
+									</volist>
+								</select>
+							</div>
+							<!--<span id="update_asset">修改</span>-->
+							<span id="delete_asset" onclick="delete_aduit(this)">删除</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="audit_add_btn">
+				<img src="__IMG__/jia.png" />
+				<span>增加审核</span>
+			</div>
+			
+			<input type="button" class="back_btn" action="{:U('add')}" poster="purchase" value="提交"></input>
+		</form>
+	</body>
+		
+	<include file="Public/footer" />
+	<!--日期控件依赖的js-->
+	
+	<script src="__JS__/datejs/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_004.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_005.js" type="text/javascript"></script>
+	<script src="__JS__/sercher.js" type="text/javascript"></script>
+	<!--日期控件依赖的js-->
+	<script type="text/javascript">
+		//日期
+		var tab=null;
+		var goods_len=1;
+        $(function () {
+        	tab = new Sercher({box:'.m-box',sub:'.m-sub',inputer:'assets_name',submit:'purchase',url:"{:U('get_goods')}",type:'post'}).add();
+			var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'datetime'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 10 //结束年份
+			};
+		  	$("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	$("#startDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	
+		  	$('#departmentClickBtn').change(function(event) {
+				var id=$(this).val();
+				var url="/Admin/Purchase/add?org="+id;
+				window.location.href=url;
+				});
+        	//增加审核
+			$("#audit_add_btn").click(function() {
+				var audit_box=("#audit_add_box");
+				var copy_aduit = $(".a_box:first-child").clone(true);
+				copy_aduit.appendTo(audit_box);
+				goods_len = $(".a_box").length;
+			});
+			
+			//增加物品
+			$("#goods_add_btn").click(function(){tab.add();});
+		});
+		
+		/*************************************************\
+		 * 删除审核,len定义为全局变量len=1;
+		\*************************************************/
+		function delete_aduit(d){
+			//alert(goods_len)
+			if(goods_len == 1){
+				return;
+			}else{
+				$(d).closest(".audit_add_box").remove();
+				goods_len = $(".audit_add_box").length;
+			}
+			goods_len--;
+		}
+		
+		/*************************************************\
+		 * 删除物品
+		\*************************************************/
+		function delete_goods(o){
+			tab.del(o);
+		}
+		$("input[purchase-shop='total_price']").focus(function(){
+			var total = 0;
+			var inpt = $("input[name='total']");
+			for(var i=0;i<inpt.length;i++){
+				total+=Number(inpt.eq(i).val());
+			}
+			$(this).val(total);
+		});
+    </script>
+</html>

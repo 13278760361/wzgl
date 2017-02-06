@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>AJAX提交示例</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+</head>
+<body>
+    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+    	<table>
+	    	<tr>
+	    		<td>姓名：</td>
+	    		<td><input type="text" ni="name"></td>
+	    	</tr>
+	    	<tr>
+	    		<td>电话：</td>
+	    		<td><input type="text" ni="tel"></td>
+	    	</tr>
+	    	<tr>
+	    		<td colspan="2" class="text-align: center;"><button poster='ni' action="{:U('test')}">提交</button></td>
+	    	</tr>
+	    </table>
+    </div>
+
+    <div style="padding: 10px; border-bottom: 1px solid #eee;">
+    	<table>
+    		<tr>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    		</tr>
+	    	<tr>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    	</tr>
+	    	<tr>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    	</tr>
+	    	<tr>
+	    		<td colspan="2" class="text-align: center;"><button poster='nii' action="{:U('test')}">提交</button></td>
+	    	</tr>
+
+	    </table>
+    </div>
+
+    <div style="padding: 10px; border-bottom: 1px solid #eee; overflow-x: scroll;">
+    	<table>
+    		<tr>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    			<th>ID</th>
+    			<th>姓名</th>
+    			<th>电话</th>
+    		</tr>
+	    	<tr>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    	</tr>
+	    	<tr>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    		<td><input type="text" nii="s[2][id]" value="2"></td>
+	    		<td><input type="text" nii="s[2][name]" value="测试2"></td>
+	    		<td><input type="text" nii="s[2][tel]" value="22222"></td>
+	    	</tr>
+	    	<tr>
+	    		<td colspan="2" class="text-align: center;"><button poster='nii' action="{:U('test')}">提交</button></td>
+	    	</tr>
+
+	    </table>
+    </div>
+
+    <div class="m-table">
+    	<table>
+    		<tr>
+    			<th field="id">序号</th>
+    			<th field="name" >物品</th>
+    			<th field="spec" noinput="true">规格</th>
+    			<th field="unit" nofocus="true">单位</th>
+    			<th field="sex" break="true">性别</th>
+    			<th>xxx</th>
+    			<th>xxxx</th>
+    		</tr>
+	    	<tr>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" nii="s[1][id]" value="1"></td>
+	    		<td><input type="text" disabled="disabled" nii="s[1][name]" value="测试1"></td>
+	    		<td><input type="text" nii="s[1][tel]" value="11111"></td>
+	    		<td><input type="text" class="sdfsdf" nii="s[1][id]" value="1"></td>
+	    	</tr>
+	    </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.form.js"></script>
+<script type="text/javascript" src="__JS__/jquery.form.js"></script>
+<!-- layer这个JS页面中不需要引入 在父页中已经引入了 这里只是为了测试效果 -->
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<!-- layer这个JS页面中不需要引入 在父页中已经引入了 这里只是为了测试效果 -->
+<script type="text/javascript" src="__JS__/ronshn.js"></script>
+<script type="text/javascript" src="__JS__/ronshn.table.js"></script>
+<script type="text/javascript">
+var dd=[{'id':'1','name':'aaa','spec':'10个/1盒'},
+{'id':'2','name':'abb','spec':'11个/1盒'},
+{'id':'3','name':'accc','spec':'12个/1盒'},
+{'id':'4','name':'addd','spec':'13个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+{'id':'5','name':'abcd','spec':'14个/1盒'},
+];
+
+
+//Table类(包含调焦点)
+var t=new Table('.m-table',{submit:'data',input:'name',data:dd}).addrow();
+function addrow(){t.addrow();}
+function delrow(o){t.delrow(o);}
+</script>

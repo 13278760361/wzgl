@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="author" content="xx_xh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<title>
+<if condition="$tdk">{$tdk['title']}</if>
+</title>
+</head>
+
+<body>
+<!--页面内容-->
+<div class="container-fluid"> 
+  <!--页面导航条-->
+  <div class="nav"> <a class="nav-item">固定资产管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">固定资产审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">资产总月结 </a>
+
+      <div class="topbtn fr">  <span class=" fs-14 boxshow03 top-btn hide"><a href="{:u('Admin/Calculate/export/type/mon',I())}" style="color:white; ">导出Excel</a></span> </div>
+
+  </div>
+  <!--内容-->
+  <div class="table-responsive mrg-t50">
+    <table class="table table-bordered table-striped  boxshow02">
+      <thead class="bgc-2">
+        <tr>
+          <th  >序号</th>
+          <th  >部门</th>
+          <th  >总金额</th>
+          <th  >月结时间</th>
+          <th  >状态</th>
+          <th  >操作人员</th>
+          <th  >操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo"  >
+          <tr>
+            <td>{$i+$index}</td>
+            <th  ><a href="{:U('/Admin/Calculate/mon/orgid/'.$vo['org_id'])}">{$vo.departname}</a></th>
+            <td>{$vo.total}</td>
+            <td>{$vo.time|date="Y-m-d",###}</td>
+            <td>
+            <switch name="vo.status">
+                <case value="1">已锁</case>
+                <default />正常
+            </switch>
+            
+            </td>
+            <td>{$vo.operator}</td>
+            <td>
+            <switch name="vo.status">
+                <case value="1"><span class="back-btn dpl fs-16 boxshow03  poster"    poster-status="{$vo.status}" poster-id="{$vo.id}" action="__SELF__">解锁</span></case>
+                <default /><span class="back-btn dpl fs-16 boxshow03  poster"  poster-status="{$vo.status}"  poster-id="{$vo.id}"  action="__SELF__">加锁</span>
+            </switch>
+            </td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+  </div>   
+    
+    
+  <div class="change-num "> {$page} </div>
+</div>
+</body>
+</html>

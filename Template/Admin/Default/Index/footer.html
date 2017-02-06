@@ -1,0 +1,35 @@
+	</div>
+</body>
+<script type="text/javascript" src="__JS__/jquery.min.js" ></script>
+<script type="text/javascript" src="__JS__/layer/layer.js" ></script>
+<script type="text/javascript" src="__JS__/ronshn.js" ></script>
+<script type="text/javascript">
+$(function() {
+	$(".menu-list span").each(function() {
+		$(this).click(function() {
+			$(this).addClass("menu-active");
+			$(this).siblings().removeClass("menu-active");
+			var url=$(this).attr('url');
+			if(url){window.location.href=url;}
+		});
+	});
+	$(".system-item").each(function() {
+		$(this).click(function() {
+			$(this).addClass("system-active");
+			$(this).siblings().removeClass("system-active");
+			var url=$(this).attr('url');
+			if(url){window.location.href=url;}
+		});
+	});
+	$(".S_Administrator_btn").click(function(){
+		var ul=$(".S_Administrator_box");
+		ul.show();
+		ul.find('li').click(function(){
+			var u=$(this).attr('url');if(u){window.location.href=u;}
+		});
+	});
+	timer.add({url:"{:U('Index/online')}",type:'post',call:function(d){}});
+});
+function logout(){confirmer({msg:'确定退出系统吗？',call:redirect,parm:"{:U('Public/logout')}"});}
+</script>
+</html>

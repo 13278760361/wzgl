@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap-datetimepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+		<link rel="stylesheet" href="__CSS__/purchaseSty.css" />
+        <link rel="stylesheet" href="__CSS__/adjust_IE8.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>出库-查看</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid" id="purchase_con">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">出库查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">查看 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<!--<div class="detaile-top dtable">-->
+					<!--<div class="ordernum dtcell">-->
+						<!--<span class="fc-2">单号：</span>-->
+						<!--<span class="fc-6">512488623</span>-->
+					<!--</div>-->
+					<!--<span class="order-tit dtcell">出库申请表</span>-->
+					<!--<div class="grounp order-date dtcell">-->
+						<!--<div class="dtable date-calender">-->
+							<!--<span class="date-calender-name">日期：</span>-->
+							<!--<input type="" class="date-calender-input" id="datetime" value="2016-11-25" />-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+                <div class="detaile-top dtable">
+                    <div class="ordernum dtcell">
+                        <!-- <div class="dtable date-calender" style="float: left;">
+                            <span class="date-calender-name">日期：</span>
+                            <div class="">
+                                <input type="" class="date-calender-input" id="datetime" value="2016-11-25" />
+                            </div>
+                        </div> -->
+                    </div>
+                    <span class="order-tit dtcell">采购申请表</span>
+                    <div class="grounp order-date dtcell">
+                        <span class="fc-2">单号：</span>
+                        <span class="fc-6">512488623</span>
+                    </div>
+                </div>
+				<div class="proposer_de">
+					<label>
+						<span class="fs-14 fc-2">部门：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+					</label>
+					<label>
+						<span class="fs-14 fc-2">联系人：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+					</label>
+					<label>
+						<span class="fs-14 fc-2">联系方式：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+					</label>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r">
+					<table class="table table-bordered check_table" id="NewOpinion">
+						<thead>
+							<tr>
+								<td class=order-td-width02>序号</td>
+								<td class=order-td-width02>物品名称</td>
+								<td class=order-td-width02>规格型号</td>
+								<td class=order-td-width02>单位</td>
+								<td class=order-td-width01>数量</td>
+								<td class=order-td-width02>单价</td>
+								<td class=order-td-width02>金额</td>
+								<td class=order-td-width01>备注</td>
+							</tr>
+						</thead>
+						<tr>
+							<td class="position-r">
+								100110
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+							<td class="position-r">
+
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">合计</td>
+							<td colspan="7">
+								<input type="text" class="purchase_total" />
+							</td>
+						</tr>
+						<tr class="purchase_remark">
+							<td colspan="2">备注</td>
+							<td colspan="6">
+								<textarea rows="5"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>经办人</td>
+							<td>
+								<input type="text" class="purchase_total" readonly />
+							</td>
+							<td>联系方式</td>
+							<td colspan="2">
+								<input type="text" class="purchase_total" readonly />
+							</td>
+							<td>日期</td>
+							<td colspan="2">
+								<input type="text" class="purchase_total" readonly />
+							</td>
+						</tr>
+						<tr class="not_dele">
+							<td colspan="2" class="purchase_rem">意见</td>
+							<td colspan="5">
+								<div class="width-all">
+									<div class="position-r">
+										<span class="prompt-text position-a fc-7">原因说明</span>
+										<textarea class=" textarea-block bgc-2" rows="3" onkeyup="changePlacehoder(this)"></textarea>
+
+										<input type="text" style="display:none;">
+									</div>
+
+									<div class="width-all">
+										<div class="department">
+											<select name="" class="position-department-sele bgimg-select">
+												<option value="">研发部</option>
+												<option value="">人事部</option>
+												<option value="">研发部</option>
+											</select>
+											<div class="dsplin signature">
+												<div class="signature01" style="top: 0;">
+													<span class="signature-mask spanhgt">自动签章</span>
+													<input type="" class="signature-input sihgt" onkeyup="changePlacehoder(this)" />
+													<input type="text" style="display:none;">
+												</div>
+												<input type="" placeholder="vvvvvv" name="" id="" value="" />
+											</div>
+										</div>
+										<div class="text-right padr15">
+											<div class="audit-person">
+												<div class="radiocheckitem  fs-16">
+													<input type="radio" id="agree" checked="checked" name="agreeyorn" value="agree">
+													<label name="agreeyorn" class="label-checked label-agree" for="agree">同意</label>
+												</div>
+												<div class="radiocheckitem fs-16">
+													<input type="radio" id="disagree" name="agreeyorn" value="disagree">
+													<label class="label-agree" name="agreeyorn" for="disagree">不同意</label>
+												</div>
+												<div class="dsplin change-date-box fs-12 fc-2">
+													<span>日期：</span>
+													<input type="text" class="change-date" readonly />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="operaction_box_p">
+								<span class="pur_operation_f">操作</span>
+								<a href="" class="pur_operation_det">删除</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03">提交</span>
+				</div>
+			</div>
+		</div>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 85%;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class=" order-card bgc-1">
+							<!--表单标题部分 start-->
+							<!--表单标题部分 start-->
+							<!--<div class="detaile-top dtable">-->
+								<!--<div class="ordernum dtcell">-->
+									<!--<span class="fc-2">单号：</span>-->
+									<!--<span class="fc-6">512488623</span>-->
+								<!--</div>-->
+								<!--<span class="order-tit dtcell">出库申请表</span>-->
+								<!--<div class="grounp order-date dtcell">-->
+									<!--<div class="dtable date-calender">-->
+										<!--<span class="date-calender-name">日期：</span>-->
+										<!--<div class="">-->
+											<!--<input type="" class="date-calender-input" id="datetime" value="2016-11-25" />-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</div>-->
+                            <div class="detaile-top dtable">
+                                <div class="ordernum dtcell">
+                                    <div class="dtable date-calender" style="float: left;">
+                                        <span class="date-calender-name">日期：</span>
+                                        <div class="">
+                                            <input type="" class="date-calender-input" id="datetime" value="2016-11-25" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="order-tit dtcell">采购申请表</span>
+                                <div class="grounp order-date dtcell">
+                                    <span class="fc-2">单号：</span>
+                                    <span class="fc-6">512488623</span>
+                                </div>
+                            </div>
+							<div class="proposer_de">
+								<label>
+									<span class="fs-14 fc-2">部门：</span>
+									<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+								</label>
+								<label>
+									<span class="fs-14 fc-2">联系人：</span>
+									<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+								</label>
+								<label>
+									<span class="fs-14 fc-2">联系方式：</span>
+									<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly/>
+								</label>
+							</div>
+							<!--表单标题部分 end-->
+							<!--表单内容部分 start-->
+							<div class="table-order-box position-r">
+								<table class="table table-bordered check_table" id="addList">
+									<thead>
+										<tr>
+											<td class=order-td-width02>序号</td>
+											<td class=order-td-width02>物品名称</td>
+											<td class=order-td-width02>规格型号</td>
+											<td class=order-td-width02>单位</td>
+											<td class=order-td-width01>数量</td>
+											<td class=order-td-width02>单价</td>
+											<td class=order-td-width02>金额</td>
+											<td class=order-td-width01>备注</td>
+										</tr>
+									</thead>
+									<tr>
+										<td class="position-r">
+											100110
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+										<td class="position-r">
+
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">合计</td>
+										<td colspan="6">
+											<input type="text" class="purchase_total" />
+										</td>
+									</tr>
+									<tr class="purchase_remark">
+										<td colspan="2">备注</td>
+										<td colspan="6">
+											<textarea rows="5"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td>经办人</td>
+										<td>
+											<input type="text" class="purchase_total" readonly />
+										</td>
+										<td>联系方式</td>
+										<td colspan="2">
+											<input type="text" class="purchase_total" readonly />
+										</td>
+										<td>日期</td>
+										<td colspan="2">
+											<input type="text" class="purchase_total" readonly />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="purchase_rem">意见</td>
+										<td colspan="5">
+											<div class="width-all">
+												<div class="position-r">
+													<span class="prompt-text position-a fc-7">原因说明</span>
+													<textarea class=" textarea-block bgc-2" rows="3" onkeyup="changePlacehoder(this)"></textarea>
+
+													<input type="text" style="display:none;">
+												</div>
+
+												<div class="width-all">
+													<div class="department">
+														<select name="" class="position-department-sele bgimg-select">
+															<option value="">研发部</option>
+															<option value="">人事部</option>
+															<option value="">研发部</option>
+														</select>
+														<div class="dsplin signature">
+															<div class="signature01" style="top: 0;">
+																<span class="signature-mask spanhgt">自动签章</span>
+																<input type="" class="signature-input sihgt" onkeyup="changePlacehoder(this)" />
+																<input type="text" style="display:none;">
+															</div>
+															<input type="" placeholder="vvvvvv" name="" id="" value="" />
+														</div>
+													</div>
+													<div class="text-right padr15">
+														<div class="audit-person">
+															<div class="radiocheckitem  fs-16">
+																<input type="radio" id="agree" checked="checked" name="agreeyorn" value="agree">
+																<label name="agreeyorn" class="label-checked label-agree" for="agree">同意</label>
+															</div>
+															<div class="radiocheckitem fs-16">
+																<input type="radio" id="disagree" name="agreeyorn" value="disagree">
+																<label class="label-agree" name="agreeyorn" for="disagree">不同意</label>
+															</div>
+															<div class="dsplin change-date-box fs-12 fc-2">
+																<span>日期：</span>
+																<input type="text" class="change-date" readonly />
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+										<td class="operaction_box_p">
+											<span class="pur_operation_f">操作</span>
+											<a href="" class="pur_operation_det">删除</a>
+										</td>
+									</tr>
+								</table>
+								<!--表单内容部分 end-->
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script>
+		$(function() {
+			$(".pur_operation_det").on("click", function() {
+				$(this).parent().remove();
+			});
+		});
+	</script>
+
+</html>

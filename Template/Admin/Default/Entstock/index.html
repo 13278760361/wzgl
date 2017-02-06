@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>入库查询列表</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/purchaseSty.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/ronshn.report.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body onkeydown="BindEnter(event)">
+		<div id="purchase_con">
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">入库查询</a> 
+				<div class="topbtn fr">
+					<a href="{:U('Entstock/add')}"><span class=" fs-14 boxshow03 top-btn">新增</span></a>
+					<!-- <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn">打印</span> -->
+					<span class=" fs-14 boxshow03 top-btn" onClick="exporter();">导出EXCEL</span>
+				</div>
+			</div>
+
+	   <form method="get" id="form">		
+			<div class="pur_search_box">
+				<!-- <label>
+					<span class="fc-2 font-weigth">单号：</span>
+					<input type="text"  name="order_sn" class="associated-drop big-drop list-top-inputboxshadow"
+					 value="{$order_sn}" />
+				</label> -->
+				<label>
+					<span class="fc-2 font-weigth">物品名称：</span>
+					<input type="text"  name="assets_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$assets_name}" />
+				</label>
+				<label>
+					<span class="fs-14 fc-2">物品归类：</span>
+					<select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择归类--</option>
+						<volist name="types" id="vo">
+							<option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+						</volist>
+					</select>
+				</label>
+				<label>
+					<span class="fs-14 fc-2">物品分类：</span>
+					<select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+					<notempty name="cateS">
+						<volist name="cateS" id="vo">
+							<option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+						</volist>
+					</notempty>
+					</select>
+				</label>
+				<if condition="$is_supper eq 1">
+				<label>
+					<span class="fs-14 fc-2">部门：</span>
+					<select name="org_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择部门--</option>
+						<volist name="top_departs" id="vo">
+							<option <if condition="$org eq $vo[id]"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+						</volist>
+					</select>
+				</label>
+				</if>
+				<label>
+					<span class="fc-2 font-weigth">经办人：</span>
+					<input type="text"  name="receipt" class="associated-drop big-drop list-top-inputboxshadow" value="{$receipt}" />
+				</label>
+				<label>
+					<span class="fc-2 font-weigth">供应商：</span>
+					<select  name="supplier_id" class="boxshow02 font-weigth" style="width: 100px;width: 100px\9;">
+						<option value="">请选择</option>
+					    <volist name="suppliers" id="vo">
+                        <option value="{$key}" <if condition="$key eq $supplier_id">selected</if> >{$vo}</option>
+					    </volist>
+					</select>
+				</label>
+				<label>
+					<input type="text" class="associated-drop big-drop list-top-inputboxshadow mrg_r0" name="s_time" id="s_time" placeholder="例：2016-11-06" value="{$s_time}" />
+					<span class="fc-2 font-weigth">到</span>
+					<input type="text"  name="e_time"  id="e_time" class="associated-drop big-drop list-top-inputboxshadow" placeholder="例：2016-11-09" value="{$e_time}" />
+				</label>
+				<label>
+					<a class=" sarech-btn boxshow01"  id="submit"  style="vertical-align: text-bottom;">
+						搜索
+					</a>
+				</label>
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<th>入库单号</th>
+						<th>供应商名称</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>单位</th>
+						<th>单价</th>
+						<th>数量</th>
+						<th>金额</th>
+						<th>日期</th>
+						<th>归类</th>
+						<th>经办人</th>
+					</tr>
+				<volist name="lists" id="vo">
+					<tr>
+						<td><a href="{:U('Entstock/info',array('id'=>$vo['id']))}" class="fc-10 a-dtl">{$vo.order_sn}</a></td>
+						<td>{$vo.company_name}</td>
+						<td>{$vo.assets_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.unit}</td>
+						<td>{$vo.price}</td>
+						<td>{$vo.num}</td>
+						<td>{$vo.total}</td>
+						<td>{$vo.apply_time|date="Y-m-d H:i",###}</td>
+						<td>{$vo.type_name}</td>
+						<td>{$vo.receipt}</td>
+					</tr>
+				</volist>	
+				<tr>
+					<td colspan="1" class="bgc-5">页总数量</td>
+	                <td colspan="1">{$p_num}</td>
+	                <td colspan="1" class="bgc-5">页总金额</td>
+	                <td colspan="2">{$p_total}</td>
+	                
+	                <td colspan="1" class="bgc-5">总数量</td>
+	                <td colspan="2">{$s_num}</td>
+	                <td colspan="1" class="bgc-5">总金额</td>
+	                <td colspan="2">{$s_total}</td>
+
+	                
+            	</tr>
+				</table>
+			</div>
+			<div class="change-num ">
+				{$page}
+			</div>
+		</div>
+		</div>
+   </form>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog model_dialog_ie" style="width: 90%;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class=" order-card bgc-1">
+							<!--表单标题部分 start-->
+							<!--表单标题部分 start-->
+							<div class="preview_box" style="text-align: center">云南昆卫教育集团</div>
+							<div class="preview_tit" style="text-align: center">入库信息</div>
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-list  boxshow02">
+									<tr>
+										<th>入库单号</th>
+										<th>供应商名称</th>
+										<th>物品名称</th>
+										<th>规格型号</th>
+										<th>单位</th>
+										<th>单价</th>
+										<th>数量</th>
+										<th>金额</th>
+										<th>日期</th>
+										<th>归类</th>
+										<th>经办人</th>
+									</tr>
+
+									<volist name="lists" id="vo">
+										<tr>
+											<td><a href="{:U('Entstock/info',array('id'=>$vo['id']))}" class="fc-10 a-dtl">{$vo.order_sn}</a></td>
+											<td>{$vo.company_name}</td>
+											<td>{$vo.assets_name}</td>
+											<td>{$vo.spec}</td>
+											<td>{$vo.unit}</td>
+											<td>{$vo.price}</td>
+											<td>{$vo.num}</td>
+											<td>{$vo.total}</td>
+											<td>{$vo.apply_time|date="Y-m-d H:i",###}</td>
+											<td>{$vo.type_name}</td>
+											<td>{$vo.receipt}</td>
+										</tr>
+									</volist>	
+								</table>
+							</div>
+							<!--表单内容部分 end-->
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+
+<script >
+
+	var page=1;
+	var xl = new Report({'name':'入库','padding':1,'space':1});
+	function exporter()
+	{
+		if(page==1){loader();} 
+		var ff=function(d){
+			if(d&&$.isArray(d))
+				{
+					xl.addrows(d);
+					page++;exporter();
+				}else{
+					xl.grid({'order_sn':'入库单号','company_name':'供应商名称','assets_name':'物品名称','spec':'规格型号','unit':'单位','price':'单价','num':'数量','total':'金额','apply_time':'日期','type_name':'归类','receipt':'经办人'}).exporter();
+					unmask();
+				}
+			}
+		submiter({type:'get',url:"{:U('Upload/export')}",data:{page:page,ctr:'Entstock',assets_name:"{$assets_name}",s_time:"{$s_time}",e_time:"{$e_time}",order_sn:"{$order_sn}",supplier_id:"{$supplier_id}"},call:ff});
+	}
+$('[name="type_id"]').change(function(){
+	loader();
+	$('select[name="cate_id"]').html('');
+	$v=$(this).find('option:checked').val();
+	var ff=function(d){
+		if(d&&$.isArray(d)){
+			var h='';
+			for (var i = 0; i < d.length; i++) {
+				h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+			}
+			$('select[name="cate_id"]').html(h);
+		}
+		unmask();
+	}
+	submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+})	
+</script>
+
+<script>
+		$(function() {			
+				$('#s_time').datetimepicker({
+					format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+			    $('#e_time').datetimepicker({
+			        format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+
+			    $('#submit').click(function(){
+			    	$("#form").submit();
+			    })
+			  
+			})
+			function BindEnter(obj){
+				if(obj.keyCode == 13)
+
+				    {
+				        $("#submit").click()
+				    }
+				}
+</script>

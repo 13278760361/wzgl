@@ -1,0 +1,134 @@
+/*库存管理*/
+.bord_top_ddd{
+	border-top: 1px solid #ddd;
+}
+.bord_no_bottom{
+	border-bottom: none !important;
+}
+.bord_no_top{
+	border-top: none !important;
+}
+
+.aduit_op_box{
+	border-top: 1px solid #ddd;
+}
+
+.aduit_option_box{
+	padding: 12px;
+	/*border-top: 1px solid #ddd;*/
+	border-bottom: 1px solid #ddd;
+}
+.option_box_lable{
+	display:inline-block;
+	vertical-align:middle;
+	height: 25px;
+}
+.option_box_lable img{
+	margin-top: -3px;
+	vertical-align:middle;
+}
+.option_box_lable_tit{
+	margin-left: 0.5em;
+	font-size: 14px;
+	color: #FFA500;
+	line-height: 25px;
+	font-weight: normal;
+}
+
+.option_box{
+	display: flex;
+	height: auto;
+}
+
+.option_box_left{
+	flex: 1;
+	font-size: 16px;
+	color: #777777;
+}
+
+.option_box_right{
+	flex: 3;
+}
+
+/*checkbix*/
+.option_check_box{
+	border-bottom: 1px solid #ddd;
+}
+.option_check_box label{
+	font-size: 16px;
+	color: #AAAAAA;
+	font-weight: normal;
+}
+.mgc {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  background-clip: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: -0.15px 0.6px 0 0;
+  vertical-align: text-bottom;
+  border-radius: 3px;
+  -webkit-transition: background-color 0.25s;
+  transition: background-color 0.25s;
+  background-color: #fff;
+  border: 1px solid #AAAAAA;
+}
+.mgc:checked:after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 7px;
+  border: 0 solid #333;
+  border-width: 0 0 2px 2px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+.mgc:disabled {
+  opacity: 0;
+}
+.mgc:checked {
+  background-color: #fff;
+  border-color: #076FCC;
+  box-shadow: none;
+}
+.mgc:checked:after {
+  border-color: #076FCC;
+}
+.mgc-success:checked {
+  background-color: #076FCC;
+  border-color: #076FCC;
+}
+.mgc-success:checked:after {
+  border-color: #fff;
+}
+.mgc-lg {
+  width: 18px;
+  height: 18px;
+}
+.mgc-lg:checked:after {
+  top: 3px;
+  left: 4px;
+  height: 6px;
+  width: 10px;
+}
+
+
+.agree_left_lable{
+	width: 45%;
+}
+
+
+.option_box_input{
+	/*display: none;*/
+	width: 100%;
+	margin-top: 10px;
+	height: 35px;
+	font-size: 16px;
+	text-indent: 0.5em;
+	border: 1px solid #ddd;
+}

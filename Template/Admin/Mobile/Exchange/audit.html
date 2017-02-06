@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产变更查询——详情</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+		<link rel="stylesheet" href="__CSS__/inventory.css" />
+	</head>
+
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order.order_sn}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order['time']|dateFormat=###,'Y-m-d'}</label>
+			</div>
+		</div>
+		<volist name="goods" id="gls">
+
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产代码</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['order_sn']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产分类</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cate_name']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['assets_name']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['spec']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">金额</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['original_value']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">原使用人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['keeper']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">原部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['department']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">现使用人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cur_user']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">现部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cur_department']}</label>
+			</div>
+		</div>
+		</volist>
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">变更说明</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order['remark']}</label>
+			</div>
+		</div>
+		
+		<div class="aduit_op_box">
+			<volist name="audits" id="adlis">
+			<if condition="$adlis['right']">
+				<input type="hidden" ni="id" value="{$order['id']}">
+				<input type="hidden" ni="audit_id" value="{$adlis['audit_id']}">
+				<div class="aduit_option_box">
+					<label class="option_box_lable">
+						<img src="__IMG__/ic_error_outline1.png" />
+						<span class="option_box_lable_tit">待您审核</span>
+					</label>
+					<div class="option_box">
+						<div class="option_box_left">
+							意见
+						</div>
+						<div class="option_box_right">
+							<div class="option_check_box">
+								<label class="agree_left_lable"><input ni="status" type="radio" value="1" class="mgc mgc-success mgc-lg agree_left" name="checkbox_option"/> 同意</label>
+								<label class="agree_right_lable"><input ni="status" type="radio" value="2" class="mgc mgc-success mgc-lg agree_right" name="checkbox_option"/> 不同意</label>
+							</div>
+							<input type="text" ni='remark' placeholder="请输入意见" class="option_box_input"/>
+						</div>
+					</div>
+				</div>
+			<else />
+				<div class="aduit_option_box bord">
+					<!-- <label class="option_box_lable">
+						<img src="__IMG__/ic_error_outline1.png" />
+						<span class="option_box_lable_tit">待您审核</span>
+					</label> -->
+					<div class="option_box">
+						<div class="option_box_left">
+							意见
+						</div>
+						<div class="option_box_right">
+							<div class="option_check_box">
+								<label class="agree_left_lable">
+								<!-- <input type="radio" class="mgc mgc-success mgc-lg agree_left" name="checkbox_optio"/>  -->
+								同意</label>
+								<label class="agree_right_lable">
+								<!-- <input type="radio" class="mgc mgc-success mgc-lg agree_right" name="checkbox_optio"/>  -->
+								不同意</label>
+							</div>
+							<input type="text" placeholder="请输入意见" class="option_box_input" disabled="disabled" />
+						</div>
+					</div>
+				</div>
+			</if>
+			</volist>
+		</div>
+		<if condition="$submit">
+			<input type="submit" class="back_btn" poster='ni' action="{:U('audit')}" value="提交">
+		</if>
+		<input type="submit" class="back_btn" onclick="window.history.go(-1);" value="返回">
+		
+	<include file="Public/footer" />
+	</body>
+
+</html>

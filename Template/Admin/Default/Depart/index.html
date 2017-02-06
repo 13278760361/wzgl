@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置——部门</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/system_setting.css" />
+	</head>
+	<body>
+		<div id="setting_name_con">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">部门 </a>
+			</div>
+			<form action="__SELF__" method="get"></form>
+			<div class="name_add_btn mrg-t50">
+				<a href="{:U('add')}"><img src="__IMG__/name_add.png"/></a>
+			</div>
+			<table class="table table-bordered">
+			  	<thead>
+			  		<th>序号</th>
+			  		<th>编号</th>
+			  		<th>部门</th>
+			  		<th>上级部门</th>
+			  		<th>操作</th>
+			  	</thead>
+			  	<tbody>
+			  		<volist name="lists" id="vo">
+			  		<tr>
+			  			<td><?php echo $key+1;?></td>
+			  			<td>{$vo['depart_no']}</td>
+			  			<td style="text-align: left;">{$vo['fullname']}</td>
+			  			<td>{$vo['parent_name']}</td>
+			  			<td>
+			  				<a href="{:U('edit',array('id'=>$vo['id']))}" class="name_table_alter fs12">修改</a>
+			  				<a class="name_table_dele fs12 poster" poster-ids="{$vo['id']}" action="{:U('del')}">删除</a>
+			  			</td>
+			  		</tr>
+			  		</volist>
+			  	</tbody>
+			</table>
+			{$page}
+		</div>
+		<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/ronshn.js"></script>
+	</body>
+</html>

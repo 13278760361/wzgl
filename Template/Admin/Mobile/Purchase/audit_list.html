@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——采购申请审核——历史记录</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body class="inner">
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<div id="change_audie_box">
+			<a href="{:U('audit_list',array('status'=>1))}" class="change_audie_list"><span class="<eq name='status' value='1'>audie_list_active</eq>">未审核</span></a>
+			<a href="{:U('audit_list',array('status'=>4))}" class="change_audie_list flex"><span class="<eq name='status' value='4'>audie_list_active</eq>">已审核</span></a>
+			<a href="{:U('audit_list',array('status'=>0))}" class="change_audie_list"><span class="<eq name='status' value='0'>audie_list_active</eq>">历史</span></a>
+		</div>
+		<table class="am-table am-table-bordered am-table-striped table_limit lists">
+			<thead>
+				<tr>
+					<th>采购单号</th>
+					<th>申请人</th>
+					<th>部门</th>
+					<th>审核状态</th>
+					<if condition="$status eq 1"><th>操作</th></if>
+				</tr>
+			</thead>
+			<tbody>
+			<volist name="lists" id="vo">
+				<tr>
+					<td url="{:U('audit',array('shop_id'=>$vo['id']))}">{$vo.order_sn}</td>
+					<td>{$vo.applyer}</td>
+					<td>{$vo.depart}</td>
+					<if condition="$vo.status eq 1">
+						<td class="audit_notpass">未审核</td>
+					<elseif condition="$vo.status eq 2"/>
+						<td class="audit_begin">审核中</td>
+					<elseif condition="$vo.status eq 3"/>
+						<td class="audit_notpass">未通过</td>
+					<else/>
+						<td class="audit_already">已审核</td>
+					</if>
+					<if condition="$status eq 1">
+					<td url="{:U('edit',array('shop_id'=>$vo['id']))}">编辑</td>
+					</if>
+				</tr>
+			</volist>	
+			</tbody>
+		</table>
+	</body>
+	<include file="Public/footer" />
+	<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+			var size = {$ajaxlen};
+		//	var key="{$key_word}";
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/Purchase/ajaxaudit/page/'+page+'/size/'+size,
+   						dataType: 'json',
+   						success: function(data) {
+     						
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+	   									result += '<tr url="/Admin/Purchase/audit/shop_id/'+data[i].id+'">' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].applyer + '</td>' +
+	   									'<td>' + data[i].depart + '</td>' +
+	   									'<td class="audit_notpass">' + data[i].zt + '</td>' +
+	   									'</tr>';
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+		});
+	</script>
+</html>

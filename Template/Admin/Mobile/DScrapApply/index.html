@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产报废——历史记录</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body class="inner">
+		 <include file="Public/header" />
+	     <include file="Public/nav" />
+		<div id="change_audie_box">
+			<a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>1))}"   class="change_audie_list"><span <if condition="($_GET['status'] eq 1 )">class="audie_list_active"</if> >未审核</span></a>
+			<a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>'do'))}" class="change_audie_list flex"><span <if condition="($_GET['status'] eq 'do' )">class="audie_list_active"</if>>已审核</span></a>
+			<a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>'all'))}" class="change_audie_list"><span <if condition="$_GET['status'] eq 'all' OR $_GET['status'] eq null">class="audie_list_active"</if>>历史</span></a>
+		</div>
+		<table class="am-table am-table-bordered am-table-striped table_limit lists">
+			<thead>
+				<tr>
+					<th>报废单号</th>
+					<th>提交时间</th>
+					<th>创建人</th>
+					<th>审核状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			 <volist name="lists" id="vo">
+				<tr>
+					<td url="{:U('ScrapApply/info',array('id'=>$vo['id']))}">{$vo.order_sn}</td>
+					<td>{$vo.time|date="Y-m-d H:i",###}</td>
+					<td>{$vo.creater}</td>
+					
+
+					  <if condition="$vo['status'] eq 1">
+							   
+								<td class="audit_begin">未审核</td>
+								<elseif condition="$vo['status'] eq 2"/>
+								<td class="audit_begin">审核中</td>
+								<elseif condition="$vo['status'] eq 3"/>
+								<td class="audit_notpass">未通过</td>
+								<else/>
+								<td class="audit_already">已审核</td>
+					  </if>
+
+					  <if condition="$vo['status'] eq 1">
+							<td url="{:U('Scrap/edit',array('id'=>$vo['id']))}">编辑</td>
+					  </if>
+				</tr>
+			</volist>	 
+				
+			</tbody>
+		</table>
+	</body>
+	<include file="Public/footer" />
+	<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+   			// 每页展示5个
+   			var size = {$ajaxlen};
+
+   			var status="{$status}";
+
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/ScrapApply/ajaxScrapApply/page/'+page+'/size/'+size+'/status/'+status,
+   						dataType: 'json',
+   						success: function(data) {
+     						// alert(page);
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+   									  if (data[i]['status'] == 1 ) {
+	   									result += '<tr url="/Admin/ScrapApply/info/id/'+data[i].id+'">' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].time + '</td>' +
+	   									'<td>' + data[i].creater + '</td>' +
+	   									'<td class="audit_begin">未审核</td>' +
+	   									'</tr>';
+	   								   }else if( data[i]['status'] == 2 ){
+										result += '<tr url="/Admin/ScrapApply/info/id/'+data[i].id+'">' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].time + '</td>' +
+	   									'<td>' + data[i].creater + '</td>' +
+	   									'<td class="audit_begin">审核中</td>' +
+	   									'</tr>';	   								   		
+	   								   }else if( data[i]['status'] == 3 ){
+										result += '<tr url="/Admin/ScrapApply/info/id/'+data[i].id+'">' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].time + '</td>' +
+	   									'<td>' + data[i].creater + '</td>' +
+	   									'<td class="audit_notpass">未通过</td>' +
+	   									'</tr>';	   								   		
+	   								   }else if( data[i]['status'] == 4 ){
+										result += '<tr url="/Admin/ScrapApply/info/id/'+data[i].id+'">' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].time + '</td>' +
+	   									'<td>' + data[i].creater + '</td>' +
+	   									'<td class="audit_already">已审核</td>' +
+	   									'</tr>';	   								   		
+	   								   }	
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+			
+		//审核栏吸顶
+		var stickyTop = $("#change_audie_box")[0].offsetTop;
+		window.onscroll = function(e) {
+		var scrollT = $("body")[0].scrollTop;
+		if(scrollT > stickyTop) {
+			$("#change_audie_box").addClass('fixed-top');
+		} else {
+			$("#change_audie_box").removeClass('fixed-top');
+		}
+		};
+	});
+	</script>
+</html>

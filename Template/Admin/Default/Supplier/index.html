@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/adjust_IE8.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/calendar.js" type="text/javascript" charset="utf-8"></script>
+		<title>供应商查询列表</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">查看查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">供应商查询 </a>
+
+			</div>
+			<!--表格-->
+			<form action="" method="get">
+			<div class="date-table padb15 notprint">
+				
+				<div class="dsplin fs-14">
+				<span class="time-interval">供货商名称</span>
+					<input name="company_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$company_name}" />
+				</div>
+				<input class=" sarech-btn boxshow01" type="submit" value="搜索">
+				
+				<div class="topbtn fr">
+					<a href="<?php echo U('add')?>"><span class=" fs-14 boxshow03 top-btn">新增</span></a>
+					<!-- <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> -->
+				</div>
+			</div>
+			</form>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>供应商名称</th>
+						<th>联系人</th>
+						<th>联系方式</th>
+						<th>公司类型</th>
+						<th>供应商类别</th>
+					
+						<th>地址</th>
+						<th>开户行</th>
+						<th>账号</th>
+						<th>注册资金</th>
+						<th>日期</th>
+						<th>操作</th>
+					</tr>
+			<?php if($list):?>
+				<?php foreach($list as $k=>$v):?>
+					<tr>
+						<td><?php echo $k+1?></td>
+						<td><?php echo $v['company_name']?></td>
+						<td><?php echo $v['contacts']?></td>
+						<td><?php echo $v['mobile_phone']?>&nbsp;<?php echo $v['tel_phone']?></td>
+						<td><?php echo $v['type']?></td>
+						<td><?php echo $v['supplier_type']?></td>
+						<td><?php echo $v['address']?></td>
+						<td><?php echo $v['bank']?></td>
+						<td><?php echo $v['bank_account']?></td>
+						<td><?php echo $v['register_price']?></td>
+						<td>
+						<?php if($v['add_time']):?>
+						<?php echo date('Y-m-d',$v['add_time'])?>
+							<?php endif;?>
+						</td>
+						<th><a href="<?php echo U('detaillist',array('id'=>$v['id']))?>">查看</a>&nbsp;&nbsp;
+						<?php if($adminId==$v['user_id']):?>
+						<a href="<?php echo U('edit',array('id'=>$v['id']))?>">修改</a>
+						<?php endif;?>
+						</th>
+					</tr>
+				<?php endforeach;?>
+				<?php else:?>
+					<tr>
+						<td colspan="12">没有任何信息</td>
+					</tr>
+				<?php endif;?>
+				</table>
+			</div>
+			<div class="change-num notprint">
+				<?php echo $page;?>
+			</div>
+
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog model_dialog_ie" style="width: 90%;">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped table-list  boxshow02">
+								<tr>
+						<th>序号</th>
+						<th>供应商名称</th>
+						<th>联系人</th>
+						<th>联系方式</th>
+						<th>供应商类别</th>
+						<th>供应商等级</th>
+						
+						<th>地址</th>
+						<th>开户行</th>
+						<th>账号</th>
+						<th>金额</th>
+						<th>日期</th>
+						<th>操作</th>
+					</tr>
+
+					<?php if($list):?>
+				<?php foreach($list as $v):?>
+					<tr>
+						<td><?php echo $v['id']?></td>
+						<td><?php echo $v['company_name']?></td>
+						<td><?php echo $v['contacts']?></td>
+						<td><?php echo $v['mobile_phone']?>&nbsp;<?php echo $v['tel_phone']?></td>
+						<td><?php echo $v['type']?></td>
+						<td><?php echo $v['supplier_type']?></td>
+						<td><?php echo $v['address']?></td>
+						<td><?php echo $v['bank']?></td>
+						<td><?php echo $v['bank_account']?></td>
+						<td><?php echo $v['register_price']?></td>
+						<td><?php echo date('Y-m-d',$v['add_time'])?></td>
+						<th><a href="<?php echo U('detaillist',array('id'=>$v['id']))?>">查看</a>&nbsp;&nbsp;<a href="<?php echo U('edit',array('id'=>$v['id']))?>">修改</a></th>
+					</tr>
+				<?php endforeach;?>
+				<?php else:?>
+					<tr>
+						<td colspan="12">没有任何信息</td>
+					</tr>
+				<?php endif;?>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——库存盘点</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body style="background: #FFFFFF;" class="inner">
+		<include file="Public/header" />
+	     <include file="Public/nav" />
+		<form method="get" action="__SELF__">
+		<div class="mess_search">
+			
+			<div class="search_box">
+				<input id="search_key" type="text" name="keyword" placeholder="输入单号/物品进行查询" value="{$keyword}" />
+				<div class="search_ico" onclick="forms[0].submit();" style="cursor:pointer;">
+					<img src="__IMG__/search.png" />
+				</div>
+			</div>
+		</div>
+		</form>
+		<div class="am-scrollable-horizontal complex_table">
+			<table class="am-table am-table-bordered am-table-striped am-text-nowrap lists">
+				<thead>
+					<tr>
+						<th rowspan="2">序号</th>
+					
+						<th rowspan="2">物品名称</th>
+						<th rowspan="2">规格型号</th>
+					
+					
+						<th rowspan="2">单位</th>
+						<th colspan="2">入库</th>
+						<th colspan="2">出库</th>
+						<th colspan="2">库存</th>
+			
+					</tr>
+					<tr>
+						
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+					</tr>
+				</thead>
+				<tbody>
+				<volist name="lists" id="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.assets_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.unit}</td>
+						<td>{$vo.in_num}</td>
+						<td>{$vo.in_total}</td>
+						<td>{$vo.out_num}</td>
+			
+						<td>{$vo.out_total}</td>
+				
+						<td>{$vo.diff_num}</td>
+			
+						<td>{$vo.diff_total}</td>
+					</tr>
+				</volist> 	
+				<!-- 	<tr>
+						<td>1</td>
+						<td>10010</td>
+						<td>笔记本</td>
+						<td>16K软抄</td>
+						<td>2011-11-06</td>
+						<td>本</td>
+						<td>16</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>17%</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>未盘点</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>10010</td>
+						<td>笔记本</td>
+						<td>16K软抄</td>
+						<td>2011-11-06</td>
+						<td>本</td>
+						<td>16</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>17%</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td class="audit_notpass">未盘点</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>10010</td>
+						<td>笔记本</td>
+						<td>16K软抄</td>
+						<td>2011-11-06</td>
+						<td>本</td>
+						<td>16</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>17%</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>未盘点</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>10010</td>
+						<td>笔记本</td>
+						<td>16K软抄</td>
+						<td>2011-11-06</td>
+						<td>本</td>
+						<td>16</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>17%</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td>20</td>
+						<td>400.00</td>
+						<td class="audit_notpass">未盘点</td>
+					</tr> -->
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<include file="Public/footer" />
+	<script type="text/javascript" src="__JS__/jquery1.11.1.min.js"></script>
+	<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+   			// 每页展示5个
+   			var size = {$ajaxlen};
+   			var keyword="{$keyword}";
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/StockInv/ajaxSv/page/'+page+'/size/'+size+'/keyword/'+keyword,
+   						dataType: 'json',
+   						success: function(data) {
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+   				
+	   									result += '<tr>'+
+													'<td>'+data[i].id+'</td>'+
+													'<td>'+data[i].assets_name+'</td>'+
+													'<td>'+data[i].spec+'</td>'+
+													'<td>'+data[i].unit+'</td>'+
+													'<td>'+data[i].in_num+'</td>'+
+													'<td>'+data[i].in_total+'</td>'+
+													'<td>'+data[i].out_num+'</td>'+
+													'<td>'+data[i].out_total+'</td>'+
+													'<td>'+data[i].diff_num+'</td>'+
+													'<td>'+data[i].diff_total+'</td>'+
+												  '</tr>';
+   								}
+
+   								// alert(result);
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+		});
+	</script>
+</html>

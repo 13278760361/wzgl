@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>系统设置主页</title>
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_set.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+</head>
+<body>
+	<include file="Public/header" />
+	<volist name="lists" id="vo">
+	<div id="system_content">
+		<span class="system_t">{$vo['title']}</span>
+		<div class="system_set_box">
+			<volist name="vo['_child']" id="v">
+			<neq name="v['ishide']" value="1">
+			<neq name="v['wapdisable']" value="1">
+			<a class="asset_set_tit" href="{:U($v['name'])}">{$v['title']}</a>
+			</neq>
+			</neq>
+			</volist>
+			<div class="cle"></div>
+		</div>
+	</div>
+	</volist>
+	
+	<div class="back_btn" style="cursor:pointer;" onclick="logout()">退出</div>
+</body>
+<include file="Public/footer" />
+<script type="text/javascript">
+function logout(){confirmer({msg:'确定退出系统吗？',call:redirect,parm:"{:U('Public/logout')}"});}
+</script>
+</html>

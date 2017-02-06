@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——采购申请审核——查看</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+		<link rel="stylesheet" href="__CSS__/inventory.css" />
+	</head>
+
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.order_sn}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">申请人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.applyer}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.depart}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">申请日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.apply_time|date='Y-m-d',###}</label>
+			</div>
+		</div>
+		
+		<div class="asset_many_goods_box">
+			<volist name="info['sglists']" id="vo">
+			<div class="asset_con_box">
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.goods_name}</label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.spec}</label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">数量</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.num}</label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">预算单价</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.bud_price}</label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">预算金额</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$vo.bud_total}</label>
+				</div>
+			</div>
+			</volist>
+			
+		</div>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">合计</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.total_price}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">备注</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$info.remark}</label>
+			</div>
+		</div>
+		<volist name="info['departs']" id="vo">
+		<div class="aduit_op_box">
+			<if condition="$vo.status eq 2">
+			<div class="asset_postil">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin">同意</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">{$vo.depart_name}</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$vo.name}</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">2016-11-09</label>
+				</div>
+				<div class="cle"></div>
+			</div>
+			<elseif condition="$vo.status eq 1"/>
+			<div class="asset_postil">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin">不同意</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">{$vo.depart_name}</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$vo.name}</label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">2016-11-09</label>
+				</div>
+				<div class="cle"></div>
+			</div>
+			<else/>
+			<if condition="($vo['d_id'] eq $admin_info['depart_id']) and ($admin_info['is_auditer'] neq 0) and ($opera neq 1)">
+			<div class="aduit_option_box">
+				<label class="option_box_lable">
+					<img src="__IMG__/ic_error_outline1.png" />
+					<span class="option_box_lable_tit">待您审核</span>
+				</label>
+				<div class="option_box">
+					<div class="option_box_left">
+						意见
+					</div>
+					<div class="option_box_right">
+						<div class="option_check_box">
+							<label class="agree_left_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_left" name="checkbox_option" value="2" agr="status"/> 同意</label>
+							<label class="agree_right_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_right" name="checkbox_option"  agr="status" value="1"/> 不同意</label>
+						</div>
+						<input type="text" placeholder="请输入意见" class="option_box_input"/>
+					</div>
+				</div>
+				<input type="text" hidden="hidden" agr="shop_id" value="{$info.id}">
+				<input type="text" hidden="hidden" agr="sort" value="{$vo.sort}">
+				<input type="text" hidden="hidden" agr="audit_id" value="{$vo.audit_id}">
+			</div>
+			<else/>
+			<div class="aduit_option_box bord">
+				<label class="option_box_lable">
+					<img src="__IMG__/ic_error_outline1.png" />
+					<span class="option_box_lable_tit">待您审核</span>
+				</label>
+				<div class="option_box">
+					<div class="option_box_left">
+						意见
+					</div>
+					<div class="option_box_right">
+						<div class="option_check_box">
+							<label class="agree_left_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_left" name="checkbox_optio" disabled="disabled" /> 同意</label>
+							<label class="agree_right_lable"><input type="radio" class="mgc mgc-success mgc-lg agree_right" name="checkbox_optio" disabled="disabled"/> 不同意</label>
+						</div>
+						<input type="text" placeholder="请输入意见" class="option_box_input" disabled="disabled" />
+					</div>
+				</div>
+			</div>
+			</if>
+			</if>
+		</div>
+		</volist>
+		<if condition="($admin_info.is_auditer eq 1) and ($status eq 0) and ($opera neq 1)">
+			<input type="button" class="back_btn" action="{:U('audit')}" poster="agr" value="提交"></input>
+		<else/>
+			<input type="button" class="back_btn" onclick="JavaScript:history.back(-1);" value="返回"></input>
+		</if>
+	</body>
+	<include file="Public/footer" />
+</html>

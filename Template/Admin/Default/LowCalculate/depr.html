@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+    	<meta name="author" content="xx_xh">
+    	<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/calendar.js" type="text/javascript" charset="utf-8"></script>
+		<title><if condition="$tdk">{$tdk['title']}</if> </title>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">低值品管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">低值品审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">低值品折旧 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn"><a href="{:u('Admin/LowCalculate/export/type/depr',I())}" style="color:white;">导出Excel</a></span>
+				</div>
+			</div>
+			<!--表格-->
+			<div class="date-table padb15">
+				
+				
+				<form id="depr">
+                <!-- 物品名称：
+                <input type="text" class="sarech-input" name="assets_name" />
+                部门：
+					<select name="department" class="associated-drop">
+                    <option value="0">部门</option>
+							<volist name="department" id="vo"  >		
+                        <option value="{$vo.depart_name}">{$vo.depart_name}</option>
+                        </volist>
+					</select> -->
+					
+		            <span>物品名称：</span>
+		            <input type="text" class="associated-drop big-drop list-top-inputboxshadow"  name="assets_name" value="" />
+                    <select name="department" class="associated-drop">
+                    <option value="0">部门</option>
+                    <volist name="departs" id="vo"  >
+                        <option value="{$vo.id}">{$vo.fullname}</option>
+                    </volist>
+					</select>
+		          <!-- 物品名称：
+		     
+		          <select name="year" class="associated-drop"   id="year"  >
+		            <option value="0">年</option>
+		            <foreach name="dateRange.year" item="vo" >
+		              <foreach name="vo" item="voo" >
+		                <option value="{$voo}">{$voo}年</option>
+		              </foreach>
+		            </foreach>
+		          </select>
+		     
+		          <select name="season" class="associated-drop" id="season"  >
+		            <option value="0">季度</option>
+		            <foreach name="dateRange.season" item="vo" >
+		              <option value="{$key}">{$vo}</option>
+		            </foreach>
+		          </select>
+		     
+		          <select name="mon" class="associated-drop" id="month" >
+		            <option value="0">月份</option>
+		            <for start="1" end="13">
+		              <option value="{$i}">{$i}月</option>
+		            </for>
+		          </select>
+                   -->
+		          <a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;">
+						搜索
+					</a>
+					 </form>
+					 
+				</div>
+
+                <script>
+				Jquery = jQuery.noConflict(true);
+				(function($){
+                    Jquery('.sarech-btn').click(function(){Jquery("#depr").submit()});
+                })(Jquery);
+				</script>
+                
+				
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>资产分类</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>部门</th>
+						<th>单位</th>
+						<th>数量</th>
+ 
+						<th>原值</th>
+						<th>使用时间</th>
+						<th>使用年限</th>
+						<th>净残率</th>
+						<th>净残值</th>
+						<th>月折旧率</th>
+						<th>月折旧额</th>
+						<th>计提时间</th>
+						<th>累计折旧</th>
+						<th>净值</th>
+						<th>剩余可提折旧</th>
+					</tr>
+			<volist name="list" id="vo"  >
+					<tr>
+						<td>{$i+$index}</td>
+						<td>{$vo.catname}</td>
+						<td>{$vo.name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.department}</td>
+						<td>{$vo.unit}</td>
+						<td>{$vo.total}</td>
+ 
+						<td>{$vo.original_value}</td>
+						<td>{$vo.start_date|date="Y-m-d",###}</td>
+						<td>{$vo.service_life}</td>
+						<td>{$vo.net_salvage}</td>
+						<td>{$vo.net_residual_value}</td>
+						<td>{$vo.mon_depr_rate}</td>
+						<td>{$vo.mon_depr_amount}</td>
+						<td>{$vo.sueM}</td>
+						<td>{$vo.mon_depr_sum}</td>
+						<td>{$vo.net_worth}</td>
+						<td>{$vo.k_net_worth}</td>
+					</tr>
+			</volist>			
+				<tr>
+	                <td colspan="1" class="bgc-5">当页总数量</td>
+	                <td colspan="2">{$p_num}</td>
+	                <td colspan="1" class="bgc-5">当页总金额</td>
+	                <td colspan="5">{$p_total}</td>
+	                
+	                <td colspan="1" class="bgc-5">总数量</td>
+	                <td colspan="2">{$s_num}</td>
+	                <td colspan="1" class="bgc-5">总金额</td>
+	                <td colspan="5">{$s_total}</td>
+        		</tr>
+				</table>
+			</div>
+			<div class="change-num ">
+            {$page}
+			</div>
+
+		</div>
+        
+
+        
+        
+	</body>
+</html>

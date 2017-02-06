@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>资产验收-新增</title>
+		<script type="text/javascript">
+			var nnum = 0;
+			var lastLine = null;
+			$(function(){
+				lastLine = "<tr>" + $("#addList tbody tr").eq(2).html() + "</tr>";
+				$("#addList td").keydown(enterChange);
+				radioChecked("changeCase");
+				radioChecked("agreeyorn");
+			})
+			var enterChange = function(e) {
+				if(e.which == 13) {
+					var index = $("#addList td").index(this);
+					var max = $("#addList td").length - 1;
+					if(index == max) {
+						var strBe = $("#addList tbody").html();
+						var strNow = strBe + lastLine;
+						$("#addList tbody").html(strNow);
+						$("#addList td").unbind("keydown");
+						$("#addList td").keydown(enterChange);
+					}
+					index++;
+					$("#addList td:eq(" + index + ")").children().focus();
+				}
+			}
+			/*索引*/
+			function indexesblur(h) {
+				$(h).next().hide();
+			}
+
+			function indexesfocus(k) {
+				/*展开隐藏索引列表*/
+				$(k).next().show();
+				/*获取当前输入的值*/
+				
+				/*选择的值传入input中*/
+				$(k).next().children().each(function() {
+					$(this).click(function() {
+						var dda = $(this).text();
+						$(k).val(dda)
+						$(k).next().hide();
+					})
+				})
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产验收 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">部门：</span>
+							<select type="text" class="date-calender-input">
+								<option value="">研发部</option>
+								<option value="">研发部</option>
+								<option value="">研发部</option>
+							</select>
+
+						</div>
+					</div>
+					<span class="order-tit dtcell">固定资产验收单</span>
+					<div class="grounp order-date dtcell">
+
+						<span class="fc-2">单号：</span>
+						<span class="fc-6">512488623</span>
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box">
+					<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<td></td>
+							<td class=order-td-width01>供应商</td>
+							<td class=order-td-width01>物品名称</td>
+							<td class=order-td-width01>规格型号</td>
+							<td class=order-td-width01>单位</td>
+							<td class=order-td-width01>数量</td>
+							<td class=order-td-width01>单价</td>
+							<td class=order-td-width01>金额</td>
+							<td class=order-td-width01>采购人</td>
+							<td class=order-td-width01>到货日期</td>
+							<td class=order-td-width01>存放地点</td>
+							<td class=order-td-width01>使用年限</td>
+							<td class=order-td-width01>备注</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wid80">
+									<span class="fs-18" onclick="addrow()"> + </span>
+									<span class="fs-20">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" >
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wid80">
+									<span class="fs-18" onclick="addrow()"> + </span>
+									<span class="fs-20" onclick="minusrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" onfocus="indexesfocus(this)" />
+								<ul class="position-a indexes-list">
+								</ul>
+							</td>
+						</tr>
+					</table>
+					
+					<table class="table table-bordered check_table" id="opinin">
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable">
+									<div class="order-td-width03 bord-r dtcell vtm">检验内容</div>
+									<div class="bord-r dtcell">
+										<textarea class="" rows="3" cols=""></textarea>
+									</div>
+									<div class="order-td-width03 bord-r dtcell vtm">验收结论与意见</div>
+									<div class="dtcell padb5">
+										<textarea class="width-all" rows="3" cols=""></textarea>
+										<div class="dtable">
+											<div class="dtcell wtd-half">
+												<div class="dtable width-all">
+													<span class="dtcell dtcl-span">验收人：</span>
+													<input type="" class="dtcl-input dtcell bgc-2 boxshow06" />
+												</div>
+
+											</div>
+											<div class="dtcell wtd-half">
+												<div class="dtable width-all">
+													<span class="dtcell dtcl-span">日期：</span>
+													<input type="" class="dtcl-input dtcell bgc-2 boxshow06" readonly/>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm">意见</div>
+									<div class="dtcell pad15">
+										<div class="position-r">
+											<span class="prompt-text position-a fc-7">原因说明</span>
+											<textarea class=" textarea-block bgc-2" rows="3"  onkeyup="changePlacehoder(this)" ></textarea>
+											<input type="text" style="display:none;">
+										</div>
+
+										<div class="width-all">
+											<div class="department">
+												<select name="" class="position-department-sele bgimg-select">
+													<option value="">研发部</option>
+													<option value="">人事部</option>
+													<option value="">研发部</option>
+												</select>
+												<div class="dsplin signature">
+													<div class="signature01">
+														<span class="signature-mask spanhgt">自动签章</span>
+														<input type="" class="signature-input sihgt"  onkeyup="changePlacehoder(this)" />
+														<input type="text" style="display:none;">
+													</div>
+
+												</div>
+											</div>
+											<div class="text-right padr15">
+												<div class="audit-person">
+													<div class="radiocheckitem  fs-16">
+														<input type="radio" id="agree" checked="checked" name="agreeyorn" value="agree">
+														<label name="agreeyorn" class="label-checked label-agree" for="agree">同意</label>
+													</div>
+													<div class="radiocheckitem fs-16">
+														<input type="radio" id="disagree" name="agreeyorn" value="disagree">
+														<label class="label-agree" name="agreeyorn" for="disagree">不同意</label>
+													</div>
+													<div class="dsplin change-date-box fs-12 fc-2">
+														<span>日期：</span>
+														<input type="text" class="change-date" readonly/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="addlistrow text-center fs-20 fr" onclick="addOpinion('#opinin')">+</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03">提交</span>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——领用申请审核</title>
+		<link rel="stylesheet" href="__PUBLIC__/css/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+	</head>
+
+	<body class="inner">
+		<include file="Public/header" />
+	  <include file="Public/nav" />
+		<div id="change_audie_box">
+			<a href="<?php echo U('check',array('status'=>1))?>" class="change_audie_list"><span <?php if($status==1):?>class="audie_list_active"<?php endif;?>>未审核</span></a>
+			<a href="<?php echo U('check',array('status'=>3))?>" class="change_audie_list flex"><span <?php if($status==3):?>class="audie_list_active"<?php endif;?>>已审核</span></a>
+			<a href="<?php echo U('check',array('status'=>4))?>" class="change_audie_list"><span <?php if($status==4):?>class="audie_list_active"<?php endif;?>>历史</span></a>
+		</div>
+		<table class="am-table am-table-bordered am-table-striped table_limit lists">
+			<thead>
+				<tr>
+					<th>领用单号</th>
+					<th>申请人</th>
+					<th>部门</th>
+					<th>审核状态</th>
+					<?php if($status==1):?>
+						<th>操作</th>
+					<?php endif;?>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if($list):?>
+					<?php foreach($list as $v):?>
+				<tr>
+					<td><a href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>" class="audit_already"><?php echo $v['order_sn']?></a></td>
+					<td><?php echo $v['applyer']?></td>
+					<td><?php echo $v['depart_name']?></td>
+					<?php if($v['status']==1):?>
+					<td>
+					<a class="audit_begin" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">未审核</a>
+					</td>
+				 <?php endif;?>
+				 <?php if($v['status']==2):?>
+					<td>
+					<a class="audit_begin" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">审核中</a>
+					</td>
+				 <?php endif;?>
+				 <?php if($v['status']==3):?>
+					<td>
+					<a class="audit_notpass" href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>">
+					未通过</a>
+					</td>
+				 <?php endif;?>
+				 <?php if($v['status']==4):?>
+					<td>
+					<a href="<?php echo U('checkdetail',array('id'=>$v['r_id']))?>" class="audit_already">
+					已审核
+					</a>
+					</td>
+				 <?php endif;?>
+				 <?php if($status==1):?>
+						<td>
+
+						<?php if($adminId==$v['create_id']):?>
+						<a href="{:U('edit',array('id'=>$v['r_id']))}">编辑</a>
+					<?php else:?>
+						无操作
+					<?php endif;?>
+						</td>
+						<?php endif;?>
+				</tr>
+				<?php endforeach;?>
+					<?php else:?>
+						<tr>
+							<td <?php if($status==1):?> colspan="5"<?php else:?>colspan="4"<?php endif;?> style="text-align: center;">没有任何信息</td>
+						</tr>
+					<?php endif;?>
+			</tbody>
+		</table>
+	</body>
+	<include file="Public/footer" />
+  <script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+			// 每页展示5个
+			var size = 10;
+			var status ="{$status}";
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/Receive/ajaxcheck/page/'+page+'/size/'+size+'/status/'+status,
+   						dataType: 'json',
+   						success: function(data) {
+     						// alert(page);
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+	   									result += '<tr>' +
+	   									'<td>' + data[i].url + '</td>' +
+	   									'<td>' + data[i].applyer + '</td>' +
+	   									'<td>' + data[i].depart_name + '</td>' +
+	   									'<td class="audit_notpass">' + data[i].statusinfo + '</td>' +data[i].statuseq1+
+	   									'</tr>';
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+			
+		//审核栏吸顶
+		var stickyTop = $("#change_audie_box")[0].offsetTop;
+		window.onscroll = function(e) {
+		var scrollT = $("body")[0].scrollTop;
+		if(scrollT > stickyTop) {
+			$("#change_audie_box").addClass('fixed-top');
+		} else {
+			$("#change_audie_box").removeClass('fixed-top');
+		}
+		};
+	});
+	</script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——领用查询——查看</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+	</head>
+
+	<body>
+			<include file="Public/header" />
+		  <include file="Public/nav" />
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detaillist[0]['order_sn']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo date('Y-m-d',$detaillist[0]['apply_time'])?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">申请人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detaillist[0]['applyer']?></label>
+			</div><div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detaillist[0]['depart_name']?></label>
+			</div>
+		</div>
+		
+		<div class="asset_co_box">
+		<?php foreach($detaillist as $detail):?>
+			<div class="asset_con_box">
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detail['assets_name']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detail['receive_spec']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">数量</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detail['number']?></label>
+				</div>
+				<div class="am-form-group asset_list">
+					<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">金额</label>
+					<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detail['price_total']?></label>
+				</div>
+			</div>
+			
+			<?php endforeach;?>
+		</div>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">合计</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detaillist[0]['price_total']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">备注</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $detaillist[0]['re_remark']?></label>
+			</div>
+		</div>
+		
+		<div class="asset_postil_box">
+		<?php foreach($auditlist as $v):?>
+			<div class="asset_postil">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin"><?php if($v['audit_status']==1):?>
+											未审核
+										<?php elseif($v['audit_status']==3):?>
+											不同意
+										<?php else:?>
+											同意
+										<?php endif;?></label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num"><?php echo $v['depart_name']?></label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line"><?php echo $v['username']?></label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">
+					<?php if($v['re_time']):?>
+						<?php echo date('Y-m-d',$v['re_time'])?>
+					<?php else:?>
+						&nbsp;
+					<?php endif;?>
+					</label>
+				</div>
+				<div class="cle"></div>
+			</div>
+			<?php endforeach;?>
+			<a  href="<?php echo U('index')?>"><input type="button" class="back_btn" value="返回" style="margin-bottom: 2rem;"></input></a>
+		</div>
+	</body>
+
+</html>

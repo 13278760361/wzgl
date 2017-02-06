@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产盘点</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body style="background: #FFFFFF;" class="inner">
+ 		<include file="Public/header" />
+		<include file="Public/nav" />
+ 
+		<form method="get" action="__SELF__">
+		<div class="mess_search">
+			<a href="{:U('ass')}" class="jia_btn">
+				<img src="__IMG__/jia.png" />
+			</a>
+			<div class="search_box">
+				<input id="search_key" name="assets_name" type="text" placeholder="输入物品名称进行查询" />
+				<div class="search_ico">
+					<img src="__IMG__/search.png"  onclick="forms[0].submit();" style="cursor:pointer;" />
+				</div>
+			</div>
+		</div>
+		</form>
+		<div class="am-scrollable-horizontal complex_table">
+			<table class="am-table am-table-bordered am-table-striped am-text-nowrap lists">
+				<thead>
+					<tr>
+						<th rowspan="2">序号</th>
+						<th rowspan="2">资产代码</th>
+						<th rowspan="2">物品名称</th>
+						<th rowspan="2">规格型号</th>
+						<th rowspan="2">部门</th>
+						<th rowspan="2">使用时间</th>
+						<th rowspan="2">使用年限</th>
+						<th rowspan="2">单位</th>
+						<th colspan="2">入库</th>
+						<th colspan="2">增值税</th>
+						<th colspan="2">出库</th>
+						<th colspan="2">其中：毁损待报废</th>
+						<th colspan="2">盘盈(亏)</th>
+						<th rowspan="2">盘点</th>
+					</tr>
+					<tr>
+						<th>数量</th>
+						<th>原值</th>
+						
+						<th>税率</th>
+						<th>税额</th>
+						
+						<th>数量</th>
+						<th>原值</th>
+						
+						<th>数量</th>
+						<th>原值</th>
+						
+						<th>数量</th>
+						<th>原值</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+                    
+                    <volist name="list" id="vo">
+                <tr>
+                    <td>{$i+$index}</td>
+                    <td>{$vo.sn}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.spec}</td>
+                    <td>{$vo.department}</td>
+                    <td>{$vo.start_date}</td>
+                    <td>{$vo.service_life}</td>
+                    <td>{$vo.unit}</td>
+                    <td>{$vo.inStock_amount}</td>
+                    <td>{$vo.inStock_totalPrice}</td>
+                    <td>{$vo.outStock_amount}</td>
+                    <td>{$vo.outStock_totalPrice}</td>
+                    <td>{$vo.vat_rate}</td>
+                    <td>{$vo.taxval}</td>
+                    <td>{$vo.scrap_num}</td>
+                    <td>{$vo.scrap_total}</td>
+                    <td>{$vo.account_num}</td>
+                    <td>{$vo.account_total}</td>
+                    <td>
+                        <switch name="vo.is_inventory">
+                            <case value="0"><span class="fc-8">未盘点</span></case>
+                            <case value="1">已盘点</case>
+                            <default/>
+                            <span class="fc-8">未盘点</span></switch>
+                    </td>
+                </tr>
+            </volist>
+					
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<include file="Public/footer" />
+	<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+   			// 每页展示5个
+   			//var size = {$mPagesize};
+			var assets_name = "{$assets_name}";
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/LowCalculate/assApi?p='+page+"&&assets_name="+assets_name,
+   						dataType: 'json',
+   						success: function(data) {
+     						
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+										 var is_inventory = "";
+										 if(data[i].is_inventory==1){
+											is_inventory = '已盘点';
+										 }else{
+											is_inventory = '<span class="fc-8">未盘点</span>';
+										 }
+										//result
+	   									result += '<tr>' +
+	   									'<td>' + ({$index}+i*1) + '</td>' +
+	   									'<td>' + data[i].sn + '</td>' +
+	   									'<td>' + data[i].name + '</td>' +
+	   									'<td>' + data[i].spec + '</td>' +
+	   									'<td>' + data[i].department + '</td>' +
+	   									'<td>' + data[i].start_date + '</td>' +
+	   									'<td>' + data[i].service_life + '</td>' +
+	   									'<td>' + data[i].unit + '</td>' +
+	   									'<td>' + data[i].inStock_amount + '</td>' +
+	   									'<td>' + data[i].inStock_totalPrice + '</td>' +
+	   									'<td>' + data[i].outStock_amount + '</td>' +
+	   									'<td>' + data[i].outStock_totalPrice + '</td>' +
+	   									'<td>' + data[i].vat_rate + '</td>' +
+	   									'<td>' + data[i].taxval + '</td>' +
+	   									'<td>' + data[i].scrap_num + '</td>' +
+	   									'<td>' + data[i].scrap_total + '</td>' +
+	   									'<td>' + data[i].account_num + '</td>' +
+	   									'<td>' + data[i].account_total + '</td>' +
+	   									'<td>' + is_inventory + '</td>' +
+	   									'</tr>';	
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+		});
+	</script>
+</html>

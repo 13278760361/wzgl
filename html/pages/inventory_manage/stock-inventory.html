@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/calendar.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>库存盘点</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存盘点 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+					<span class=" fs-14 boxshow03 top-btn">导出Excel</span>
+				</div>
+
+			</div>
+			<!--表格-->
+			<div class="date-table padb15 notprint">
+
+				<div class="topbtn">
+					<div class="dsplin card-num">
+						<span>物品名称：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" value="" />
+					</div>
+					<select name="" class="associated-drop  list-top-inputboxshadow">
+						<option value="">年</option>
+					</select>
+					<select name="" class="associated-drop list-top-inputboxshadow">
+						<option value="">季度</option>
+					</select>
+					<select name="" class="associated-drop  list-top-inputboxshadow">
+						<option value="">月份</option>
+					</select>
+					<a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;">
+						搜索
+					</a>
+				</div>
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<thead class="bgc-2">
+						<tr>
+							<th rowspan="2">序号</th>
+							<th rowspan="2">物品名称</th>
+							<th rowspan="2">规格型号</th>
+							<th rowspan="2">单位</th>
+							<th colspan="3">入库</th>
+							<th colspan="3">出库</th>
+							<th colspan="3">库存</th>
+						</tr>
+						<tr>
+							<th>单价</th>
+							<th>数量</th>
+							<th>金额</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>金额</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>金额</th>
+						</tr>
+					</thead>
+					<tr>
+						<td>1</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<td rowspan="2" class="wid80"><span class="vtm">入库合计</span></td>
+						<td class="wid80">统计数量</td>
+						<td></td>
+						<td rowspan="2" class="wid80 vtm">出库合计</td>
+						<td class="wid80">统计数量</td>
+						<td></td>
+						<td rowspan="2" class="wid80 vtm">出入库差额合计</td>
+						<td class="wid80">统计数量</td>
+						<td></td>
+						
+					</tr>
+					<tr>
+						<td>统计金额</td>
+						<td></td>
+						<td>统计金额</td>
+						<td></td>
+						<td>统计金额</td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<div class="change-num notprint">
+				<div class="munleft dsplin fc-2">
+					<a class="xiahuaxiana">首页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">上一页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">下一页</a>
+					<a class="xiahuaxiana">尾页</a>
+					<div class="jump">
+						<input type="text" value="1" />
+						<span>跳转</span>
+					</div>
+				</div>
+				<div class="munright dsplin fr fc-3 fs-14">
+					<div class="rigback-item dsplin">
+						<span>当前页为第</span>
+						<span id="nownum">1</span>
+						<span>页</span>
+					</div>
+					<div class="rigback-item dsplin">
+						<span>共</span>
+						<span id="totalnum">3</span>
+						<span>页</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 800px;">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped table-list  boxshow02">
+
+								<tr>
+									<th>序号</th>
+									<th>卡片单号</th>
+									<th>资产分类</th>
+									<th>物品名称</th>
+									<th>规格型号</th>
+									<th>供应商</th>
+									<th>部门</th>
+									<th>保管人</th>
+									<th>存放地点</th>
+									<th>金额</th>
+									<th>开始使用时间</th>
+								</tr>
+
+								<tr>
+									<td>1</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+
+								</tr>
+								<td>1</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<tr>
+									<td>1</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

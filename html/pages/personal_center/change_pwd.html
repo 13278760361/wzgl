@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户设置——修改密码</title>
+		<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/page_element.css" />
+		<link rel="stylesheet" href="../../css/common.css" />
+		<link rel="stylesheet" href="../../css/pages-sty.css" />
+	</head>
+
+	<body>
+		<!--个人中心中间部分-->
+		<div id="person_mid">
+			<div class="person_nav">
+				<span>用户设置</span>
+				<span class="person_grade">》</span>
+				<span>修改密码</span>
+			</div>
+			<div class="pserson_box">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-3 control-label person_box_f">原密码</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="old_password" placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-3 control-label person_box_f">新密码</label>
+						<div class="col-sm-6">
+							<input type="password" class="form-control" id="new_password" placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-3 control-label person_box_f">再次输入</label>
+						<div class="col-sm-6">
+							<input type="password" class="form-control" id="again_password" placeholder="">
+						</div>
+						<div class="col-sm-2 warning">*两次输入不一致</div>
+					</div>
+					
+					<div class="textcenter mrg-t50 notprint">
+						<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline">保存</span>
+						<span class="back-btn dpl fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle">取消</span>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--个人中心中间部分结束-->
+	</body>
+	<script type="text/javascript" src="../../js/jquery-1.9.1.min.js" ></script>
+	<script>
+		//判断密码是否一致
+		$(function(){
+			$("#new_password,#again_password").focus(function(){
+				$(".warning").hide();
+			});
+			$(".btn_inline").click(function(){
+				if($("#new_password").val() != $("#again_password").val()){
+					$(".warning").show();
+				}
+			})
+		})
+	</script>
+</html>

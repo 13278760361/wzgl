@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pages-sty.css" />
+		<title>系统设置</title>
+	</head>
+
+	<body>
+		<div class="warps">
+			<div class="header">
+				<div class="logo">
+					<img src="../images/logo.png" />
+					<span class="system-name">物资管理平台</span>
+				</div>
+				<div class="menu">
+					<div class="menu-box">
+						<div class="list-box">
+							<div class="menu-list">
+								<span class="menu-item menu-active">首页</span>
+								<span class="menu-item">库存管理</span>
+								<span class="menu-item">固定资产管理</span>
+								<span class="menu-item">系统设置</span>
+							</div>
+						</div>
+						<div class="system-set">
+							<span class="system-item dpl system-active">消息</span>
+							<span class="system-item dpl">管理员</span>
+							<span class="system-item dpl">退出</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="main">
+				<div class="left-menu-box">
+					<div class="main-menu">
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>用户设置</span>
+									<img src="../images/xiala.png" />
+								</div>
+							</div>
+							<!--<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+							</ul>-->
+						</div>
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>角色配置</span>
+									<img src="../images/xiala.png" />
+								</div>
+							</div>
+							<!--<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+							</ul>-->
+						</div>
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>系统配置</span>
+									<img src="../images/xiala.png" />
+								</div>
+
+							</div>
+							<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										名称
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										部门
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										单号
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>系统监测</span>
+									<img src="../images/xiala.png" />
+								</div>
+							</div>
+							<!--<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+							</ul>-->
+						</div>
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>系统日志</span>
+									<img src="../images/xiala.png" />
+								</div>
+							</div>
+							<!--<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+							</ul>-->
+						</div>
+						
+						<div class="mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>恢复备份</span>
+									<img src="../images/xiala.png" />
+								</div>
+							</div>
+							<!--<ul class="item-ul">
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+								<li>
+									<div class="item-li-box">
+										123456
+									</div>
+								</li>
+							</ul>-->
+						</div>
+					</div>
+				</div>
+				<div class="main-content">
+					<!--页面内容-->
+					<div class="container-fluid">
+						<!--页面导航条-->
+						<div class="nav">
+							<a class="nav-item">固定资产管理 </a>
+							<img src="../images/ic_keyboard_arrow_right.png" />
+							<a class="nav-item">固定资产审核 </a>
+							<img src="../images/ic_keyboard_arrow_right.png" />
+							<a class="nav-item">资产月结 </a>
+
+						</div>
+						
+						<!--内容-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				/*点击变换菜单样式*/
+				$(".item-ul li").each(function() {
+					$(this).click(function() {
+						$(".item-ul li").removeClass("item-li-active")
+						$(this).addClass("item-li-active");
+						//						$(this).siblings().removeClass("item-li-active");
+
+					})
+				})
+
+				$(".menu-list span").each(function() {
+					$(this).click(function() {
+						$(this).addClass("menu-active");
+						$(this).siblings().removeClass("menu-active");
+
+					})
+				})
+
+				$(".system-item").each(function() {
+						$(this).click(function() {
+							$(this).addClass("system-active");
+							$(this).siblings().removeClass("system-active");
+
+						})
+					})
+					/*点击变换表格标签样式   添加背景颜色*/
+				$(".tab-table").each(function() {
+						$(this).click(function() {
+							$(this).addClass("tab-active");
+							$(this).siblings().removeClass("tab-active");
+
+						})
+					})
+					/**/
+				var flag = 0;
+				$(".item-tit-box").each(function() {
+
+						$(this).click(function() {
+							if(flag == 0) {
+								$(this).children("img").attr("src", "../images/xoala01.png")
+								$(this).parent().next().show()
+								flag = 1;
+							} else {
+								$(this).children("img").attr("src", "../images/xiala.png")
+								$(this).parent().next().hide();
+								flag = 0;
+							}
+
+						})
+
+					})
+					/*菜单滚动条设置*/
+				var h = $(window).height() - 90;
+				$(".left-menu-box").css({
+					"height": h + 'px',
+					"overflow-y": 'auto'
+				});
+				$(".main-content").css({
+					"height": h + 'px',
+					"overflow-y": 'auto'
+				});
+
+				
+			})
+		</script>
+	</body>
+
+</html>

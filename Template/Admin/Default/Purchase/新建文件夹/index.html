@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>采购查询列表</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/purchaseSty.css" />
+		<script type="text/javascript" src="__JS__/jquery.min.js" ></script>
+		<script type="text/javascript" src="__JS__/bootstrap.min.js" ></script>
+	</head>
+
+	<body>
+		<div id="purchase_con">
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">采购查询 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" ><a href="{:U('add')}" style="color:#fff;">新增</a></span>
+					<!-- <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn">打印</span> -->
+					<a class=" fs-14 boxshow03 top-btn" style="color:#fff;" href="{:U('Upload/export',I())}">导出为excel</a>
+				</div>
+			</div>
+			<form method="get" action="{:U('index')}" id="purchase_form">
+			<div class="pur_search_box">
+				<label>
+					<span class="fs-14 fc-2">单号：</span>
+					<input type="text" name="order_sn" class="associated-drop big-drop list-top-inputboxshadow" value="{$order_sn}"/>
+				</label>
+				<label>
+					<span class="fs-14 fc-2">物品名称：</span>
+					<input type="text" name="assets_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$assets_name}"/>
+				</label>
+				<label>
+					<span class="fs-14 fc-2">部门：</span>
+					<select name="" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择部门--</option>
+						<volist name="departs" id="vo">
+							<option value="{$vo.id}">{$vo.fullname}</option>
+						</volist>
+					</select>
+					
+				</label>
+				<label>
+					<input type="text" id="str_time" name="str_time" class="associated-drop big-drop list-top-inputboxshadow" readonly="" placeholder="例：2016-11-06" />
+					<span class="fs-14 fc-2">到</span>
+					<input type="text" id="end_time" name="end_time" class="associated-drop big-drop list-top-inputboxshadow" readonly="" placeholder="例：2016-11-09" />
+				</label>
+				<label>
+					<a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;" id="seach">
+						搜索
+					</a>
+				</label>
+			</div> 
+			</form>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<th>采购单号</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>申请人</th>
+						<th>部门</th>
+						<th>申请日期</th>
+						<th>数量</th>
+						<th>预算金额</th>
+					</tr>
+					<volist name="lists" id="vo">
+					<tr>
+						<td><a href="{:U('check',array('shop_id'=>$vo['id']))}">{$vo.order_sn}</a></td>
+						<td>{$vo.goods_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.applyer}</td>
+						<td>{$vo.depart}</td>
+						<td>{$vo.apply_time|date='Y-m-d',###}</td>
+						<td>{$vo.num}</td>
+						<td>{$vo.total_price}</td>
+					</tr>
+					</volist>
+				</table>
+			</div>
+			<div class="change-num ">
+				{$page}
+			</div>
+		</div>
+		</div>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 85%;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class=" order-card bgc-1">
+							<!--表单标题部分 start-->
+							<div class="preview_box">云南昆卫教育集团</div>
+							<div class="preview_tit">采购信息</div>
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-list  boxshow02">
+									<tr>
+										<th>采购单号</th>
+										<th>物品名称</th>
+										<th>规格型号</th>
+										<th>申请人</th>
+										<th>部门</th>
+										<th>申请日期</th>
+										<th>数量</th>
+										<th>预算金额</th>
+									</tr>
+
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>1</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+							</div>
+							<!--表单内容部分 end-->
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+		<script type="text/javascript">
+		$(function() {
+	
+			
+			$('#str_time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		    $('#end_time').datetimepicker({
+		        format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		   
+		});
+		$("#seach").click(function(){
+			$("#purchase_form").submit();
+		});
+		</script>
+	</body>
+
+</html>

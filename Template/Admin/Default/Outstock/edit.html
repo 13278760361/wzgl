@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="author" content="xx_xh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+<link rel="stylesheet" href="__CSS__/purchaseSty.css" />
+<link rel="stylesheet" href="__CSS__/adjust_IE8.css" />
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.table.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+
+<title>出库-编辑</title>
+</head>
+
+<body>
+<!--页面内容-->
+<div class="container-fluid" id="purchase_con"> 
+  <!--页面导航条-->
+  <div class="nav notprint"> <a class="nav-item">库存管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">库存查询 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">出库查询 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">审核</a>
+    <div class="topbtn fr"> <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal" onclick="showH()">预览</span> <span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> </div>
+  </div>
+  <!--内容-->
+  
+  <div class="boxshow02 order-card bgc-1"> 
+    <!--表单标题部分 start-->
+    <div class="detaile-top dtable">
+      <div class="ordernum dtcell"> <span class="fc-2">单号：</span> 
+        <span class="fc-6" info-data="order_sn">{$data['order_sn']}</span>
+        </div>
+      <span class="order-tit dtcell">出库申请表</span>
+      <div class="grounp order-date dtcell">
+        <div class="dtable date-calender"> <span class="date-calender-name"></span> </div>
+      </div>
+    </div>
+    <div class="proposer_de">
+      <label> <span class="fs-14 fc-2">部门：</span>
+      <select class="associated-drop big-drop list-top-inputboxshadow" name="depart" info-data="depart"  
+         title="{$data.depart_name}" >
+        <option value="">选择部门</option>
+        <volist name="departs" id="vo"  > <option value="{$vo.id}" 
+          <if condition="$vo.id eq $data['depart']" >selected</if> >{$vo.fullname}
+          </option>
+        </volist>
+        </select>
+      </label>
+      <label> <span class="fs-14 fc-2">联系人：</span> <input type="text"  info-data="contacter" class="associated-drop big-drop list-top-inputboxshadow"        value="<if condition="$data">{$data['contacter']}</if>" /> </label>
+      <label> <span class="fs-14 fc-2">联系方式：</span> <input type="text" class="associated-drop big-drop list-top-inputboxshadow"   info-data="supplier_phone"        value="<if condition="$data">{$data['supplier_phone']}</if>"    /> </label>
+    </div>
+    <!--表单标题部分 end--> 
+    <!--表单内容部分 start-->
+    <div class="table-order-box position-r">
+      <table class="table table-bordered check_table" id="addList">
+        <thead>
+          <tr>
+
+              <td class=order-td-width01></td>
+              <td class=order-td-width02 field="goods_id" style="display:none;">物品ID</td>
+              <td class=order-td-width02 field="supplier_id" style="display:none;">供应商ID</td>
+
+            <td class=order-td-width02 field="assets_name">物品名称</td>
+            <td class=order-td-width02 field="spec">规格型号</td>
+            <td class=order-td-width02 field="unit">单位</td>
+            <td class=order-td-width01 field="stocknum">库存</td>
+            <td class=order-td-width01 field="num">数量</td>
+            <td class=order-td-width02 field="price">单价</td>
+            <td class=order-td-width02 field="total">金额</td>
+            <td class=order-td-width01 field="remark">备注</td>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><div class=order-td-width01> <span class="fs-18" onclick="addrow()"> + </span> <span class="fs-20" onclick="delrow(this)">-</span> </div></td>
+            <td class="position-r" style="display:none;"><input type="text"     class="input-td"/></td>
+            <td class="position-r" style="display:none;"><input type="text"    class="input-td"/></td>
+            <td class="position-r"><input type="text" class="input-td"       /></td>
+            <td class="position-r"><input type="text" class="input-td"       /></td>
+            <td class="position-r"><input type="text" class="input-td"        /></td>
+            <td class="position-r" style="cursor:pointer" title="温馨提示：出库数量不可大于库存"><!--库存-->
+              
+              <input type="text" class="input-td" readonly style="text-align:center"      /></td>
+            <td class="position-r"><input type="text" class="input-td num"     /></td>
+            <td class="position-r"><input type="text" class="input-td price"      /></td>
+            <td class="position-r"><input type="text" class="input-td total"       name="total" /></td>
+            <td class="position-r"><input type="text" class="input-td"      /></td>
+          </tr>
+
+        <volist name="gdata" id="vo">
+          <tr>
+              <td><div class=order-td-width01> <span class="fs-18" onclick="addrow()"> + </span> <span class="fs-20" onclick="delrow(this)">-</span> </div></td>
+              <td class="position-r" style="display:none;"><input type="text" class="input-td" info-m{$i}="goods_id" value="{$vo.goods_id}"/></td>
+              <td class="position-r" style="display:none;"><input type="text" class="input-td" info-m{$i}="supplier_id" value="{$vo.supplier_id}"/></td>
+              
+            <td class="position-r"><input type="text" class="input-td" value="{$vo.goodsname}"  info-m{$i}="assets_name"  readonly  /></td>
+            <td class="position-r"><input type="text" class="input-td" value="{$vo.spec}"  info-m{$i}="spec"    readonly /></td>
+            <td class="position-r"><input type="text" class="input-td"  value="{$vo.unit}"  info-m{$i}="unit"    readonly   /></td>
+            <td class="position-r" style="cursor:pointer" title="温馨提示：出库数量不可大于库存"><!--库存-->
+              
+              <input type="text" class="input-td" readonly style="text-align:center"  value="{$vo.stocknum}"   info-m{$i}="stocknum"  readonly  /></td>
+            <td class="position-r"><input type="text" class="input-td num"  value="{$vo.num}"   info-m{$i}="num"    /> </td>
+            <td class="position-r"><input type="text" class="input-td price"   info-m{$i}="price"      value="{$vo.price|str_replace=".00","",###}"       /> </td>
+            <td class="position-r"><input type="text" class="input-td total"   info-m{$i}="total"      name="total"  value="{$vo.total|str_replace=".00","",###}"  /> </td>
+            <td class="position-r"><input type="text" class="input-td"   info-m{$i}="remark"      value="{$vo.singleremark}"   /> </td>
+          </tr>
+        </volist>
+
+          </tbody>
+        
+      </table>
+      <table class="table table-bordered check_table" id="NewOpinion">
+        <tr>
+        <tr>
+          <td  class="width240">合计</td>
+          <td colspan="7"><input type="text"    class="purchase_total"  info-data="total_price"  value="
+            <if condition="$data">{$data['total_price']|str_replace=".00","",###}</if>
+            " /> </td>
+        </tr>
+        <tr class="purchase_remark">
+          <td  class="width240">备注</td>
+          <td colspan="7"><textarea rows="5"  info-data="remark" >
+            <if condition="$data">{$data['remark']}</if>
+            </textarea></td>
+        </tr>
+        <tr>
+          <td >经办人</td>
+          <td ><input type="text" class="purchase_total"   info-data="managers"  value="<if condition="$data">{$data['managers']}</if>" /> </td>
+          <td>联系方式</td>
+          <td colspan="2"><input type="text"  info-data="managers_phone"  class="purchase_total" value="<if condition="$data">{$data['managers_phone']}</if>
+            " /> </td>
+          <td>日期</td>
+          <td colspan="3"><input type="text" class="purchase_total"      value="<if condition="$data">
+            {$data['apply_time']|date="Y-m-d",###}
+            </if>
+            " /> </td>
+        </tr>
+        <volist name="adata" id="vo" >
+          <tr class="" id="add" key="0">
+            <td colspan="9" style="padding: 0 ;"><div class="opinion-row dtable width-all">
+                <div class="bord-r dtcell vtm width239">意见</div>
+                <div class="dtcell pad15 bord-r">
+                  <div class="position-r">
+                   
+                   
+    
+                <div class="position-r">
+                    <span class="prompt-text position-a fc-7 notprint">原因说明</span>
+                    <textarea class=" textarea-block bgc-2" rows="3" readonly  onkeyup="changePlacehoder(this)" ></textarea>
+                    <input type="text" style="display:none;">
+                </div>
+                
+                    
+                    
+                  </div>
+                  <div class="width-all">
+                   
+ 
+                    <div class="department">
+                      <select accep-acp="depar" class="position-department-sele bgimg-select120 fl bgimg-select" info-data="depart_id">
+                        <option value="">请选择</option>
+                        <volist name="departs" id="voo"  >
+                          <option value="{$voo.id}" <if condition="$voo.id eq $vo['depart_id']"> selected </if> >{$voo.fullname}</option>
+                        </volist>
+                      </select>
+     				<div class="dsplin signature notprint fl_ie">
+                        <div class="signature01"> <span class="signature-mask spanhgt">自动签章</span>
+                          <input type="" class="signature-input sihgt"  onkeyup="changePlacehoder(this)" />
+                          <input type="text" style="display:none;">
+                        </div>
+                      </div>
+                    </div>
+    
+         
+                    
+        <div class="text-right padr15">
+                <div class="audit-person">
+                    <div class="radiocheckitem  fs-16">
+                        <input type="radio" id="agree"   value="agree">
+                        <label  class="label-agree" for="agree" disabled="disabled">同意</label>
+                    </div>
+                    <div class="radiocheckitem fs-16">
+                        <input type="radio" id="disagree"  value="disagree">
+                        <label class="label-agree"  for="disagree" disabled="disabled">不同意</label>
+                    </div>
+                    <div class="dsplin change-date-box fs-12 fc-2">
+                        <span>日期：</span>
+                        <input type="text" class="change-date" readonly/>
+                    </div>
+                </div>
+            </div>
+       </div>
+                 </div> 
+                <div class="dtcell position-r notprint" style="width:120px; 
+
+                  
+ 
+                  
+                  ">
+                  
+                  <div class="bgc-2 position-a position-a_top0 width-all delete-opinion">操作</div>
+                  <div> <a class="opinion-dlt-a dele_IE">删除</a> </div>
+                </div>
+              </div></td>
+          </tr>
+        </volist>
+         
+          <tr class="not_dele" id="addaudit" key="0">
+            <td colspan="9" style="padding: 0 ;"><div class="opinion-row dtable width-all">
+                <div class="bord-r dtcell vtm width239">意见</div>
+                <div class="dtcell pad15 bord-r">
+                  <div class="position-r"> <span class="prompt-text position-a fc-7 notprint">原因说明</span>
+                    <textarea class=" textarea-block bgc-2" rows="3" readonly  onkeyup="changePlacehoder(this)" ></textarea>
+                    <input type="text" style="display:none;">
+                  </div>
+                  <div class="width-all">
+                    <div class="department">
+                      <select accep-acp="depar" class="position-department-sele bgimg-select120 fl bgimg-select" info-data="depart_id">
+                        <option value="">请选择</option>
+                        <volist name="departs" id="vo"  >
+                          <option value="{$vo.id}">{$vo.fullname}</option>
+                        </volist>
+                      </select>
+                      <div class="dsplin signature notprint fl_ie">
+                        <div class="signature01"> <span class="signature-mask spanhgt">自动签章</span>
+                          <input type="" class="signature-input sihgt"  onkeyup="changePlacehoder(this)" />
+                          <input type="text" style="display:none;">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-right padr15">
+                      <div class="audit-person">
+                        <div class="radiocheckitem  fs-16">
+                          <input type="radio" id="agree"   value="agree">
+                          <label  class="label-agree" for="agree" disabled="disabled">同意</label>
+                        </div>
+                        <div class="radiocheckitem fs-16">
+                          <input type="radio" id="disagree"  value="disagree">
+                          <label class="label-agree"  for="disagree" disabled="disabled">不同意</label>
+                        </div>
+                        <div class="dsplin change-date-box fs-12 fc-2"> <span>日期：</span>
+                          <input type="text" class="change-date" readonly/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dtcell position-r notprint" style="width:120px;">
+                  <div class="bgc-2 position-a position-a_top0 width-all delete-opinion">操作</div>
+                  <div> <a class="opinion-dlt-a dele_IE">删除</a> </div>
+                </div>
+              </div></td>
+          </tr>
+  
+      </table>
+ 
+        <div class="addlistrow text-center fs-20 fr IE_add_ico" onclick="addOpinion('#addaudit','#NewOpinion')">+</div>
+ 
+    </div>
+    <!--表单内容部分 end-->
+    <div class="textcenter mrg-t50 notprint">
+ 
+                 <div style="width:210px;margin:0 auto;margin-bottom:50px;">
+            	<span class="back-btn dpl fs-16 boxshow03" style="margin-right:10px;float:left"  poster="info" action="{:u('Admin/Outstock/edit')}">提交</span>
+            	<span class="back-btn dpl fs-16 boxshow03" style="float:left" onclick="JavaScript:history.back(-1);" onclick="JavaScript:history.back(-1);">返回</span>
+                <div style="clear:both"></div> 
+                 </div>
+ 
+    </div>
+  </div>
+</div>
+
+<!--model-->
+<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog" style="width: 85%;">
+  <div class="modal-content">
+    <div class="modal-body">
+      
+    </div>
+  </div>
+</div>
+</div>
+</body>
+<script>
+		
+<if condition="$Cstatus eq 1 && $data['create_id'] eq $admin_id">  	
+		
+		$(function() {
+			$("#NewOpinion").on("click","a.opinion-dlt-a", function() {
+			if ( $(this).parents('tr').hasClass('not_dele') ) {
+					return;
+				}
+				$(this).parents('tr').remove();
+			});
+			
+			
+			 <if condition="$cControl eq 2">
+				radioChecked("agreeyorn");
+			</if>
+			$("#NewOpinion").on("click","a.opinion-dlt-a", function() {
+			if ( $(this).parents('tr').hasClass('not_dele') ) {
+					return;
+				}
+				$(this).parents('tr').remove();
+			});
+ 
+			$('#time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+			});
+		});
+		
+		var t=new Table('#addList',{submit:'info',input:'assets_name',data:"{:U('get_goods')}",datatype:'post'}).addrow();
+		//calculate();//核算
+		function delrow(o){
+			t.delrow(o.closest('tr'));
+		}
+		function addrow(){
+			t.addrow();
+			//calculate();
+		}
+		
+		$(document).delegate(".total","focus",function(){
+				parent = $(this).parent().parent();
+				price = parent.find('.price').val();
+				num   = parent.find('.num').val();
+				$(this).val(price*num*1);  
+				  
+		})
+		
+		$("input[info-data='total_price']").focus(function(){
+			var total = 0;
+			var inpt = $("#addList tr input[name='total']");
+			for(var i=0;i<inpt.length;i++){
+				total+=Number(inpt.eq(i).val());
+			}
+			$(this).val(total);
+		});
+
+        function showH(){
+            $('#myModal .modal-body .showHtml').remove();
+            var selectarr=[];//克隆出来的select没有选中状态
+            $('select').each(function(){
+                var c=$(this).find('option:selected');
+                if (c.val()&&c.val()!=0) {
+                    selectarr.push($(this).find('option:selected').text())
+                }else{
+                    selectarr.push(' ')
+                }
+
+            })
+            var pr=$('.showHtml');
+            if (pr.size()>0) {
+                pr.html('');
+            }else{
+                pr=$('<div class="showHtml"></div>');
+                $('#myModal .modal-body').append(pr);
+            }
+
+            var html=$('.order-card').clone(true);
+            html.removeClass('order-card');
+            pr.append(html);
+            pr.find('.notprint').remove();
+            pr.find('input').each(function(){
+                var type=$(this).attr('type');
+                if (type=='radio') {
+                    return true;
+                }else{
+                    if ($(this).hasClass('Prdate')) {
+                        $(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+                    }else{
+                        $(this).replaceWith($(this).val())
+                    }
+                }
+            });
+            pr.find('textarea').each(function(){
+                $(this).replaceWith('<div style="height:70px"></div>')
+            });
+            pr.find('select').each(function(i){
+                $(this).replaceWith('<span>部门：'+selectarr[i]+'</span>')
+            });
+        }
+		
+<else/>
+		$(function() {
+			$(".pur_operation_det").on("click", function() {
+				$(this).parent().remove();
+			});
+			 <if condition="$cControl eq 2">
+				radioChecked("agreeyorn");
+			</if>
+			
+		});
+</if>		
+		
+	</script>
+</html>

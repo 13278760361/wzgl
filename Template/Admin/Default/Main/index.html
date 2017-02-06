@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="">
+	<meta name="author" content="xx_xh">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_setting.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+	<title>物资管理系统</title>
+	<style type="text/css">.m-two ul{margin:0px;}</style>
+	<!--[if lte IE 8]>
+	<style>
+		body{margin:0;}
+		iframe{border:0}
+	</style>
+	<![endif]-->
+</head>
+<body>
+<div class="warps">
+	<div class="header">
+		<div class="logo">
+			<img src="__IMG__/logo.png" />
+			<span class="system-name">物资管理平台</span>
+		</div>
+		<div class="menu">
+			<div class="menu-box">
+				<div class="list-box">
+					<div class="m-top menu-list">
+						<span class="m-btn menu-item" onclick="window.location.href='/Admin/Index/index'">首页</span>
+						<volist name="menus" id="vo">
+						<span class="m-btn menu-item">{$vo['title']}</span>
+						</volist>
+					</div>
+				</div>
+				<div class="system-set position-r">
+					<span class="system-item dpl system-active" url="{:U('Index/messages')}">消息</span>
+					<div class="system-item" id="adminmenupart">
+						<span  class="S_Administrator_btn">管理员</span>
+						<ul class="S_Administrator_box boxshow02">
+							<li url="{:U('Index/personal')}"><a>个人中心</a></li>
+							<li url="{:U('Index/changer')}"><a>修改密码</a></li>
+						</ul>
+					</div>
+					
+					<span class="system-item dpl" onclick="logout()">退出</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main">			
+		<div class="left-part">
+			<div class="left-menu">
+				<div class="m-box left-menu-box">
+					<div class="m-one main-menu" style="display:none"></div>
+					<volist name="menus" id="one">
+					<div class="m-one main-menu">
+						<volist name="one['_child']" id="two">
+						<div class="m-two mian-menu-item">
+							<div class="item-tit">
+								<div class="item-tit-box">
+									<span>{$two['title']}</span>
+									<img src="__IMG__/xiala.png" />
+								</div>
+							</div>
+							<notempty name="two['_child']">
+							<ul class="item-ul">
+								<volist name="two['_child']" id="thr">
+								<li class="m-three" url="{$thr['name']}" <eq name="thr['ishide']" value="1">hide="1" style="display:none;"</eq> >
+									<div class="item-li-box">{$thr['title']}</div>
+									<p style="display:none;">
+										<?php foreach($thr['_child'] as $fou){?>
+										<span class="m-four" url="<?php echo $fou[name];?>"><?php echo $fou['title'];?></span>
+										<?php };?>
+									</p>
+								</li>
+								</volist>
+							</ul>
+							</notempty>
+						</div>
+						</volist>
+					</div>
+					</volist>
+				</div>
+			</div>
+		</div>
+		<!-- right part -->
+		<div class="right-part">
+			<div class="right-box fl">
+				<div class="main-content">
+					<div class="">
+						<iframe class="bgc-2" frameborder="no"
+							src="" 
+							width="100%" height="100%" ></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+function logout(){confirmer({msg:'确定退出系统吗？',call:redirect,parm:"{:U('Public/logout')}"});}
+$(function() {
+	//系统按钮点击
+	$(".system-item").each(function() {
+		$(this).click(function() {
+			$(this).addClass("system-active");
+			$(this).siblings().removeClass("system-active");
+			var url=$(this).attr('url');
+			if(url){window.location.href=url;}
+		});
+	});
+	//系统子列表点击
+	
+	$("#adminmenupart").on('mouseover',function(){
+		$(".S_Administrator_btn").addClass("system-active");
+		var ul=$(".S_Administrator_box");
+		ul.show();
+		ul.find('li').click(function(){
+			var u=$(this).attr('url');if(u){window.location.href=u;}
+		});
+	});
+	$("#adminmenupart").on('mouseout',function(){
+		$(".S_Administrator_btn").removeClass("system-active");
+		$(".S_Administrator_box").hide();
+		
+	});
+	
+	//顶级按钮点击
+	$('.m-btn').click(function(){
+		var i=$(this).index();
+		var top=$('.main-menu').eq(i);var turl=top.attr('url');
+		var par=top.find('.m-two').first();var purl=par.attr('url');
+		var child=par.find('.m-three').first();var curl=child.attr('url');
+		var url=turl?turl:(purl?purl:curl?curl:'');
+		if(url){window.location.hash=url;}
+		$(this).addClass('menu-active');
+		$(this).siblings().removeClass('menu-active');
+	});
+	//二级菜单点击
+	$('.item-tit').click(function(){
+		var tag=$(this).parent();
+		$('.m-two').each(function(){
+			if($(this).is(tag))
+			{
+				if(tag.hasClass('m-active')){
+					tag.removeClass('m-active');
+					tag.find('ul').hide();
+					tag.find('img').attr('src','__IMG__/xiala.png');
+				}else{
+					tag.addClass('m-active');
+					tag.find('ul').show();
+					tag.find('img').attr('src','__IMG__/xoala01.png');
+				}
+			}else{
+				$(this).find('ul').hide();
+				$(this).find('img').attr('src','__IMG__/xiala.png');
+			}
+		});
+	});
+	//三级菜单点击
+	$('.m-three').click(function(){
+		var href=window.location.href.split('#');
+		if(href.length>=2)
+		{
+			if(/Public\/login.*?/i.test(href[1])){window.location.reload();}
+			var cu=href[1];cu=cu.replace(/^\//,'').replace(/\/$/,'').replace(/\.[\w]+$/,'');cus=cu.split('/');
+			var nurl=cus[0]+'/'+cus[1]+'/'+cus[2];
+		}
+		if($(this).attr('hide')){return false;}
+		var curl=$(this).attr('url');
+		if(curl==nurl){window.location.reload();}else{window.location.hash=curl;}
+		$(this).addClass("item-li-active");
+		$(this).siblings().removeClass("item-li-active");
+	});
+
+	initWin();
+	$(window).resize(function(){initWin();});
+	window.onhashchange=function(){initmenu();};
+	initmenu();
+	timer.add({url:"{:U('Index/online')}",type:'post',call:function(d){}});
+});
+
+function initWin(){
+	/*菜单滚动条设置*/
+	var h = $(window).height() - 90;
+	$(".left-menu-box").css({"height": h + 'px',"overflow-y": 'auto'});
+	$(".main-menu").css({"height": h + 'px',});
+	$(".main-content").css({"height": h + 'px',});
+	$("iframe").css({"height": h + 'px',"overflow-y": 'auto'});
+}
+
+function initmenu()
+{
+	var href=window.location.href.split('#');
+	if(href.length>=2)
+	{
+		if(/Public\/login.*?/i.test(href[1])){window.location.reload();}
+		var cu=href[1];cu=cu.replace(/^\//,'').replace(/\/$/,'').replace(/\.[\w]+$/,'');cus=cu.split('/');
+		var url=cus[0]+'/'+cus[1]+'/'+cus[2];cus.shift();cus.shift();cus.shift();
+		var parm=cus.join('/');parm=parm?'/'+parm:'';
+		var tag=$("[url='"+url+"']");var par=null;var top=null;
+		if(tag.hasClass('m-four')){
+			tag=tag.closest('.m-three');par=tag.parents('.m-two');top=par.parents('.m-one');
+		}else if(tag.hasClass('m-three')){
+			tag=tag.closest('.m-three');par=tag.parents('.m-two');top=par.parents('.m-one');
+		}else if(tag.hasClass('m-two')){
+			par=tag;top=par.parents('.m-one');tag=null;
+		}else{
+			top=tag;tag=null;par=null;
+		}
+		top.parent().children().each(function(i){
+			if($(this).is(top)){
+				$(this).show();
+				$('.m-btn').eq(i).addClass("menu-active");
+			}else{
+				$('.m-btn').eq(i).removeClass("menu-active");
+				$(this).hide();
+			}
+		});
+		if(par)
+		{
+			par.parent().children().each(function(i){
+				if($(this).is(par)){
+					$(this).find('img').attr('src','__IMG__/xoala01.png');
+					$(this).find('ul').show();
+					$(this).find('.m-three').removeClass("item-li-active");
+				}else{
+					$(this).find('img').attr('src','__IMG__/xiala.png');
+					$(this).find('ul').hide();
+				}
+			});
+		}
+		if(tag)
+		{
+			tag.parent().children().each(function(){
+				if($(this).attr('hide')){return false;}
+				if($(this).is(tag))
+				{
+					$(this).addClass('item-li-active');
+				}else
+				{
+					$(this).removeClass('item-li-active');
+				}
+			});
+		}
+		$('iframe').attr('src','/'+url+parm);
+	}else{
+        var tag=$('.main-menu').find('.m-two').first().find('.m-three').not('[hide="1"]').first();
+        window.location.hash=tag.attr('url');
+	}
+}
+</script>
+</body>
+
+</html>

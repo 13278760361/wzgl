@@ -1,0 +1,46 @@
+<!--[if lte IE 8]>
+<style>
+	.personal-pawdpage{width:75%; margin:15px auto}
+</style>
+<![endif]-->
+<include file="header" />
+	<!--个人中心中间部分-->
+	<div id="person_mid" class="personal-pawdpage">
+		<div class="person_nav">
+			<span>用户设置</span>
+			<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+			<span>修改密码</span>
+			<hr class="nav-hr">
+		</div>
+		<div class="pserson_box">
+			<form class="form-horizontal" role="form">
+			<div class="sp-inpt-part">
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">原密码</span>
+					<input class="sp-inpt-big-input boxshow02" type="password" disabled="disabled" placeholder="原密码" pass="opassword" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">新密码</span>
+					<input class="sp-inpt-big-input boxshow02" type="password"  placeholder="新密码" pass="npassword"/>
+				</div>
+				<div class="sp-inpt-big position-r">
+					<span class="sp-inpt-big-span">再次输入</span>
+					<input class="sp-inpt-big-input boxshow02" type="password" placeholder="再次输入" pass="npassword2"/>
+					<span class="fc-8 fs-14 position-a pawdeorr">*两次输入不一致</span>
+				</div>
+			</div>
+				
+			<div class="textcenter mrg-t50">
+				<span class="back-btn dsplin fs-16 boxshow03 mrg-rg30 btn_inline" poster="pass" action="__SELF__">保存</span>
+				<span class="back-btn dsplin fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle" style="margin-left:30px"  onclick="history.go(-1)">取消</span>
+			</div>
+			</form>
+		</div>
+	</div>
+	<!--个人中心中间部分结束-->
+<include file="footer" />
+<script type="text/javascript">
+	$(function(){$("[pass='opassword']").focus();});
+	$(document).keyup(function(e){if(e.keyCode==13){$("[poster='pass']").click();}});
+</script>
+</script>

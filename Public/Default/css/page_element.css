@@ -1,0 +1,386 @@
+.nav{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 20px;
+	background-color: #fff;
+	margin:15px 0 ;
+	
+}
+
+.nav-item{
+	color: #909090;
+	padding: 0 10px;
+	font-size: 14px;
+}
+
+.date-table{
+	
+	
+}
+.data-table-head{
+	background: #F1EFEF;
+	height: 40px;
+	display: inline-block;
+}
+.tab-table{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	width: 80px;
+	text-align: center;
+	cursor: pointer;
+} 
+
+.tab-table:hover{
+	color: #AEADAD;
+}
+.tab-active{
+	background-color: #FFA500;
+	color: #fff;
+}
+.tab-active:hover{
+	color: #fff;
+}
+
+/*table  搜索条件*/
+.sarech-grounp{
+	display: inline-block;
+	font-size: 14px;
+}
+.grounp-item{
+	display: inline-block;
+}
+.sarech-item{
+	width: 160px;
+	display: table;
+	
+}
+.sarech-span{
+	display: table-cell;
+	vertical-align: middle;
+}
+.sarech-input{
+	display: table-cell;
+	width:87px;
+	border: #E9E9E9 solid 1px;
+	height: 25px;
+}
+.date-calender{
+	/*width: 170px;*/
+	display: table;
+}
+.date-calender-name{
+	display: table-cell;
+	vertical-align: middle;
+}
+.date-calender-name100{
+    width:45px;
+}
+.min-width55{
+    min-width: 55px;
+}
+.date-calender-input{
+	display: table-cell;
+	width:125px;
+	border: #E9E9E9 solid 1px;
+	height: 25px;
+}
+
+/*btn*/
+.sarech-btn:hover,.pagenum-btn:hover{
+	color: #fff;
+}
+/*.sarech-btn{
+	vertical-align: text-bottom;
+	color: #fff;
+	background-image: url(../images/icon1.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding-bottom: 10px;
+	font-size: 14px;
+}*/
+.sarech-btn{
+	vertical-align: top;
+	color: #fff;
+	padding: 3px 10px;
+	font-size: 14px;
+	cursor: pointer;
+}
+.pagenum-btn{
+	color: #fff;
+	text-align: center;
+	font-size:14px;
+	padding: 5px 15px;
+	cursor: pointer;
+}
+.back-btn{
+	width: 100px;
+	margin: 0 auto;
+	height: 35px;
+	line-height: 35px;
+	color: #fff;
+	
+	cursor: pointer;
+}
+.top-btn{
+	color: #fff;
+	padding: 3px 10px;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+.jump{
+	display: inline-block;
+}
+.jump input{
+	width:30px;
+	border: #D5D4D4 solid 1px;
+	text-align: center;
+}
+/*table*/
+
+.table th,.table tr{
+	text-align: center;
+    /*text-align: inherit;*/
+}
+
+/*.table-list tbody tr:nth-child(even){
+	background-color: #fff;
+}*/
+
+.audit_status a{
+	text-decoration: underline;
+	font-size: 12px;
+	vertical-align: middle;	
+	cursor: pointer;
+}
+/*pagenum-detail*/
+.change-num{
+	width: 90%;
+	margin:  0 auto;
+	padding: 15px 0;
+}
+.munleft a{
+	margin-right:15px;
+}
+.munright{
+	line-height: 30px;
+}
+.rigback-item{
+	margin-left: 20px;
+}
+.input-td{
+	width: 100%;
+}
+/*各种申请清单样式*/
+.table-order-box{
+	
+}
+.order-card{
+	padding:30px 15px;
+}
+.table-order-box{
+	
+}
+.detaile-top{
+	width: 100%;
+	padding: 20px 0;
+    padding-bottom: 5px;
+	position: relative;
+}
+
+.ordernum{
+	text-align: left;
+	width: 33.3%;
+}
+.order-tit{
+	text-align: center;
+	width: 33.3%;
+	font-size: 22px;
+}
+.order-date{
+	text-align: right;
+	vertical-align: middle;
+	position: absolute;
+	right: 0;
+	bottom: 8px;
+    bottom: 10px\9;
+}
+.order-orders{
+    text-align: left;
+    vertical-align: middle;
+    position: absolute;
+    left:0;
+    bottom: 8px;
+    bottom: 10px\9;
+}
+
+.textarea-all{
+	width: 100%;
+	height: 100%;
+}
+.textarea-block{
+	width: 100%;
+	border: 1px solid #E5E4E4;
+	box-shadow: inset 0px 1px 2px 0px rgba(163,163,163,0.50);
+}
+.textarea-block_cost{
+	min-height: 350px;
+}
+.change-date{
+	
+	border: none;
+	border-bottom: #979797 solid 1px;
+}
+/*自动签章样式*/
+.audit-person{
+	text-align: right;
+}
+.signature{
+	position: relative;
+}
+.signature-input{
+	
+	border: dashed #D7D5D5 1px;
+	width: 120px;
+	padding: 5px 0;
+	z-index: 2;
+}
+.signature-mask{
+	position: absolute;
+	top: 5px;
+    top:3px\9;
+	/*right: 40px;*/
+    right:40px\9;
+	color: #D7D5D5;
+	font-size: 16px;
+	z-index: 3;
+}
+
+.prompt-text{
+	top: 5px;
+	left: 5px;
+}
+/*单选*/
+.radiocheckitem{
+	padding: 10px 0;
+	margin-right: 25px;
+	display: inline-block;
+	color: #323232;
+}
+.radiocheckitem:last-child{
+	margin-right: 15px;
+}
+
+input[type="radio"] {
+  margin: 3px 3px 0px 5px;
+  display: none;
+}
+.label-agree {
+	padding: 5px;
+	padding-right: 0;
+	font-size:14px;
+	color:#4a4a4a;
+	letter-spacing:-0.35px;
+	text-align:center;
+	padding-left: 20px;
+  cursor: pointer;
+  background: url(../images/check.png) no-repeat left;
+}
+.label-checked {
+   background: url(../images/checkd.png) no-repeat left;
+}
+/*关联下拉列表*/
+.associated-drop{
+	padding: 3px 10px;
+	color: #7d7d7d;
+	margin-right: 20px;
+	border: #E9E9E9 solid 1px;
+	width: 95px;
+}
+.big-drop{
+	width: 150px;
+	color: #524F53;
+}
+
+/*渐变背景色  下拉框*/
+.bgimg-select{
+	background: url(../images/bg-jianbian.png);
+	width: 100%;
+}
+.bgimg-select120{
+    width:120px !important;
+}
+.bgimg-select200{
+    background: url(../images/bg-jianbian.png);
+    width: 200px !important;
+}
+.bgimg-select02{
+	background: url(../images/bg-jianbian.png);
+	width: 100%;
+	border: none;
+    height: 36px;
+    line-height: 36px;
+}
+
+/*span-input-box*/
+.dtcl-span{
+	width: 30%;
+}
+.dtcl-input{
+	width: 90%;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #D2D2D2;
+}
+/*关键字索引列表*/
+.indexes-list{
+	display: none;
+	top: 45px;
+	background-color: #fff;
+	z-index: 100;
+	width: 100%;
+	left: 0;
+	line-height: 25px;
+	cursor: pointer;
+}
+
+.check_table{
+	margin-bottom: -1px;
+}
+
+/*个人中心输入框  sp-inpt-big*/
+.sp-inpt-part{
+	width: 80%;
+	margin: 15px auto;
+}
+.sp-inpt-big{
+	width: 100%;
+	display: table;
+	line-height: 35px;
+	margin-top:15px 
+}
+.sp-inpt-big-span{
+	display: table-cell;
+	width: 20%;
+	text-align: right;
+	padding-right: 30px;
+	vertical-align: middle;
+}
+.sp-inpt-big-input{
+	display: table-cell;
+	width: 80%;
+	border-radius: 5px;
+	padding: 5px 10px;
+	height: 35px;
+	vertical-align: middle;
+}
+
+.display-inline-block{
+    display: inline-block;
+}
+.signature-mask img{
+	width: 120px;
+	height: 50px;
+}

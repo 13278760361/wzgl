@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" href="../../css/system_setting.css" />
+		<title>系统登录</title>
+	</head>
+
+	<body>
+		<div class="warps">
+			<div class="header">
+				<div class="logo">
+					<img src="../../images/logo.png" />
+					<span class="system-name">物资管理平台</span>
+				</div>
+				<div class="menu">
+					<div class="menu-box">
+						<div class="list-box">
+							<div class="menu-list">
+								<span class="menu-item menu-active">首页</span>
+								<span class="menu-item">库存管理</span>
+								<span class="menu-item">固定资产管理</span>
+								<span class="menu-item">系统设置</span>
+							</div>
+						</div>
+						<div class="system-set position-r">
+							<span class="system-item dpl">消息</span>
+							<span class="system-item dpl">
+								<span href="#" class="S_Administrator_btn">管理员</span>
+								<ul class="S_Administrator_box">
+									<li>
+										<a href="">个人中心</a>
+									</li>
+									<li>
+										<a href="">修改密码</a>
+									</li>
+								</ul>
+							</span>
+							<span class="system-item dpl">退出</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="login_content">
+				<!--做背景图片-->
+				<img src="../../images/system_log.jpg" class="system_log_bg" />
+				<!--主页-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".menu-list span").each(function() {
+				$(this).click(function() {
+					$(this).addClass("menu-active");
+					$(this).siblings().removeClass("menu-active");
+				})
+			})
+			
+			$(".system-item").each(function() {
+				$(this).click(function() {
+					$(".S_Administrator_btn").removeClass("system-active");
+					$(this).addClass("system-active");
+					$(this).siblings().removeClass("system-active");
+				})
+			})
+			
+			$(".S_Administrator_btn").click(function(){
+				$(".system-item").removeClass("system-active");
+				$(this).addClass("system-active");
+			});
+
+			$('.S_Administrator_btn').click(function (event)  { 
+				//取消事件冒泡               
+				event.stopPropagation(); 
+				//设置弹出层的位置                                 
+				$('.S_Administrator_box').slideToggle();      
+			});                
+			$(document).click(function (event)  { 
+				$('.S_Administrator_box').hide();
+			});                 
+			$('.S_Administrator_box').click(function (event)  { 
+				$(this).hide();
+			})
+		})
+	</script>
+
+</html>

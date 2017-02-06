@@ -1,0 +1,398 @@
+/*用户设置*/
+body{
+	background: #EEEEEE;
+}
+:-moz-placeholder {
+	color: #D3D2D2;
+}
+
+::-moz-placeholder { 
+    color: #D3D2D2;
+}
+
+input:-ms-input-placeholder{
+    color: #D3D2D2;
+}
+
+input::-webkit-input-placeholder{
+    color: #D3D2D2;
+}
+
+.setting_search_box{
+	width: 225px;
+}
+.demo--label{
+	width: 100%;
+	text-align: center;
+	line-height: 0;
+}
+.radio_fl{
+	float: left;
+	margin-top: -8px;
+}
+
+.demo--radioInput {
+	border: 1px solid #FFA500;
+	height: 14px;
+	width: 14px;
+
+}
+
+.demo--radio:checked+ .demo--radioInput:after {
+	background: #FFA500;
+}
+
+/*用户设置新增*/
+.form-horizontal{
+	margin: 0 auto;
+	width: 70%;
+}
+
+/*系统设置——名称*/
+#setting_name_con{
+	margin: 0 auto;
+	width: 90%;
+}
+
+.name_add_btn{
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.name_add_btn img{
+	vertical-align: baseline;
+}
+.name_table_td{
+	width: 20%;
+}
+#setting_name_con tbody{
+	background: #FFFFFF;
+}
+#setting_name_con td{
+	vertical-align: inherit;
+}
+.name_table_alter{
+	margin-right: 10px;
+	color: #23B8F0;
+	text-decoration: underline;
+}
+.name_table_dele{
+	color: #AEADAD;
+	text-decoration: underline;
+}
+
+.setting_name_box{
+	margin: 50px auto;
+	width: 80%;
+	background: #FFFFFF;
+}
+.sname_box{
+	float: left;
+	width: 45%;
+	line-height: 35px;
+}
+.sname_box_font{
+	color: #323232;
+	text-align: right;
+}
+
+.sname_box .form-control{
+	width: inherit;
+}
+.sname_box input{
+	border: 1px solid #ddd;
+}
+
+
+.font14_64{
+	font-size: 14px;
+	color: #646464;
+	font-weight: normal;
+}
+
+.jurisdiction_box{
+	border: 1px solid #CCCCCC;
+	min-height: 255px;
+}
+
+
+/*资产分类*/
+.s_asset_classify{
+	display: flex;
+	margin: 0 auto;
+	margin-bottom: -30px;
+	width: 80%;
+}
+.sac_add_btn{
+	position: relative;
+	width: 107px;
+	height: 26px;
+	color: #FFFFFF;
+	text-indent: 1.5em;
+	line-height: 27px;
+	background: #23B8F0;
+	border-radius: 5px;
+	background-image: url(../images/xiala.png);
+	background-repeat: no-repeat;
+	background-position: 75px 9px;
+	cursor: pointer;
+}
+.sac_add_btn .sac_a_btn{
+	display: block;
+	width: 107px;
+	height: 26px;
+}
+.sac_add_btn a{
+	color: #FFFFFF;
+}
+.sac_add_btn a:hover{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.sac_add_btn ul{
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	width: 107px;
+	z-index: 1;
+	display: none;
+}
+.sac_add_btn ul li{
+	margin: 5px auto;
+	color: #9B9B9B;
+	background: #FFFFFF;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+.asset_number{
+	margin-left: 3%;
+}
+.asset_number span{
+	font-size: 14px;
+	padding-left: 5px;
+	padding-right: 5px;
+	color: #646464;
+}
+.asset_number input{
+	height: 27px;
+	border: 1px solid #E4E3E3;
+	border-radius: 4px;
+	box-shadow: 0px 3px 9px 0px rgba(195, 193, 193, 0.50);
+	-webkit-box-shadow: 0px 3px 9px 0px rgba(195, 193, 193, 0.50);
+	-moz-box-shadow: 0px 3px 9px 0px rgba(195, 193, 193, 0.50);
+}
+
+.sac_operation{
+	display: inline-block;
+	width: 50px;
+	line-height: 27px;
+	text-align: center;
+	margin-left: 15px;
+	color: #FFFFFF;
+}
+
+.sac_sure{
+	background: #23B8F0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.sac_cancle{
+	background: #AEADAD;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+/*系统登录*/
+.login_content{
+	font-family: "微软雅黑";
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.system_log_bg{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+.login_content_box{
+	margin: 0 auto;
+	margin-top: 200px;
+	width: 535px;
+	height: 380px;
+	background: url(../images/opacity06.png);
+	border-radius: 5px;
+}
+.login_content_popup{
+	margin: 0 auto;
+	margin-top: 200px;
+	width: 535px;
+	height: auto;
+	border-radius: 5px;
+}
+.login_fonts_b{
+	font-size: 24px;
+	color: #0F62AD;
+	text-align: center;
+	line-height: 80px;
+	margin-bottom: 20px;
+}
+
+.sform_box{
+	margin: 0 auto;
+	width: 60%;
+}
+
+.s_input_h{
+	margin-bottom: 50px;
+	height: 35px;
+	font-size: 16px;
+	color: #333333;
+}
+
+.s_submit_btn{
+	margin-left: 27%;
+	width: 120px;
+	height: 35px;
+	background: #51ccfb;
+	font-size: 16px;
+	color: #FFFFFF;
+	border-radius: 5px;
+}
+.s_submit_btn:hover{
+	color: #FFFFFF;
+	background: #23b8f0;
+	transition:all 0.5s;
+	-webkit-transition:all 0.5s;
+	-moz-transition:all 0.5s;
+	-ms-transition:all 0.5s;
+	-o-transution:all 0.5s;
+}
+
+
+/*主页管理员下拉*/
+.S_Administrator_btn{
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	height: 30px;
+	color: #FFFFFF;
+}
+
+.S_Administrator_btn:hover{
+	color: #FFFFFF;
+}
+.S_Administrator_box{
+	position: absolute;
+	width: 100%;
+	top: 65px;
+	text-align: center;
+	background: #FFFFFF;
+	border-radius: 4px;
+	display: none;
+}
+.S_Administrator_box li,a{
+	line-break: 23px;
+	font-size: 12px;
+	color: #ABAAAA;
+	border-radius: 4px;
+}
+
+.S_Administrator_box li:hover,.S_Administrator_box a:hover{
+	background: #FFA500;
+	color: #FFFFFF;
+}
+
+.popup_message{
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	background: #0D508D;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-indent: 1em;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+.popup_message_box{
+	width: 535px;
+	min-height: 200px;
+	padding: 15px;
+	background: #FFFFFF;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.message_a{
+	font-size: 14px;
+	color: #FFA500;
+	text-decoration: underline;
+}
+
+.popup_message_box li{
+	list-style: none;
+	line-height: 25px;
+}
+
+.message_close{
+	display: block;
+	margin: 25px auto;
+	width: 120px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	background: #23B8F0;
+	box-shadow: 0px 2px 4px 0px #23B8F0;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+
+/*消息页*/
+.message_show_box{
+	margin: 20px auto;
+	width: 70%;
+}
+
+.message_show_tit{
+	line-height: 45px;
+	font-size: 14px;
+	color: #323232;
+	border-bottom: 1px solid #ddd;
+}
+
+
+.message_s_box{
+	margin: 35px auto;
+	padding: 25px;
+	width: 450px;
+	min-height: 350px;
+}
+
+
+.po_message_box{
+	width: 400px;
+	min-height: 200px;
+	padding: 15px;
+	background: #FFFFFF;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.po_message_box li{
+	font-size: 14px;
+	list-style: none;
+	line-height: 30px;
+}
+
+.po_message_box li a:hover{
+	background: none;
+	color: #FFA500;
+	text-decoration: underline;
+}

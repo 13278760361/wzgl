@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置——单号</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+		<link rel="stylesheet" href="__CSS__/system_setting.css" />
+	</head>
+
+	<body>
+		<div id="setting_name_con">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">单号</a>
+			</div>
+			<div class="setting_name_box padt30 boxshow02">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">采购单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" sn="CGSN" value="{:C('CGSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">入库单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="RKSN" value="{:C('RKSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">领用单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="LYSN" value="{:C('LYSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">出库单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="CKSN" value="{:C('CKSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">验收单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="YSSN" value="{:C('YSSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">卡片单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="KPSN" value="{:C('KPSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">变更单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="BGSN" value="{:C('BGSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">报废单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="BFSN" value="{:C('BFSN')}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label font14_64">维修单号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" placeholder="输入字母＋数字作为开始，如CG20161027" sn="WXSN" value="{:C('WXSN')}">
+						</div>
+					</div>
+					<div class="textcenter mrg-t50 padb30 notprint">
+						<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline" poster="sn" action="__SELF__">保存</span>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/ronshn.js"></script>
+	</body>
+</html>

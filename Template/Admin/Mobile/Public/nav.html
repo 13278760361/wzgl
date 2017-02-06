@@ -1,0 +1,13 @@
+<ol class="am-breadcrumb">
+	<volist name="nav" id="vo">
+	<eq name="vo['cu']" value="1">
+	<li class="am-active">{$vo['title']}</li>
+	<else />
+	<empty name="vo['name']">
+	<li><a href="javascript:;">{$vo['title']}</a></li>
+	<else />
+	<li><a href="{:U($vo['name'])}">{$vo['title']}</a></li>
+	</empty>
+	</eq>
+	</volist>
+</ol>

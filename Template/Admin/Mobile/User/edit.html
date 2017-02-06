@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>系统设置-新增角色</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/system_set.css" />
+	</head>
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<form class="am-form am-form-horizontal">
+			<div class="form_color_white">
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">用户名</label>
+					<div class="am-u-sm-8">
+						<input type="text" user="username" placeholder="请输入用户名" value="{$info['username']}">
+					</div>
+				</div>
+	
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">密码</label>
+					<div class="am-u-sm-8">
+						<input type="password" user="password" placeholder="请输入密码，不填默认不修改">
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">姓名</label>
+					<div class="am-u-sm-8">
+						<input type="text" user="name" placeholder="请输入姓名" value="{$info['name']}">
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">性别</label>
+					<div class="am-u-sm-8">
+						<select user="sex">
+							<option value="0">请选择性别</option>
+							<option value="1" <eq name="info['sex']" value="1">selected="selected"</eq> >男</option>
+							<option value="2" <eq name="info['sex']" value="2">selected="selected"</eq> >女</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">部门</label>
+					<div class="am-u-sm-8">
+						<select user="depart_id">
+							<option value="0">请选择部门</option>
+							<volist name="depts" id="vo">
+							<option value="{$vo['id']}" <eq name="info['depart_id']" value="$vo['id']">selected="selected"</eq> >{$vo['depart_name']}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">角色</label>
+					<div class="am-u-sm-8">
+						<select user="group_id">
+							<option value="0">请选择角色</option>
+							<volist name="roles" id="vo">
+							<option value="{$vo['id']}" <eq name="info['groupid']" value="$vo['id']">selected="selected"</eq> >{$vo['title']}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">联系电话</label>
+					<div class="am-u-sm-8">
+						<input type="text" user="tel" placeholder="请输入联系电话" value="{$info['tel']}">
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">邮箱号码</label>
+					<div class="am-u-sm-8">
+						<input type="text" user="email" placeholder="请输入邮箱号码" value="{$info['email']}">
+					</div>
+				</div>
+
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">审核权</label>
+					<div class="am-u-sm-8">
+						<select user="is_auditer">
+							<option value="1" <eq name="info['is_auditer']" value="1">selected="selected"</eq> >有</option>
+							<option value="0" <neq name="info['is_auditer']" value="1">selected="selected"</neq> >无</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="am-form-group">
+					<label class="am-u-sm-4 am-form-label sys_num">用户签章</label>
+					<div class="am-u-sm-8">
+						<input type="hidden" user="id" value="{$info['id']}">
+						<input type="text" user="signature" placeholder="点击上传签章" uploader="pt" action="{:U('Upload/img')}" pt="val" value="{$info['signature']}">
+					</div>
+				</div>
+			</div>
+			<input type="button" class="back_btn" poster="user" action="__SELF__" value="提交" />
+		</form>
+	</body>
+	<include file="Public/footer" />
+</html>

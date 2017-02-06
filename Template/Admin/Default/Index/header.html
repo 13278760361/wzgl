@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="">
+	<meta name="author" content="xx_xh">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_setting.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+	<title>系统登录</title>
+</head>
+<body>
+	<div class="warps">
+		<div class="header">
+			<div class="logo">
+				<img src="__IMG__/logo.png" />
+				<span class="system-name">物资管理平台</span>
+			</div>
+			<div class="menu">
+				<div class="menu-box">
+					<div class="list-box">
+						<div class="menu-list">
+							<span class="menu-item menu-active" url="/Admin/Index/index">首页</span>
+							<volist name="menus" id="vo">
+							
+							<span class="menu-item" url="/Admin/Main/index#{$vo['name']}">{$vo['title']}</span>
+							</volist>
+						</div>
+					</div>
+					<div class="system-set position-r">
+						<span class="system-item dpl system-active" url="{:U('messages')}">消息</span>
+						<span class="system-item dpl">
+							<span href="#" class="S_Administrator_btn">管理员</span>
+							<ul class="S_Administrator_box">
+								<li url="{:U('personal')}">
+									<a>个人中心</a>
+								</li>
+								<li url="{:U('changer')}">
+									<a>修改密码</a>
+								</li>
+							</ul>
+						</span>
+						<span class="system-item dpl" onclick="logout()">退出</span>
+					</div>
+				</div>
+			</div>
+		</div>

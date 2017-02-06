@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>系统设置——低值品分类</title>
+	<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+	<link rel="stylesheet" href="__CSS__/page_element.css" />
+	<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+	<link rel="stylesheet" href="__CSS__/system_setting.css" />
+	<link rel="stylesheet" href="__CSS__/zTreeStyle.css">
+	<link rel="stylesheet" href="__CSS__/tree.css" />
+	<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+	<script type="text/javascript" src="__JS__/ronshn.js"></script>
+	<script type="text/javascript" src="__JS__/ztree/jquery.ztree.core-3.5.js"></script>
+</head>
+<body>
+	<div id="setting_name_con">
+		<div class="nav">
+			<a class="nav-item">系统设置 </a>
+			<img src="__IMG__/ic_keyboard_arrow_right.png" />
+			<a class="nav-item">系统设置 </a>
+			<img src="__IMG__/ic_keyboard_arrow_right.png" />
+			<a class="nav-item">低值品分类 </a>
+		</div>
+		<div class="s_asset_box">
+			<div class="s_asset_classify">
+				<div class="sac_add_btn">
+					<a href="#" class="sac_a_btn">新增</a>
+					<ul class="sac_ul_btn">
+						<li act="1">新增同级</li>
+						<li act="2">新增下级</li>
+					</ul>
+				</div>
+				<div class="asset_number">
+					<span>编号：</span>
+					<input type="text" id="s_number" class="boxshow02" types="sn" />
+				</div>
+				<div class="asset_number">
+					<span>名称：</span>
+					<input type="text" id="s_name" class="boxshow02" types="name" />
+				</div>
+				<input type="hidden" id="s_type" types="type" />
+				<input type="hidden" id="s_oid" del="oid" types="oid" />
+				<input type="hidden" id="s_level" types="level" />
+				<input type="hidden" types="type_id" value="2">
+				<span class="sac_operation sac_sure" poster="types" action="__SELF__">保存</span>
+				<span class="sac_operation sac_cancle">取消</span>
+				<span class="sac_operation sac_sure" poster="del" action="{:U('typedel')}" confirm="确定删除当前分类吗？">删除</span>
+			</div>
+			<div class="setting_name_box">
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	var setting = {
+		data:{simpleData:{enable:true}},
+		data:{simpleData:{enable:true}},
+		callback:{onClick:zTreeOnClick}
+	};
+	var zNodes = {$types};
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"),setting,zNodes);
+	});
+
+	function zTreeOnClick(e,id,node){
+		$('#s_number').val(node.sn);
+		$('#s_name').val(node.name);
+		$('#s_oid').val(node.id);
+		$('#s_level').val(node.level);
+		if(node.level==0){$.fn.zTree.getZTreeObj("treeDemo").expandNode(node);return false;}
+		return true;
+	}
+	$('.sac_cancle').click(function(){
+		$('#s_number').val('');
+		$('#s_name').val('');
+		$('#s_type').val('');
+		$('#s_level').val('');
+		$('#s_oid').val('');
+	});
+	$('.sac_a_btn').click(function(e){e.stopPropagation();$('.sac_ul_btn').slideToggle();});
+	$(document).click(function(e){$('.sac_ul_btn').hide();});                 
+	$('.sac_ul_btn').click(function(e){$(this).hide();});
+	$('.sac_ul_btn li').click(function(){$('#s_type').val($(this).attr('act'));});
+</script>
+</html>

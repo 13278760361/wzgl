@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft Yahei;
+    
+}
+
+ul,
+ol,
+li,
+img,
+a,
+em,
+strong,
+form,
+input,
+button,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    text-decoration: none;
+    font-style: normal;
+    font-weight: normal;
+    list-style: none;
+    border:none;
+}
+.warps{
+	min-width: 1200px;
+}
+.main-content{
+	width: 1120px;
+}
+/*定位*/
+.position-r{
+	position: relative;
+}
+.position-a{
+	position: absolute;
+}
+input,textarea,a,select{
+	outline:none;
+	}
+/*滚动条 start*/  
+  ::-webkit-scrollbar {  
+    width: 4px;  
+    height: 4px;  
+    background-color: #F5F5F5;  
+  }  
+  /*定义滚动条轨道 内阴影+圆角*/  
+  ::-webkit-scrollbar-track {  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
+    background: #fff ;  
+  }  
+  /*定义滑块 内阴影+圆角*/  
+  ::-webkit-scrollbar-thumb {  
+    border-radius: 3px;  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color:#40bbf4;  
+  } 
+textarea {
+    resize: none;
+    padding: 5px;
+}
+a{
+    color: #666;
+     
+}
+.a-dtl{
+	text-decoration: underline;
+}
+a:hover{
+	text-decoration: none;
+}
+.xiahuaxiana{
+	text-decoration: underline;
+}
+.content-width{
+	width: 1000px;
+	margin: 0 auto;
+}
+.f-yahei{
+	font-family: Microsoft Yahei;
+}
+.dpl{
+	display: block;
+}
+.dsplin{
+	display: inline-block;
+	margin: 0 -3px;
+}
+/*display=table*/
+.dtable{
+	display: table;
+}
+.dtcell{
+	display: table-cell;
+}
+.dspno{
+	display: none;
+}
+.width-all{
+	width: 100%;
+}
+.wtd-half{
+	width: 50%;
+	}
+.width-40{
+	width: 40%;
+}
+.width-333{
+	width: 33.3%;
+}
+.width-167{
+	width: 16.67%;
+}
+.wid80{
+	width: 80px;
+}
+	
+	
+.textcenter{
+	text-align: center;
+}
+/*浮动*/
+.fl{
+	float: left;
+	clear: left;
+}
+.fr{
+	float: right;
+	clear: right;
+}
+/*字体垂直对齐*/
+.vtb{
+    vertical-align: text-bottom;
+}
+.vtm{
+    vertical-align: middle;
+}
+/*单行超出省略号显示*/
+.x-ellipsis{
+	display:block;
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden;
+}
+
+.x-inlineblock{
+	display: inline-block;
+	*display: inline;
+	zoom:1;
+}
+/*边框影印*/
+.boxshow01{
+	color: #fff;
+	border-radius: 5px;
+	background: #0D508D;
+	box-shadow: 0px 2px 4px 0px #0D508D;
+	-webkit-box-shadow:  0px 2px 4px 0px #0D508D;
+	-moz-box-shadow:  0px 2px 4px 0px #0D508D;
+}
+.boxshow02{
+	background: #fff;
+	border: 1px solid #E4E3E3;
+	box-shadow: 0px 3px 9px 0px rgba(195,193,193,0.50);
+	-webkit-box-shadow:  0px 3px 9px 0px rgba(195,193,193,0.50);
+	-moz-box-shadow:  0px 3px 9px 0px rgba(195,193,193,0.50);
+}
+.boxshow03{
+	background: #23B8F0;
+	box-shadow: 0px 2px 4px 0px #23B8F0;
+	border-radius: 5px;
+	-webkit-box-shadow:  0px 2px 4px 0px #23B8F0;
+	-moz-box-shadow: 0px 2px 4px 0px #23B8F0;
+}
+.boxshow04{
+	background: #FFA500 ;
+	box-shadow: 0px 2px 4px 0px #FFA500;
+	border-radius: 5px;
+	-webkit-box-shadow:  0px 2px 4px 0px #FFA500;
+	-moz-box-shadow: 0px 2px 4px 0px #FFA500;
+}
+.boxshow05{
+	background: #D0CECE;
+	border-radius: 5px;
+}
+.boxshow06{
+    -webkit-box-shadow: inset 0px 1px 2px 0px rgba(163,163,163,0.50);
+   -moz-box-shadow: inset 0px 1px 2px 0px rgba(163,163,163,0.50);
+    box-shadow: inset 0px 1px 2px 0px rgba(163,163,163,0.50);
+}
+.boxshow07{
+	background: #FFA500;
+	border-radius: 5px;
+    -webkit-box-shadow: 0px 2px 4px 0px #FFA500;
+   -moz-box-shadow: 0px 2px 4px 0px #FFA500;
+    box-shadow: 0px 2px 4px 0px #FFA500;
+}
+/*border*/
+.bord-r{
+	border-right: 1px solid #ddd
+}
+.bord-b{
+	border-bottom: 1px solid #ddd
+}
+/*字体*/
+.fontf-1{
+	font-family: simhei ;
+}
+/*字体大小*/
+.fs-10{
+	font-size: 10px;
+}
+.fs-12{
+	font-size: 12px;
+}
+.fs-14{
+	font-size: 14px;
+}
+.fs-16{
+	font-size: 16px;
+}
+.fs-18{
+	font-size: 18px;
+}
+.fs-20{
+	font-size: 20px;
+}
+
+
+/*字体颜色*/
+.fc-1{
+	color: #AEADAD;
+}
+.fc-2{
+	color: #646464;
+}
+.fc-3{
+	color: #323232;
+}
+.fc-4{
+	color: #1EB802;
+}
+.fc-5{
+	color: #FB8001;
+}
+.fc-6{
+	color: #DD251C;
+}
+.fc-7{
+	color: #A9A7A7;
+}
+
+.fc-8{
+	color: #DD251C
+}
+.fc-9{
+	color: #FFA500;
+}
+.fc-10{
+	color: #23B8F0;
+}
+/*背景颜色*/
+.bgc-1{
+	background-color: #fff;
+}
+.bgc-2{
+	background-color: #f6f6f6;
+}
+.bgc-3{
+	background-color: #23B8F0;
+}
+.bgc-4{
+	background-color: #0D508D
+}
+.bgc-5{
+	background-color: #F9F9F9
+}
+/*间距*/
+.mrg-t50{
+	margin-top: 50px;
+}
+.mrg-lf15{
+	margin-left: 15px;
+}
+
+.pad15 {
+	padding: 15px;
+}
+.padb5{
+	padding-bottom: 5px;
+}
+.padb15{
+	padding-bottom: 15px;
+}
+.padlf15{
+	padding-left: 15px;
+}
+.padr15{
+	padding-right: 15px;
+}

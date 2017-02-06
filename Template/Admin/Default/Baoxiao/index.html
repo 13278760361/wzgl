@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="xx_xh">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css"/>
+    <script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <title>费用报销清单</title>
+</head>
+
+<body onkeydown="BindEnter(event)">
+<div class="container-fluid notprint">
+    <!--页面导航条-->
+    <div class="nav">
+        <a class="nav-item">固定资产管理 </a>
+        <img src="__PUBLIC__/images/ic_keyboard_arrow_right.png"/>
+        <a class="nav-item">固定资产查询 </a>
+        <img src="__PUBLIC__/images/ic_keyboard_arrow_right.png"/>
+        <a class="nav-item">报销单 </a>
+        <div class="topbtn fr">
+            <a href="<?php echo U('add')?>"><span class=" fs-14 boxshow03 top-btn" id="addBtn">新增</span></a>
+           <!--  <span class=" fs-14 boxshow03 top-btn " data-toggle="modal" data-target="#myModal">预览</span>
+            <span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> -->
+            <a class=" fs-14 boxshow03 top-btn" style="color:#fff" onclick="exporter()">导出EXCEL</a>
+        </div>
+    </div>
+    <!--表格-->
+    <form action="<?php echo U('index')?>" method="get">
+        <div class="date-table padb15">
+            <div class="dsplin fs-14 dsplin_0">
+                <div class="dsplin card-num">
+                    <span>部门：</span>
+                    <select class="associated-drop big-drop
+                         list-top-inputboxshadow" style="width:150px;" name="department">
+                        <option value="">选择部门</option>
+                        <?php foreach($list_dep as $v):?>
+                        <option <?php if($department==$v['id']):?>selected="selected"<?php endif;?> value="<?php echo $v['id']?>"><?php echo $v['fullname']?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+                <div class="dsplin card-num">
+                    <span>经报人：</span>
+                    <input type="text" class="associated-drop big-drop list-top-inputboxshadow"
+                           value="<?php echo $user;?>" name="user" placeholder="输入关键字查找"/>
+                </div>
+                <div class="dsplin card-num">
+                    <span>报销日期：</span>
+                    <input type="text" class="associated-drop big-drop list-top-inputboxshadow"
+                           value="<?php echo date('Y-m-d',$timedate);?>" name="time" id="repairTime"/>
+                </div>
+            </div>
+            <input type="submit" value="搜索" class=" sarech-btn boxshow01">
+
+        </div>
+    </form>
+    <!--表格内容-->
+    <div class="table-responsive">
+        <h3 class="text-center fc-9 pad15">费用报销清单</h3>
+        <table class="table table-bordered table-striped table-list  boxshow02">
+
+            <tr>
+                <th>序号</th>
+                <th>使用单位</th>
+                <th>金额</th>
+                <th>单位负责人</th>
+                <th>保管验收或证明</th>
+                <th>经报人</th>
+                <th>报销日期</th>
+                <!-- <th>操作</th> -->
+            </tr>
+            <?php if($list):?>
+            <?php foreach($list as $k=>$v):?>
+            <tr>
+                <td><?php echo ($k+1)?></td>
+                <td><a href="<?php echo U('detail',array('id'=>$v['e_id']))?>"><?php echo $v['depart_name']?></a></td>
+                <td><?php echo $v['total']?></td>
+                <td><?php echo $v['charge']?></td>
+                <td><?php echo $v['prove']?></td>
+                <td><?php echo $v['user']?></td>
+                <td><?php echo date('Y-m-d',$v['time'])?></td>
+              <!--   <td>
+                <?php if($adminId==$v['user_id']):?>
+                <a href="<?php echo U('edit',array('id'=>$v['e_id']))?>">编辑</a>
+            <?php else:?>
+                无操作
+            <?php endif;?>
+                </td> -->
+            </tr>
+            <?php endforeach;?>
+            <?php else:?>
+            <tr>
+                <td colspan="7">暂时没有任何信息</td>
+            </tr>
+            <?php endif;?>
+        </table>
+    </div>
+    <div class="change-num ">
+        <?php echo $show;?>
+        <!-- <div class="munleft dsplin fc-2">
+            <a class="xiahuaxiana">首页</a>
+            <a class="pagenum-btn dsplin fs-16 boxshow03">上一页</a>
+            <a class="pagenum-btn dsplin fs-16 boxshow03">下一页</a>
+            <a class="xiahuaxiana">尾页</a>
+            <div class="jump">
+                <input type="text" value="1" />
+                <span>跳转</span>
+            </div>
+        </div>
+        <div class="munright dsplin fr fc-3 fs-14">
+            <div class="rigback-item dsplin">
+                <span>当前页为第</span>
+                <span id="nownum">1</span>
+                <span>页</span>
+            </div>
+            <div class="rigback-item dsplin">
+                <span>共</span>
+                <span id="totalnum">3</span>
+                <span>页</span>
+            </div>
+        </div>
+    </div> -->
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px;">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <h3 class="text-center pad15">费用报销清单</h3>
+                        <table class="table table-bordered table-striped table-list  boxshow02">
+
+                            <tr>
+                                <th>序号</th>
+                                <th>单位负责人</th>
+                                <th>金额</th>
+                                <th>使用单位</th>
+                                <th>保管验收或证明</th>
+                                <th>经报人</th>
+                                <th>报销日期</th>
+                            </tr>
+
+                            <?php foreach($list as $v):?>
+                            <tr>
+                                <td><?php echo $v['id']?></td>
+                                <td><?php echo $v['charge']?></td>
+                                <td><?php echo $v['total']?></td>
+                                <td><?php echo $v['department']?></td>
+                                <td><?php echo $v['prove']?></td>
+                                <td><?php echo $v['user']?></td>
+                                <td><?php echo date('Y-m-d',$v['time'])?></td>
+                            </tr>
+                            <?php endforeach;?>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 时间插件 -->
+    <link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker_blue.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/dropdown.css"/>
+    <script src="__PUBLIC__/js/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+            type="text/javascript"></script>
+    <script src="__JS__/jquery.placeholder.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ronshn.report.js" ></script>
+    <!-- 时间插件 -->
+    <script>
+        $(function(){
+            $('input, textarea').placeholder({customClass:'my-placeholder'});
+        });
+        $('#repairTime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: "zh-CN",
+            minView: 2,
+            todayBtn: 1,
+            autoclose: true
+        });
+        function BindEnter(obj) {
+            if (obj.keyCode == 13) {
+                $('#submit').click();
+            }
+        }
+        var page=1;
+    var xl = new Report({'name':'费用报销列表','padding':1,'space':1});
+    function exporter()
+    {
+        if(page==1){loader();}
+        var ff=function(d){
+            if(d&&$.isArray(d))
+                {
+                    xl.addrows(d);
+                    page++;exporter();
+                }else{
+
+                    xl.grid({'id':'序号','charge':'单位负责人','total':'金额','department':'使用单位','prove':'保管验收或证明','user':'经报人','time':'报销日期'}).exporter();
+                    unmask();
+                }
+            }
+        submiter({type:'get',url:"{:U('Upload/export')}",data:{page:page,ctr:'Baoxiao',key:"{$key_word}"},call:ff});
+    }  
+    </script>
+</body>
+
+</html>

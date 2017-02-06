@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置——资产分类</title>
+		<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../css/page_element.css" />
+		<link rel="stylesheet" href="../../css/pages-sty.css" />
+		<link rel="stylesheet" href="../../css/system_setting.css" />
+		<link rel="stylesheet" href="../../css/zTreeStyle.css" type="text/css">
+		<link rel="stylesheet" href="../../css/tree.css" />
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.ztree.core-3.5.min.js"></script>
+	</head>
+
+	<body>
+		<div id="setting_name_con">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">系统设置 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产分类 </a>
+			</div>
+			<div class="s_asset_box">
+				<div class="s_asset_classify">
+					<div class="sac_add_btn">
+						<a href="#" class="sac_a_btn">新增</a>
+						<ul class="sac_ul_btn">
+							<li>新增同级</li>
+							<li>新增下级</li>
+						</ul>
+					</div>
+					<div class="asset_number">
+						<span>编号：</span>
+						<input type="text" id="s_serial_number" class="boxshow02" />
+					</div>
+					<div class="asset_number">
+						<span>名称：</span>
+						<input type="text" id="s_serial_name" class="boxshow02" />
+					</div>
+					<span class="sac_operation sac_sure">保存</span>
+					<span class="sac_operation sac_cancle">取消</span>
+				</div>
+				<div class="setting_name_box">
+					<ul id="treeDemo" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			//			callback: {
+			//				beforeClick: beforeClick
+			//			},
+			callback: {
+				onClick: zTreeOnClick
+			}
+		};
+
+		var zNodes = [{
+			id: 01,
+			pId: 0,
+			name: "01-土地、房屋及构建物",
+			open: false
+		}, {
+			id: 900001,
+			pId: 1,
+			name: "900001-土地"
+		}, {
+			id: 06,
+			pId: 0,
+			name: "06-电子产品及通信设备",
+			open: true
+		}, {
+			id: 900006,
+			pId: 2,
+			name: "900006-土地"
+		}, {
+			id: 900006,
+			pId: 2,
+			name: "900006-土地"
+		}, {
+			id: 900006,
+			pId: 2,
+			name: "900006-土地"
+		}, {
+			id: 07,
+			pId: 0,
+			name: "07-电子产品及通信设备",
+			open: true
+		}, {
+			id: 900006,
+			pId: 3,
+			name: "900006-土地"
+		}, {
+			id: 900006,
+			pId: 3,
+			name: "900006-土地"
+		}, {
+			id: 900006,
+			pId: 3,
+			name: "900006-土地"
+		}, ];
+
+		$(document).ready(function() {
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		});
+
+		function zTreeOnClick(event, treeId, treeNode) {
+			document.getElementById("s_serial_number").value = treeNode.id;
+			document.getElementById("s_serial_name").value = treeNode.name;
+			if(treeNode.level == 0) {
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+				zTree.expandNode(treeNode);
+				return false;
+			}
+			return true;
+		}
+
+		$('.sac_a_btn').click(function (event)  { 
+			//取消事件冒泡               
+			event.stopPropagation(); 
+			//设置弹出层的位置                                 
+			$('.sac_ul_btn').slideToggle();      
+		});                
+		//点击空白处或者自身隐藏弹出层，下面分别为滑动和淡出效果。
+		$(document).click(function (event)  { 
+			$('.sac_ul_btn').hide();
+		});                 
+		$('.sac_ul_btn').click(function (event)  { 
+			$(this).hide();
+		})
+	</script>
+
+</html>

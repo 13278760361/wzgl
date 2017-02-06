@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<title>出库报废审核</title>
+
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				clickActive(".tab-table", "tab-active")
+			})
+		</script>
+		</head>
+
+		<body>
+        <div class="container-fluid"> 
+          <!--页面导航条-->
+          <div class="nav"> <a class="nav-item">库存管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png"/> <a class="nav-item">库存审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png"/> <a class="nav-item">出库报废审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png"/> <a class="nav-item" id="endnode">
+            <switch name="status" >
+            <case value="1" break="1">未审核</case>
+            <case value="2" break="1">审核中</case>
+            <case value="3" break="1">已审核</case>
+            <case value="0" break="1">历史</case>
+            <default />历史
+            </switch>
+          </a> </div>
+          <!--表格-->
+          <div class="date-table">
+            <div class="data-table-head fc-1">
+              <a class="tab-table <if condition="$status eq 1">tab-active </if>
+              " href="{:u("Admin/Outstock/cancellist",$tabParamAll[1])}"   >未审核</a> 
+              
+              
+              <a class="tab-table <if condition="$status eq 2">tab-active </if>
+              " href="{:u("Admin/Outstock/cancellist",$tabParamAll[2])}"   >审核中</a> 
+              
+              
+              <a class="tab-table <if condition="$status eq 3">tab-active </if>
+              " href="{:u("Admin/Outstock/cancellist",$tabParamAll[3])}" >已审核</a> 
+              
+              <a class="tab-table <if condition="$status eq 0">tab-active </if>
+              " href="{:u("Admin/Outstock/cancellist",$tabParamAll[4])}">历史</a> 
+              
+              </div>
+            <div class="sarech-grounp vtm fr">
+              <form method="get" action="" id="auditlist">
+                <div class="grounp-item">
+                  <div class="dtable"> <span class="sarech-span">单号：</span>
+                    <input type="text" class="sarech-input" name="order_sn" value="{$w.order_sn}" />
+                  </div>
+                </div>
+                <div class="grounp-item">
+                  <div class="dtable"> <span class="sarech-span">部门：</span>
+          					<select class="sarech-input" name="depart">
+                      <option value="">选择部门</option>
+                      <volist name="departs" id="vo"  >
+                      <option <if condition="$w['depart'] eq $vo['id']"> selected="selected" </if> value="{$vo.id}">{$vo.fullname}</option>
+                      </volist>
+          					</select>
+                  </div>
+                </div>
+                <div class="grounp-item">
+                  <div class="dtable"> <span class="sarech-span">提交日期：</span>
+                    <input type="text" class="sarech-input date-calender-input" name="apply_time" id="apply_time" value="{$w.apply_time}" readonly="readonly" />
+                  </div>
+                </div>
+                <div class="grounp-item">
+                  <div class="dtable"> <span class="sarech-span">创建人：</span>
+                    <input type="text" class="sarech-input" name="applyer" value="{$w.applyer}" />
+                  </div>
+                </div>
+                <a class="sarech-btn boxshow01"> 查询 </a>
+              </form>
+            </div>
+            <script>
+				$(document).ready(function(e) {
+                     $('.sarech-btn').click(function(){$("#auditlist").submit()});
+                });
+				</script> 
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-list  boxshow02">
+              <tr>
+                <th>序号</th>
+                <th>报废单号</th>
+                <!-- <th>出库单号</th> -->
+                <th>部门</th>
+                <th>提交时间</th>
+            
+                <th>创建人</th>
+                <th>审核状态</th>
+              </tr>
+              <volist name="list" id="vo">
+                <tr>
+                  <td>{$i+$p}</td>
+                  <td><a class="fc-10 a-dtl" href="{:u("Admin/Outstock/cancelinfo",array('cid'=>$vo['id']))}">{$vo.cancel_sn}</a></td>
+                  <!-- <td>{$vo.order_sn}</td> -->
+                  <td>{$vo.depart}</td>
+                  <td>{$vo.apply_time|date="Y-m-d",###}</td>
+                 
+                  <td>{$vo.applyer}</td>
+                  <td><div class="audit_status">
+                      <switch name="vo.status">
+                      <case value="1"> <img src="__IMG__/noshenghe.png"/> <a class="fc-5" href="{:u("Admin/Outstock/cancelinfo",array('cid'=>$vo['id']))}" >未审核</a> </case>
+                       <case value="2"> <img src="__IMG__/noshenghe.png"/> <a class="fc-5" href="{:u("Admin/Outstock/cancelinfo",array('cid'=>$vo['id']))}" >审核中</a> </case>
+                      <case value="3"> <img src="__IMG__/nopass.png"/> <a class="fc-6" href="{:u("Admin/Outstock/cancelinfo",array('cid'=>$vo['id']))}" >未通过</a> </case>
+                      <case value="4"> <img src="__IMG__/shenghe.png"/> <a class="fc-4" href="{:u("Admin/Outstock/cancelinfo",array('cid'=>$vo['id']))}" >已通过</a> </case>
+                    </switch>
+                    </div></td>
+                </tr>
+              </volist>
+            </table>
+          </div>
+          <div class="change-num "> {$page} </div>
+        </div>
+        <!-- 时间插件 -->
+        <link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+        <link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+        <link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+        <script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+        <!-- 时间插件 -->
+  	<script>
+		$(function() {
+		  
+			$('#apply_time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+			});
+			 
+		});
+		
+ 
+		
+	</script>  
+</body>
+</html>

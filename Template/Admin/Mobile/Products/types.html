@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>系统设置-资产分类</title>
+	<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css"/>
+	<link rel="stylesheet" href="__CSS__/zTreeStyle.css" />
+	<link rel="stylesheet" href="__CSS__/tree.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_set.css" />
+</head>
+
+<body style="background: #FFFFFF;">
+	<include file="Public/header" />
+	<include file="Public/nav" />
+	
+	<div class="s_asset_add">
+		<div class="asset_add_box fs14 fc#64 br4">
+			<span class="asset_add_tit">新增</span>
+			<ul class="s_asset_add_list">
+				<li act="1">新增同级</li>
+				<li act="2">新增下级</li>
+			</ul>
+		</div>
+		<label class="asset_lable_s fs14 fc#64">
+			<span>编号：</span>
+			<input type="text" class="fs14" id="s_number" types="sn"/>
+		</label>
+		<label class="asset_lable_s fs14 fc#64">
+			<span>名称：</span>
+			<input type="text" class="fs14" id="s_name" types="name"/>
+		</label>
+		<input type="hidden" id="s_type" types="type" />
+		<input type="hidden" id="s_oid" del="oid" types="oid" />
+		<input type="hidden" id="s_level" types="level" />
+	</div>
+	
+	<div class="s_asset_add_box">
+		<ul id="treeDemo" class="ztree"></ul>
+	</div>
+	
+	<div class="classify_upbtn_box">
+		<span class="classify_upbtn" poster="types" action="__SELF__">保存</span>
+		<span class="classify_det" poster="del" action="{:U('typedel')}" confirm="确定删除当前分类吗？">删除</span>
+	</div>
+</body>
+<include file="Public/footer" />
+<script type="text/javascript" src="__JS__/jquery.ztree.core-3.5.min.js" ></script>
+<script>
+	var setting = {
+		data:{simpleData:{enable:true}},
+		data:{simpleData:{enable:true}},
+		callback:{onClick:zTreeOnClick}
+	};
+
+	var zNodes = {$types};
+	$(document).ready(function(){$.fn.zTree.init($("#treeDemo"),setting,zNodes);});
+
+	function zTreeOnClick(e,id,node){
+		$('#s_number').val(node.sn);
+		$('#s_name').val(node.name);
+		$('#s_oid').val(node.id);
+		$('#s_level').val(node.level);
+		if(node.level==0){$.fn.zTree.getZTreeObj("treeDemo").expandNode(node);return false;}
+		return true;
+	}
+
+	$('.asset_add_tit').click(function(e){e.stopPropagation();$('.s_asset_add_list').slideToggle();});
+	$(document).click(function(e){$('.s_asset_add_list').hide();});                 
+	$('.s_asset_add_list').click(function(e){$(this).hide();});
+	$('.s_asset_add_list li').click(function(){$('#s_type').val($(this).attr('act'));});
+</script>
+</html>

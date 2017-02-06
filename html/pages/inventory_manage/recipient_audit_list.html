@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+    	<meta name="author" content="xx_xh">
+    	<title>领用申请审核</title>
+    	<link rel="stylesheet" type="text/css" href="../../css/calendar.css"/>
+    	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="../../css/publicSty.css"/>
+    	<link rel="stylesheet" type="text/css" href="../../css/page_element.css"/>
+    	<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    	<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+    	<script type="text/javascript">
+			$(function() {
+				clickActive(".tab-table", "tab-active")
+			})
+		</script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">库存审核 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">领用申请审核 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item" id="endnode">历史</a>
+			</div>
+			<!--表格-->
+			<div class="date-table">
+				<div class="data-table-head fc-1">
+					<a class="tab-table">审核中</a>
+					<a class="tab-table">已审核</a>
+					<a class="tab-table tab-active">历史</a>
+				</div>
+				<div class="sarech-grounp vtm fr">
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">单号：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">部门：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">提交日期：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">创建人：</span>
+							<input type="text" class="sarech-input" />
+						</div>
+					</div>
+					<a class="sarech-btn boxshow01">
+						查询
+					</a>
+				</div>
+
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>单号</th>
+						<th>申请人</th>
+						<th>部门</th>
+						<th>提交时间</th>
+						<th>最后改动时间</th>
+						<th>创建人</th>
+						<th>审核状态</th>
+					</tr>
+
+					<tr>
+						<td>1</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/shenghe.png"/>
+								<a class="fc-4">已审核</a>
+							</div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/noshenghe.png"/>
+								<a class="fc-5">未审核</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>e</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="../../images/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="change-num ">
+				<div class="munleft dsplin fc-2">
+					<a class="xiahuaxiana">首页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">上一页</a>
+					<a class="pagenum-btn dsplin fs-16 boxshow03">下一页</a>
+					<a class="xiahuaxiana">尾页</a>
+					<div class="jump">
+						<input type="text" value="1" />
+						<span>跳转</span>
+					</div>
+				</div>
+				<div class="munright dsplin fr fc-3 fs-14">
+					<div class="rigback-item dsplin">
+						<span>当前页为第</span>
+						<span id="nownum">1</span>
+						<span>页</span>
+					</div>
+					<div class="rigback-item dsplin">
+						<span>共</span>
+						<span id="totalnum">3</span>
+						<span>页</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</body>
+
+</html>

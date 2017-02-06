@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>物资管理系统</title>
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/index.css" />
+</head>
+<body>
+	<include file="Public/header" />
+	<div id="message_box" style="display:none;"></div>
+</body>
+<include file="Public/footer" />
+<script type="text/javascript">
+$(function(){
+	submiter({url:"{:U('ajaxmessages')}",call:_returndata});
+	timer.add({url:"{:U('ajaxmessages')}",call:_returndata,time:10});
+});
+function _returndata(d)
+{
+	if(!d.status){$('#message_box').hide().html('');return false;}
+	d=d['info'];var str='';
+	for(var i=0;i<d.length;i++)
+	{
+		str+='<p  class="message_list"><img src="__IMG__/ic_green.png"/><span>您有一条<a href="'+d[i].url+'" class="message_a">'+d[i].title+'</a>，请前往查看。</span></p>';
+	}
+	$('#message_box').show().html(str);
+}
+</script>
+</html>

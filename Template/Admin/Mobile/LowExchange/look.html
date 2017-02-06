@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产变更查询——详情</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order['order_sn']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order['time']|date='Y-m-d',###}</label>
+			</div>
+		</div>
+		<volist name="goods" id="gls">
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产代码</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['order_sn']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产分类</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cate_name']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['assets_name']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['spec']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">金额</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['original_value']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">原使用人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['keeper']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">原部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['department']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">现使用人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cur_user']}</label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">现部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$gls['cur_department']}</label>
+			</div>
+		</div>
+		</volist>
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">变更说明</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color">{$order.remark}</label>
+			</div>
+		</div>
+		
+		<div class="asset_postil_box">
+			<volist name="audits" id="ali">
+				<div class="asset_postil">
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+						<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin">
+						<switch name="ali['status']" >
+					    <case value="1" break="1">不同意</case>
+					    <case value="2" break="1">同意</case>
+					    <default />未审核
+					    </switch>
+						</label>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">{$ali.depart_name}</label>
+						<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$ali.name}</label>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+						<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">{$ali.time|dateFormat=###,'Y-m-d'}</label>
+					</div>
+					<div class="cle"></div>
+				</div>
+			</volist>
+		</div>
+		<include file="Public/footer" />
+	</body>
+
+</html>

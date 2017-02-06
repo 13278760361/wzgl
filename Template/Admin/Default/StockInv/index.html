@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/ronshn.report.js" type="text/javascript" charset="utf-8"></script>
+		<title>库存盘点</title>
+	</head>
+
+	<body onkeydown="BindEnter(event)">
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存盘点 </a>
+				<div class="topbtn fr">
+					<!-- <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> -->
+					<a href="{:U('export',I())}"><span class=" fs-14 boxshow03 top-btn">导出EXCEL</span></a>
+				</div>
+
+			</div>
+		<form method="get" action="__SELF__" id="form">	
+			<!--表格-->
+			<div class="date-table padb15 notprint">
+
+				<div class="topbtn">
+					<div class="dsplin card-num">
+						<span>物品名称：</span>
+						<input type="text" name="assets_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$assets_name}" />
+					</div>
+					<if condition="$is_supper eq 1">
+				
+					
+					<select name="org_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择部门--</option>
+						<volist name="top_departs" id="vo">
+							<option <if condition="$org eq $vo[id]"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+						</volist>
+					</select>
+				
+					</if>
+					<select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择归类--</option>
+						<volist name="types" id="vo">
+							<option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+						</volist>
+					</select>
+					<select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+					<notempty name="cateS">
+						<volist name="cateS" id="vo">
+							<option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+						</volist>
+					</notempty>
+					</select>
+					<select name="year" class="associated-drop  list-top-inputboxshadow">
+						<option value="">年份</option>
+						<volist name="years" id="vo">
+							<option value="{$vo}" <if condition="$year eq $vo">selected</if> >{$vo}年</option>
+						</volist>
+					</select>
+					<select name="jd" class="associated-drop list-top-inputboxshadow" id="jd">
+						<option value="">季度</option>
+						<option  <if condition="$jd eq 1">selected</if>  value="1">上半年</option>
+						<option  <if condition="$jd eq 2">selected</if> value="2">下半年</option>
+						<option  <if condition="$jd eq 3">selected</if> value="3">第一季度</option>
+						<option  <if condition="$jd eq 4">selected</if> value="4">第二季度</option>
+						<option  <if condition="$jd eq 5">selected</if> value="5">第三季度</option>
+						<option  <if condition="$jd eq 6">selected</if> value="6">第四季度</option>
+					</select>
+					<select name="month" class="associated-drop  list-top-inputboxshadow" id="yf">
+						<option value="">月份</option>
+						<option <if condition="$month eq 1">selected</if>  value="1">一月</option>
+						<option <if condition="$month eq 2">selected</if>  value="2">二月</option>
+						<option <if condition="$month eq 3">selected</if>  value="3">三月</option>
+						<option <if condition="$month eq 4">selected</if>  value="4">四月</option>
+						<option <if condition="$month eq 5">selected</if>  value="5">五月</option>
+						<option <if condition="$month eq 6">selected</if>  value="6">六月</option>
+						<option <if condition="$month eq 7">selected</if>  value="7">七月</option>
+						<option <if condition="$month eq 8">selected</if>  value="8">八月</option>
+						<option <if condition="$month eq 9">selected</if>  value="9">九月</option>
+						<option <if condition="$month eq 10">selected</if>  value="10">十月</option>
+						<option <if condition="$month eq 11">selected</if> value="11">十一月</option>
+						<option <if condition="$month eq 12">selected</if> value="12">十二月</option>
+					</select>
+					<a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;" id="submit">
+						搜索
+					</a>
+				</div>
+			</div>
+		</form>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<thead class="bgc-2">
+						<tr>
+							<th rowspan="2">序号</th>
+							<th rowspan="2">物品名称</th>
+							<th rowspan="2">规格型号</th>
+							<th rowspan="2">单位</th>
+							<th colspan="2">入库</th>
+							<th colspan="2">出库</th>
+							<th colspan="2">库存</th>
+						</tr>
+						<tr>
+							
+							<th>数量</th>
+							<th>金额</th>
+						
+							<th>数量</th>
+							<th>金额</th>
+							
+							<th>数量</th>
+							<th>金额</th>
+						</tr>
+					</thead>
+				<volist name="lists" id="vo">	
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.assets_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.unit}</td>
+						<td>{$vo.in_num}</td>
+						<td>{$vo.in_total}</td>
+						<td>{$vo.out_num}</td>
+			
+						<td>{$vo.out_total}</td>
+				
+						<td>{$vo.diff_num}</td>
+			
+						<td>{$vo.diff_total}</td>
+					</tr>
+				</volist> 	
+					
+				</table>
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<td rowspan="2" class="wid80"><span class="vtm">入库合计</span></td>
+						<td class="wid80">统计数量</td>
+						<td>{$c.in_n}</td>
+
+						<td rowspan="2" class="wid80 vtm">出库合计</td>
+						<td class="wid80">统计数量</td>
+						<td>{$c.ot_n}</td>
+						<td rowspan="2" class="wid80 vtm">出入库差额合计</td>
+						<td class="wid80">统计数量</td>
+						<td>{$c.d_n}</td>
+						
+					</tr>
+					<tr>
+						<td>统计金额</td>
+						<td>{$c.in_t}</td>
+						<td>统计金额</td>
+						<td>{$c.ot_t}</td>
+						<td>统计金额</td>
+						<td>{$c.d_t}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="change-num notprint">
+			 {$page}
+			</div>
+
+		</div>
+		
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 800px;">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<div class="table-responsive">
+							
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script>
+$(function() {			
+	   $("#jd").change(function(){
+		   	 if ( $(this).val() == ''  ) {
+		   	     $("#yf").show();
+		   	 }else{
+		   	 	 $("#yf").hide();
+		   	 }	   	
+	   })
+
+	    $("#yf").change(function(){
+		   	 if ( $(this).val() == ''  ) {
+		   	     $("#jd").show();
+		   	 }else{
+		   	 	 $("#jd").hide();
+		   	 }	   	
+	   })
+
+	    
+	  
+	})
+function BindEnter(obj){
+	if(obj.keyCode == 13)
+
+	    {
+	        $("#submit").click()
+	    }
+	}
+$('#submit').click(function(){
+	$("#form").submit();
+})
+$('[name="type_id"]').change(function(){
+	loader();
+	$('select[name="cate_id"]').html('');
+	$v=$(this).find('option:checked').val();
+	var ff=function(d){
+		if(d&&$.isArray(d)){
+			var h='';
+			for (var i = 0; i < d.length; i++) {
+				h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+			}
+			$('select[name="cate_id"]').html(h);
+		}
+		unmask();
+	}
+	submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+})
+</script>

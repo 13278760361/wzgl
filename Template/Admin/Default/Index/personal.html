@@ -1,0 +1,71 @@
+<!--[if lte IE 8]>
+<style>
+	.personal-pawdpage{width:75%; margin:15px auto}
+</style>
+<![endif]-->
+<include file="header" />
+<!--个人中心中间部分-->
+<div id="person_mid" class="personal-pawdpage">
+	<div class="person_nav">
+		<span class="vtm">用户设置</span>
+		<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+		<span>个人中心</span>
+		<hr class="nav-hr">
+	</div>
+	<div class="pserson_box">
+		<form  role="form">
+			<div class="sp-inpt-part">
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">部门</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" disabled="disabled" placeholder="部门" value="{$info['depart']}" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">角色</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" disabled="disabled" placeholder="角色" value="{$info['group']}" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">用户名</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" disabled="disabled" placeholder="用户名" value="{$info['username']}" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">姓名</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" info="name" placeholder="姓名" value="{$info['name']}" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">性别</span>
+					<div class="sp-inpt-big-input">
+						<div class="radiocheckitem  fs-16">
+							<input type="radio" id="man" <eq name="info['sex']" value="1">checked="checked"</eq> info="sex" name="sex" value="1">
+							<label name="sex" class="<eq name="info['sex']" value="1">label-checked</eq> label-agree" for="man">男</label>
+						</div>
+						<div class="radiocheckitem fs-16">
+							<input type="radio" id="woman" <eq name="info['sex']" value="2">checked="checked"</eq> info="sex" name="sex" value="2">
+							<label class="<eq name="info['sex']" value="2">label-checked</eq> label-agree" name="sex" for="woman">女</label>
+						</div>
+					</div>
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">联系电话</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" info="tel" placeholder="联系电话" value="{$info['tel']}" />
+				</div>
+				<div class="sp-inpt-big">
+					<span class="sp-inpt-big-span">邮箱</span>
+					<input class="sp-inpt-big-input boxshow02" type="text" info="email" placeholder="邮箱" value="{$info['email']}" />
+				</div>
+			</div>
+			
+			<div class="textcenter mrg-t50 notprint">
+				<span class="back-btn dsplin fs-16 boxshow03 btn_inline" poster="info" action="__SELF__">保存</span>
+				<span class="back-btn dsplin fs-16 boxshow03 btn_inline btn_cancle" style="margin-left:30px" onclick="history.go(-1)">取消</span>
+			</div>
+		</form>
+	</div>
+</div>
+<!--个人中心中间部分结束-->
+<include file="footer" />
+<script type="text/javascript" src="__JS__/page_sty_is.js"></script>
+<script type="text/javascript">
+	$(function(){$("[info='name']").focus();});
+	$(document).keyup(function(e){if(e.keyCode==13){$("[poster='info']").click();}});
+	radioChecked("sex");
+</script>

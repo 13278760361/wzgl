@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="author" content="xx_xh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<title>
+<if condition="$tdk">{$tdk['title']}</if>
+</title>
+</head>
+
+<body>
+<!--页面内容-->
+<div class="container-fluid"> 
+  <!--页面导航条-->
+  <div class="nav"> <a class="nav-item">固定资产管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">固定资产审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png" /> <a class="nav-item">资产月结 </a>
+
+      <div class="topbtn fr">  <span class=" fs-14 boxshow03 top-btn"><a href="javascript:;" onclick="exportera()" style="color:white;">导出Excel</a></span> </div>
+  </div>
+  <div class="date-table padb15">
+        <form id="depr" method="get" >
+                <span>物品名称：</span>
+                <input type="text" class="associated-drop big-drop list-top-inputboxshadow"  name="assets_name" value="{$assets_name}" />
+                <span class="fs-14 fc-2">物品归类：</span>
+                    <select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+                        <option value="0">--请选择归类--</option>
+                        <volist name="types" id="vo">
+                            <option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+                        </volist>
+                    </select>
+                
+                    <span class="fs-14 fc-2">物品分类：</span>
+                    <select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+                    <notempty name="cateS">
+                        <volist name="cateS" id="vo">
+                            <option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+                        </volist>
+                    </notempty>
+                    </select>
+                    <select name="org_id" class="associated-drop">
+                    <option value="0">部门</option>
+                    <volist name="top_departs" id="vo"  >
+                        <option value="{$vo.id}" <if condition="$orgid eq $vo['id']">selected<else /></if>>{$vo.fullname}</option>
+                    </volist>
+          </select>
+              <a class=" sarech-btn boxshow01" style="vertical-align: text-bottom;">搜索</a>
+           </form>
+        </div>
+  <!--内容-->
+  <div class="table-responsive mrg-t50">
+    <table class="table table-bordered table-striped  boxshow02">
+      <thead class="bgc-2">
+        <tr>
+          <th rowspan="2">序号</th>
+          <th rowspan="2">资产分类</th>
+          <th rowspan="2">物品名称</th>
+          <th rowspan="2">规格型号</th>
+          <th colspan="2">期初结存</th>
+          <th colspan="2">本期入库</th>
+          <th colspan="2">增值税</th>
+          <th colspan="2">本期出库</th>
+          <th colspan="2">本期报废报损</th>
+          <th colspan="2">本期维修</th>
+          <th colspan="2">本期结存</th>
+        </tr>
+        <tr style="background: #F6F6F6;">
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+          <th>数量</th>
+          <th>金额</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo"  >
+          <tr>
+            <td>{$i+$index}</td>
+            <td>{$vo.catname}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.spec}</td>
+            <td>{$vo.last_num}</td>
+            <td>{$vo.last_total}</td>
+            <td>{$vo.ent_num}</td>
+            <td>{$vo.ent_total}</td>
+            <td>{$vo.total}</td>
+            <td>{$vo.totaltaxval}</td>
+            <td>{$vo.out_num}</td>
+            <td>{$vo.out_total}</td>
+            <td>{$vo.scrap_num}</td>
+            <td>{$vo.acrap_total}</td>
+            <td>{$vo.repair_num}</td>
+            <td>{$vo.repair_total}</td>
+            <td>{$vo.current_num}</td>
+            <td>{$vo.current_total}</td>
+          </tr>
+        </volist>
+        <tr>
+          
+          <td colspan="4">当页期初数量统计/当页期初金额统计</td>
+          <td colspan="1">{$bp_num}</td>
+          <td colspan="1">{$bp_total}</td>
+          
+          <td colspan="10">当页本期数量统计/当页本期金额统计</td>
+          <td colspan="1">{$cp_num}</td>
+          <td colspan="1">{$cp_total}</td>
+        </tr>
+        <tr>
+          
+          <td colspan="4">期初数量统计/期初金额统计</td>
+          <td colspan="1">{$bs_num}</td>
+          <td colspan="1">{$bs_total}</td>
+          
+          <td colspan="10">本期数量统计/本期金额统计</td>
+          <td colspan="1">{$cs_num}</td>
+          <td colspan="1">{$cs_total}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="bgc-2">上期结存合计</td>
+          <td colspan="6">{$last_all_total}</td>
+          <td colspan="4" class="bgc-2">本期结存合计</td>
+          <td colspan="4">{$current_all_total}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>   
+<if condition="empty($orgid)" >
+  <div class="textcenter mrg-t50">
+    <input type="hidden" mon="type" value="1">
+    <input type="hidden" nomon="type" value="2">
+   
+
+        <span class="back-btn dsplin fs-16    <if condition="$monStatus eq 0"> boxshow04 <else/> boxshow05 </if> "
+        <if condition="$monStatus eq 0">
+            poster="mon" action="{:U('monA')}" 
+        </if>
+        
+        >月结</span> 
+        <span class="back-btn dsplin fs-16   <if condition="$monStatus eq 1"> boxshow04 <else/> boxshow05 </if> "
+            <if condition="$monStatus eq 1">
+        poster="nomon" action="{:U('monA')}" 
+            </if>
+            
+        style="margin-left: 20px;">反月结</span> 
+    
+    </div>
+    
+  </if>     
+    
+  <div class="change-num "> {$page} </div>
+</div>
+</body>
+</html>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.report.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  $(function(){
+    $('.sarech-btn').click(function(){$("#depr").submit()});
+  })
+  var page=1;
+  var xl = new Report({'name':'资产月结导出数据','padding':1,'space':1});
+  function exportera()
+  {
+    if(page==1){loader();}
+    var ff=function(d){
+      console.log(d);
+      if(d&&$.isArray(d))
+      {
+        xl.addrows(d);
+        page++;exportera();
+      }else{
+        //'id'=>'序号','cate_sn'=>'资产编码','type'=>'所属分类','assets_name'=>'资产名称','p_org_name'=>'所属单位','org_name'=>'使用部门','user'=>'使用人','spec'=>'规格型号','add_method'=>'增加方式','use_status'=>'使用状态','unit'=>'单位','original_value'=>'原值','start_date'=>'会计投入使用时间','service_life'=>'会计预计使用年限','depr_method'=>'折旧方法','mon_depr_amount'=>'会计月折旧额','mon_depr_sum'=>'会计累计折旧','k_net_worth'=>'会计折余折旧','net_salvage'=>'会计净残值率','net_residual_value'=>'会计净残值','keeper'=>'保管人','store_address'=>'保管地点','department'=>'保管部门','company_name'=>'供应商','tel_phone'=>'供应商联系电话','contacts'=>'供应商联系人','inputer'=>'添加人','taxpayer_type'=>'纳税人类型','vat_rate'=>'增值税税率'
+        xl.grid({'catname':'资产分类','name':'物品名称','spec':'规格型号','last_num':'数量','last_total':'金额','ent_num':'数量','ent_total':'金额',
+          'total':'数量','totaltaxval':'金额','out_num':'数量','out_total':'金额','scrap_num':'数量',
+          'acrap_total':'金额','repair_num':'数量','repair_total':'金额',
+          'current_num':'数量','current_total':'金额'
+        }).head('<tr><td field="last_num" colspan="2">	期初结存</td>' +
+                '<td field="ent_num" colspan="2">	本期入库</td>' +
+                '<td field="total" colspan="2">	增值税</td>' +
+                '<td field="out_num" colspan="2">	本期出库</td>' +
+                '<td field="scrap_num" colspan="2">	本期报废报损</td>>' +
+                '<td field="repair_num" colspan="2">	本期维修	</td>' +
+                '<td field="current_num" colspan="2">	本期结存	</td></tr>').exporter();
+        unmask();
+      }
+    }
+    submiter({type:'get',url:"{:U('mon')}",data:{page:page,assets_name:"{$assets_name}",department:"{$departmenta}",type:'2'},call:ff});
+  }
+$('[name="type_id"]').change(function(){
+    loader();
+    $('select[name="cate_id"]').html('');
+    $v=$(this).find('option:checked').val();
+    var ff=function(d){
+        if(d&&$.isArray(d)){
+            var h='';
+            for (var i = 0; i < d.length; i++) {
+                h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+            }
+            $('select[name="cate_id"]').html(h);
+        }
+        unmask();
+    }
+    submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+})
+</script>

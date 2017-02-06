@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css" />
+	
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 时间插件 -->
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker_blue.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/dropdown.css" />
+	<script src="__PUBLIC__/js/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+	<!-- 时间插件 -->
+		<title>低值品维修查询</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">低值品管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">低值品审核 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">低值品维修查询 </a>
+				<div class="topbtn fr">
+					<a href="<?php echo U('add')?>"><span class=" fs-14 boxshow03 top-btn">新增</span></a>
+				<!-- 	<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span> -->
+					<a class=" fs-14 boxshow03 top-btn" style="color:#fff"  onclick="exporter()">导出EXCEL</a>
+				</div>
+			</div>
+			<!--表格-->
+			<form action="<?php echo U('index')?>" method="get">
+			<div class="date-table padb15 notprint">
+			
+				<div class="dsplin fs-14">
+					<div class="dsplin card-num">
+						<span>单号：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" value="<?php echo $card_sn;?>" placeholder="资产代码"  name="cartname" />
+					</div>
+					<span>物品名称：</span><input name="assets_name" class="associated-drop big-drop list-top-inputboxshadow" value="{$assets_name}" />
+
+<!-- 					<select name="category" class="associated-drop big-drop list-top-inputboxshadow">
+						<option value="">分类名称</option>
+						<?php foreach($catelist as $v):?>
+						<option <?php if($v['id']==$cate_id):?>selected="selected"<?php endif;?> value="<?php echo $v['id']?>"><?php echo $v['cate_name']?></option>
+					<?php endforeach;?>
+					</select> -->
+					<span class="fs-14 fc-2">物品归类：</span>
+					<select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+						<option value="0">--请选择归类--</option>
+						<volist name="types" id="vo">
+							<option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+						</volist>
+					</select>
+				
+					<span class="fs-14 fc-2">物品分类：</span>
+					<select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+					<notempty name="cateS">
+						<volist name="cateS" id="vo">
+							<option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+						</volist>
+					</notempty>
+					</select>
+					<span>部门：</span>
+					<select class="position-department-sele bgimg-select" name="department">
+						<option value="">选择部门</option>
+						<?php foreach($list_dep as $v):?>
+						<option <?php if($department==$v['id']):?>selected="selected"<?php endif;?> value="<?php echo $v['id']?>"><?php echo $v['fullname']?></option>
+						<?php endforeach;?>
+					</select>
+					<input value="<?php echo date('Y-m-d',$starttime)?>" name="starttime" class="list-top-input list-top-inputboxshadow" id="starttime" readonly/>
+					<span class="time-interval">到</span>
+					<input value="<?php echo date('Y-m-d',$endtime)?>" name="endtime" class="list-top-input list-top-inputboxshadow" id="endtime" readonly/> &nbsp;
+					
+				</div>
+				<input type="submit" value="搜索" class=" sarech-btn boxshow01">
+				
+			</div>
+			</form>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<!-- <tr>
+						<th>维修单号</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>部门</th>
+						<th>单位</th>
+						<th>数量</th>
+						<th>维修金额</th>
+						<th>保管人</th>
+						<th>存放地点</th>
+						<th>维修日期</th>
+						<th>维修原因</th>
+						<th>维修完成情况</th>
+					</tr> -->
+					<tr>
+						<th>序号</th>
+						<th>资产代码</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>部门</th>
+						<th>单位</th>
+						<th>数量</th>
+						<th>保管人</th>
+						<th>存放地点</th>
+						<th>维修日期</th>
+						<th>维修原因</th>
+						<th>金额</th>
+						<th>维修完成情况</th>
+
+					</tr>
+				<?php if($list):?>
+					<?php foreach($list as $k=>$v):?>
+					<tr>
+						<td><?php echo $k+1?></td>
+						<td>
+							<a class="fc-10 a-dtl" href="<?php echo U('detail',array('id'=>$v['r_id']))?>"><?php echo $v['card_sn']?></a>
+						</td>
+						<td><?php echo $v['assets_name']?></td>
+						<td><?php echo $v['spec']?></td>
+						<td><?php echo $v['depart_name']?></td>
+						<td><?php echo $v['unit']?></td>
+						<td>1</td>
+						<td><?php echo $v['keeper']?></td>
+						<td><?php echo $v['store_address']?></td>
+						<td><?php echo date('Y-m-d',$v['time'])?></td>
+						<td><?php echo $v['reason']?></td>
+						<td><?php echo $v['original_value']?></td>
+						<td><?php echo $v['situation']?></td>
+						
+					</tr>
+				<?php endforeach?>
+				<?php else:?>
+					<tr>
+						<td colspan="13">暂时没有任何信息</td>
+					</tr>
+				<?php endif;?>
+				    <tr>
+		                
+		                <td colspan="1" class="bgc-5">当页总金额</td>
+		                <td colspan="5">{$p_total}</td>
+		                
+		                <td colspan="1" class="bgc-5">总金额</td>
+		                <td colspan="6">{$s_total}</td>
+            		</tr>
+				</table>
+			</div>
+			<div class="change-num notprint">
+			<?php echo $page;?>
+			</div>
+
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 800px;">
+				<div class="modal-content">
+
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped table-list  boxshow02">
+
+								<tr>
+									<th>序号</th>
+									<th>资产代码</th>
+									<th>物品名称</th>
+									<th>规格型号</th>
+									<th>部门</th>
+									<th>单位</th>
+									<th>数量</th>
+									<th>保管人</th>
+									<th>存放地点</th>
+									<th>维修日期</th>
+									<th>维修原因</th>
+									<th>维修完成情况</th>
+								</tr>
+									<?php if($list):?>
+									<?php foreach($list as $v):?>
+									<tr>
+										<td><?php echo $v['id']?></td>
+										<td>
+											<a><?php echo $v['card_sn']?></a>
+										</td>
+										<td><?php echo $v['assets_name']?></td>
+										<td><?php echo $v['spec']?></td>
+										<td><?php echo $v['depart_name']?></td>
+										<td><?php echo $v['unit']?></td>
+										<td>1</td>
+										<td><?php echo $v['keeper']?></td>
+										<td><?php echo $v['store_address']?></td>
+										<td><?php echo date('Y-m-d',$v['time'])?></td>
+										<td><?php echo $v['reason']?></td>
+										<td><?php echo $v['situation']?></td>
+									</tr>
+									<?php endforeach?>
+								<?php else:?>
+									<tr>
+										<td colspan="12">没有任何信息</td>
+									</tr>
+								<?php endif;?>
+								
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ronshn.report.js" ></script>
+<script>
+
+			    $('#starttime').datetimepicker({
+			        format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+			    $('#endtime').datetimepicker({
+			        format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+		        $('#orderPrint').click(function(event) {
+            var order_sn=$("input[name='order_sn']").val();
+            var consignee=$("input[name='consignee']").val();
+            var timegap=$("input[name='timegap']").val();
+            var order_status=$("select[name='order_status']").val();
+            var pay_code=$("select[name='pay_code']").val();
+            var shipping_status=$("select[name='shipping_status']").val();
+            var pay_status=$("select[name='pay_status']").val();
+            // var url="{QY:U('index',array('exportorder'=>1,'order_sn'=>order_sn))}";
+           
+            $(this).attr('href',url);
+        });
+			   var page=1;
+	var xl = new Report({'name':'低质品维修列表','padding':1,'space':1});
+	function exporter()
+	{
+		if(page==1){loader();}
+		var ff=function(d){
+			if(d&&$.isArray(d))
+				{
+					xl.addrows(d);
+					page++;exporter();
+				}else{
+					xl.grid({'id':'序号','card_sn':'资产代码','assets_name':'名称','spec':'规格型号','department':'部门','unit':'单位','keeper':'保管','store_address':'存放地点','reason':'维修原因','apply_time':'维修日期','original_value':'金额','situation':'维修完成情况'}).exporter();
+					unmask();
+				}
+			}
+		submiter({type:'get',url:"{:U('Upload/export')}",data:{page:page,ctr:'LowWeixiu',key:"{$key_word}"},call:ff});
+	} 
+$('[name="type_id"]').change(function(){
+	loader();
+	$('select[name="cate_id"]').html('');
+	$v=$(this).find('option:checked').val();
+	var ff=function(d){
+		if(d&&$.isArray(d)){
+			var h='';
+			for (var i = 0; i < d.length; i++) {
+				h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+			}
+			$('select[name="cate_id"]').html(h);
+		}
+		unmask();
+	}
+	submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+}) 
+</script>
+
+</html>

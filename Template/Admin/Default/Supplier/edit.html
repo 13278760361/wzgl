@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<title>供应商-新增</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存	查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">供应商查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">编辑 </a>
+				<div class="topbtn fr">
+					<!-- <span class=" fs-14 boxshow03 top-btn">预览</span>
+					<span class=" fs-14  boxshow03 top-btn" onclick="window.print()">打印</span>
+				-->
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						
+					</div>
+					<span class="order-tit dtcell">供应商</span>
+					<div class=" order-date dtcell">
+						
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box">
+					<table class="table table-bordered">
+						<tr>
+							<td class='order-td-width01'>企业名称</td>
+							<td colspan="3" class='order-td-width02'><input type="text"  value="<?php echo $d['company_name']?>" ni="company_name"/></td>
+							<td class='order-td-width01'>法人代表</td>
+							<td colspan="3"><input type="text"  value="<?php echo $d['legaler']?>" class="width-all" ni="legaler"/></td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>营业执照号</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['business_no']?>" class="width-all" ni="business_no"/></td>
+							<td class='order-td-width01'>注册资金</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['register_price']?>" class="width-all" ni="register_price"/></td>
+						</tr>
+						<tr>
+							<td class='order-td-width01'>税务登记号</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['tax_no']?>" class="width-all" ni="tax_no"/></td>
+							<td class='order-td-width01'>企业规模</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['scale']?>" class="width-all" ni="scale"/></td>
+						</tr>
+						<tr>
+							<td>组织机构代码</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['org_code']?>" class="width-all" ni="org_code"/></td>
+							<td class='order-td-width01'>公司类型</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['type']?>" class="width-all" ni="type"/></td>
+						</tr>
+						<tr>
+							<td>供应商类别</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['supplier_type']?>" class="width-all" ni="supplier_type"/></td>
+							<td>邮政编码</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['post_code']?>" ni="post_code" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>经营范围</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['management']?>" ni="management" class="width-all"/></td>
+							<td>企业网址</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['company_url']?>" ni="company_url" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>主营业务</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['service']?>" ni="service" class="width-all"/></td>
+							<td>企业地址</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['address']?>" ni="address" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>开户银行</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['bank']?>" ni="bank" class="width-all"/></td>
+							<td>银行账号</td>
+							<td colspan="3"><input type="text" value="<?php echo $d['bank_account']?>" ni="bank_account" class="width-all"/></td>
+						</tr>
+						<tr>
+							<td>质量管理体系认证名称</td>
+							<td><input type="text" value="<?php echo $d['certification']?>" ni="certification" class="width-all"/></td>
+							<td>证书编号</td>
+							<td><input type="text" value="<?php echo $d['certificate_num']?>" ni="certificate_num" class="width-all"/></td>
+							<td>证书有效期</td>
+							<td><input type="text" value="<?php echo $d['certificate_date']?>" ni="certificate_date" class="width-all"/></td>
+							<td>发证机构</td>
+							<td><input type="text" value="<?php echo $d['certification_org']?>" ni="certification_org" class="width-all"/></td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td colspan="8">联系信息</td>
+						</tr>
+						<tr>
+							<td>联系人</td>
+							<td><input type="text" value="<?php echo $d['contacts']?>" ni="contacts" class="width-all"/></td>
+							<td>职务</td>
+							<td><input type="text" value="<?php echo $d['job']?>" ni="job" class="width-all"/></td>
+							<td>电话</td>
+							<td><input type="text" value="<?php echo $d['tel_phone']?>" ni="tel_phone" class="width-all"/></td>
+							<td>移动电话</td>
+							<td><input type="text" value="<?php echo $d['mobile_phone']?>" ni="mobile_phone" class="width-all"/></td>
+						</tr>
+					</table>
+
+				</div>
+				<!--表单内容部分 end-->
+				<div class="mrg-t50 text-center notprint">
+				<input type="hidden" ni="id" value="<?php echo $d['id']?>">
+					<span class="back-btn dpl fs-16 boxshow03" poster="ni" action="<?php echo U('edit')?>">修改</span>
+				</div>
+			</div>
+
+		</div>
+		
+	</body>
+
+</html>

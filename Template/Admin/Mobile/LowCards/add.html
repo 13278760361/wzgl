@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——卡片管理——新增</title>
+		<!--日期控件依赖的css-->
+		<link href="__CSS__/datecss/mobiscroll_002.css" rel="stylesheet" type="text/css">
+		<link href="__CSS__/datecss/mobiscroll.css" rel="stylesheet" type="text/css">
+		<link href="__CSS__/datecss/mobiscroll_003.css" rel="stylesheet" type="text/css">
+		<!--日期控件依赖的css-->
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+		<link rel="stylesheet" href="__CSS__/inventory.css" />
+		<style type="text/css">
+		.search_html{
+			position:absolute;
+			margin-left: 1%;
+			width:88%;
+			max-height:200px;
+			border:1px solid #ccc;
+			background:white;
+			display:none;
+		}
+		.search_html li{
+			padding: 6px 0;
+			list-style: none;
+			text-indent: 0.5em;
+			cursor: pointer;
+		}
+		.search_html li:hover{
+			background: #23B8F0;
+			color: #FFF;
+		}
+	</style>
+	</head>
+	
+	<body>
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<form class="am-form am-form-horizontal" action="{:U('add')}" method="post">
+			<div class="form_color_white">
+				
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">日期</label>
+					<div class="am-u-sm-8">
+						<input name="appDate" id="appDate" type="text" cards-1="input_time" placeholder="请选择日期">
+					</div>
+				</div>
+				<if condition="$is_supper eq 1">
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">部门</label>
+					<div class="am-u-sm-8">
+						<select purchase-shop="depart" class="goods_select" id="departmentClickBtn">
+							<option value="0">--请选择部门--</option>
+							<volist name="top_departs" id="vo">
+								<option value="{$vo.id}"  <if condition="$org eq $vo[id]"> selected='selected' </if>>{$vo.fullname}</option>
+							</volist>
+						</select>
+					</div>
+				</div>
+				</if>
+				<div class="m-box">
+					<div class="m-sub">
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品名称</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" field="assets_name" placeholder="请输入" value="{$ginfo.assets_name}">
+							</div>
+						</div>
+						<div class="am-form-group" style="display:none;">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品id</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" field="id" placeholder="请输入" value="{$ginfo.id}">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">使用部门</label>
+							<div class="am-u-sm-8">
+								<select cards-1="use_depart" class="goods_select">
+									<option value="0">--请选择--</option>
+									<volist name="list_dep" id="vo">
+										<option value="{$vo.id}">{$vo.fullname}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">使用人</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="user" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">增加方式</label>
+							<div class="am-u-sm-8">
+								<select cards-1="add_method" class="goods_select">
+									<volist name="add_method" id="vo">
+										<option value="{$vo}">{$vo}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">规格型号</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2"  cards-1="spec" placeholder="请输入" value="{$ginfo.spec}">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">保管人</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="keeper" placeholder="请输入">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">保管部门</label>
+							<div class="am-u-sm-8">
+								<!-- <input type="text" id="doc-ipt-pwd-2" cards-1="department" placeholder="请输入"> -->
+								<select caradd="keep_depart" class="goods_select">
+									<option value="0">--请选择--</option>
+									<volist name="list_dep" id="vo">
+										<option value="{$vo.depart_name}">{$vo.fullname}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">存放地点</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" cards-1="store_address" placeholder="请输入">
+							</div>
+						</div>
+						
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">数量</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" cards-1="num" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">使用年限</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="service_life" placeholder="请输入">
+							</div>
+						</div>
+						
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">月工作量</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="month_works" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">开始使用日期</label>
+							<div class="am-u-sm-8">
+								<input name="appDate" id="startDate" cards-1="start_date" type="text" placeholder="请选择日期">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">折旧方法</label>
+							<div class="am-u-sm-8">
+								<div class="am-form-group am-form-select">
+									<select class="goods_select" cards-1="depr_method">
+										<foreach name="depr_method" item="vo" key="k">
+											<option value="{$k}">{$vo}</option>
+										</foreach>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">已计提月份</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="mon_total" placeholder="请先填写使用年限">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">原值</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="original_value" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">净残值率</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" cards-1="net_salvage" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">净残值</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="net_residual_value" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">月折旧率</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="mon_depr_rate" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">累计折旧</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-3 sys_input" cards-1="mon_depr_sum" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">净值</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="net_worth" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">剩余可提折旧</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="k_net_worth" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">纳税人类型</label>
+							<div class="am-u-sm-8">
+								<div class="am-form-group am-form-select">
+									<select class="goods_select" cards-1="taxpayer_type">
+										<option value="小规模纳税人">小规模纳税人</option>
+										<option value="一般纳税人">一般纳税人</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">增值税税率</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="vat_rate" placeholder="请输入">
+							</div>
+						</div>
+
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">税额</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="tax_val" placeholder="请输入">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">备注</label>
+							<div class="am-u-sm-8">
+								<input type="text" id="doc-ipt-pwd-2" cards-1="remark" placeholder="请输入">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<input type="button" class="back_btn" value="确定" action="{:U('add')}" poster="cards"></input>
+		</form>
+	</body>
+	<include file="Public/footer" />
+	<!--日期控件依赖的js-->
+	<script src="__JS__/datejs/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_004.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="__JS__/datejs/mobiscroll_005.js" type="text/javascript"></script>
+	<script src="__JS__/sercher.js" type="text/javascript"></script>
+	<!--日期控件依赖的js-->
+
+	<script type="text/javascript">
+		//日期
+		var tab = null;
+        $(function () {
+        	tab = new Sercher({box:'.m-box',sub:'.m-sub',inputer:'assets_name',submit:'cards',url:"{:U('get_goods')}",type:'post'}).add();
+			var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'datetime'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 10 //结束年份
+			};
+		  	$("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	$("#startDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	$('#departmentClickBtn').change(function(event) {
+				var id=$(this).val();
+				var url="/Admin/Cards/add?org="+id;
+				window.location.href=url;
+				});
+        });
+        $("input[cards-1='mon_total']").focus(function(){
+
+			var startDate = $("input[cards-1='start_date']").val();
+
+			$.post("{:U('depr')}",{start_date:startDate},function(data,status){
+				
+				var datas = eval('('+data+')');
+				$("input[cards-1='mon_total']").val(datas.sueM);
+			});
+			
+
+		});
+		$("input[cards-1='vat_rate']").blur(function(){
+			
+			var orgval = $("input[cards-1='original_value']").val();
+			var vat = $(this).val();
+			var tax = orgval*vat/100;
+			$("input[cards-1='tax_val']").val(tax.toFixed(2));
+		});
+		$("input[cards-1='mon_total']").focus(function(){
+
+			var startDate = $("input[cards-1='start_date']").val();
+			var serviceLife = $("input[caradd='service_life']").val();
+			
+			$.post("{:U('depr')}",{start_date:startDate,service_life:serviceLife},function(data,status){
+				var datas = eval('('+data+')');
+				$("input[cards-1='mon_total']").val(datas.sueM);
+			});
+			
+
+		});
+		$("input[cards-1='net_salvage']").blur(function(){
+			var depr = $("select[cards-1='depr_method']").val();
+			var month_works = 0;
+			if(depr==1){
+				$("input[cards-1='month_works']").removeAttr("readonly");
+				month_works = $("input[cards-1='month_works']").val();
+			}else{
+				$("input[cards-1='month_works']").attr("readonly","readonly");
+				$("input[cards-1='month_works']").val('');
+			}
+			
+			var service_life = $("input[cards-1='service_life']").val();
+			var mon_total = $("input[cards-1='mon_total']").val();
+			var original_value = $("input[cards-1='original_value']").val();
+			var net_salvage = $("input[cards-1='net_salvage']").val();
+			var start_date = $("input[cards-1='start_date']").val();
+			
+			if(service_life==""){
+				alert("请填写使用年限");
+				return false;
+			}
+			if(original_value==""){
+				alert("请填写原值");
+				return false;
+			}
+		//	var mon_total = $("input[name='mon_total']").val();
+			if(mon_total==''){
+				alert("请先填写已计提月份");
+				return false;
+			}
+			if(net_salvage==""){
+				alert("请填写净残值率");
+				return false;
+			}
+			$.post("{:U('depr')}",
+				{
+					depr:depr,
+					service_life:service_life,
+					mon_total:mon_total,
+					original_value:original_value,
+					net_salvage:net_salvage,
+					start_date:start_date,
+					month_works:month_works
+
+			},function(data,status){
+				var datas = eval('('+data+')');
+				//console.log(datas.net_residual_value);
+				$("input[cards-1='net_residual_value']").val(datas.net_residual_value);
+				$("input[cards-1='mon_depr_rate']").val(datas.mon_depr_rate+'%');
+				$("input[cards-1='mon_depr_amount']").val(datas.mon_depr_amount);
+				$("input[cards-1='mon_depr_sum']").val(datas.mon_depr_sum);
+				$("input[cards-1='net_worth']").val(datas.net_worth);
+				$("input[cards-1='k_net_worth']").val(datas.k_net_worth);
+			});
+			
+		});
+    </script>
+</html>

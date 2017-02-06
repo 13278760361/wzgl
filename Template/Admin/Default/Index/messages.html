@@ -1,0 +1,17 @@
+<include file="header" />
+<div class="login_content">
+	<div class="message_show_box">
+		<div class="message_show_tit">消息提示</div>
+		<div class="message_s_box boxshow02">
+			<div class="po_message_box">
+				<ul>
+					<volist name="lists" id="vo">
+					<li><?php echo $key+1;?>、您有一条<a href="/Admin/Main/index#{$vo['url']}" class="message_a">{$vo['title']}</a>，请前往查看。</li>
+					</volist>
+				</ul>
+				<span class="message_close" onclick="history.go(-1);">返回</span>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="footer" />

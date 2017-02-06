@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置——名称</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+		<link rel="stylesheet" href="__CSS__/system_setting.css" />
+        <link rel="stylesheet" href="__CSS__/adjust_IE8.css" />
+	</head>
+	<body>
+		<div id="setting_name_con">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">物品名称 </a>
+			</div>
+			<div class="setting_name_box padt30 boxshow02" style="width: 1150px;">
+				<div class="sname_box padb15">
+					<span class="padlf15 padr15 sname_box_font fs-14 fl">物品名称</span>
+					<input type="text" class="padlf15 padr15 goods_names" goods="assets_name" />
+				</div>
+				<div class="sname_box padb15">
+					<span class="padlf15 padr15 sname_box_font fs-14 fl">单位</span>
+					<input type="text" class="padlf15 padr15 goods_names" goods="unit" />
+				</div>
+				<div class="sname_box">
+					<span class="padlf15 padr15 sname_box_font fs-14 fl">归类</span>
+					<select class="form-control goods_names" goods="type_id">
+						<option value="0">请选择</option>
+						<volist name="types" id="vo">
+						<option value="{$vo['id']}">{$vo['type_name']}</option>
+						</volist>
+					</select>
+				</div>
+				<div class="sname_box padb15">
+					<span class="padlf15 padr15 sname_box_font fs-14 fl">分类</span>
+					<select class="form-control goods_names" goods="cate_id">
+						
+					</select>
+				</div>
+				<!-- <div class="sname_box padb15">
+					<span class="padlf15 padr15  col-sm-4 sname_box_font fs-14">资产分类</span>
+					<select class="form-control col-sm-8" goods="cate_id">
+						<volist name="cates" id="vo">
+						<option value="{$vo['id']}">{$vo['fullname']}</option>
+						</volist>
+					</select>
+				</div> -->
+				
+				<div class="clearfix"></div>
+				<div class="textcenter mrg-t50 padb30 notprint">
+					<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline" poster="goods" action="__SELF__" style="display: inline-block">确定</span>
+					<a class="back-btn dpl fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle" href="{:U('index')}" style="display: inline-block;background: #D0CECE;">取消</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/ronshn.js"></script>
+		<script type="text/javascript">
+			$('[goods="type_id"]').change(function(){
+				loader();
+				$('select[goods="cate_id"]').html('');
+				$v=$(this).find('option:checked').val();
+				var ff=function(d){
+					if(d&&$.isArray(d)){
+						var h='';
+						for (var i = 0; i < d.length; i++) {
+							h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+						}
+						$('select[goods="cate_id"]').html(h);
+					}
+					unmask();
+				}
+				submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+			})
+		</script>
+	</body>
+</html>

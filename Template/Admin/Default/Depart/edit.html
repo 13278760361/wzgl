@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>系统设置——部门——修改</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+		<link rel="stylesheet" href="__CSS__/system_setting.css" />
+        <link rel="stylesheet" href="__CSS__/adjust_IE8.css" />
+	</head>
+	<body>
+		<div id="setting_name_con">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">部门 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">修改 </a>
+			</div>
+			<div class="setting_name_box padt30 boxshow02" style="width: 1150px;">
+				<div class="sname_box padb15">
+					<span class="padlf15 padr15  col-sm-4 sname_box_font fs-14 fl">编号</span>
+					<input type="text" class="padlf15 padr15 col-sm-8 goods_names" depart="depart_no" value="{$info['depart_no']}" />
+				</div>
+				<div class="sname_box padb15">
+					<span class="padlf15 padr15 col-sm-4 sname_box_font fs-14 fl">部门</span>
+					<input type="text" class="padlf15 padr15 col-sm-8 goods_names" depart="depart_name" value="{$info['depart_name']}" />
+				</div>
+				<div class="sname_box">
+					<span class="padlf15 padr15 col-sm-4 sname_box_font fs-14 fl">上级部门</span>
+					<select class="form-control col-sm-8 goods_names" depart="pid">
+						<option value="0">顶级部门</option>
+						<volist name="depts" id="vo">
+						<option value="{$vo['id']}" <eq name="info['pid']" value="$vo['id']">selected="selected"</eq>>{$vo['fullname']}</option>
+						</volist>
+					</select>
+				</div>
+				<div class="clearfix"></div>
+				<div class="textcenter mrg-t50 padb30 notprint">
+					<input type="hidden" depart="id" value="{$info['id']}">
+					<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline" poster="depart" action="__SELF__" style="display: inline-block">保存</span>
+					<a class="back-btn dpl fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle" href="{:U('index')}" style="display: inline-block;background: #D0CECE;">取消</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/ronshn.js"></script>
+	</body>
+</html>

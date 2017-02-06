@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+		<link rel="stylesheet" href="__CSS__/system_setting.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>系统设置——用户设置</title>
+	</head>
+	<body onkeydown="BindEnter(event)">
+		<div class="width-all notprint">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">用户设置 </a>
+			</div>
+			<form action="__SELF__" method="get">
+			<!--表格-->
+			<div class="date-table padb15">
+				<div class="dsplin fs-14">
+					<div class="dsplin card-num">
+						<input type="text" class="associated-drop mrg-lf15 setting_search_box" placeholder="123" name="key_word" value="{$key_word}" />
+					</div>
+				</div>
+				<button type="submit" class=" sarech-btn boxshow01" style="vertical-align: text-bottom;">
+					搜索
+				</button>
+				<div class="topbtn fr">
+					<a class=" fs-14 boxshow03 top-btn" poster="del" action="{:U('del')}">删除</a>
+					<a class=" fs-14 boxshow03 top-btn poster" poster-act="all" action="{:U('del')}">清除</a>
+				</div>
+			</div>
+			<!--表格内容-->
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+					<tr>
+						<th class="width-145">
+							<label class="demo--label">
+						        <input class="demo--radio CheckAll" type="checkbox">
+						        <span class="demo--radioInput radio_fl"></span>
+						        <span class="fc-3 fs-14 serial_number">序号</span>
+						    </label>
+						</th>
+						<th>操作管理员</th>
+						<th>操作类型</th>
+						<th>操作地址</th>
+						<th>操作描述</th>
+						<th>客户端IP</th>
+						<th>操作时间</th>
+						<th>操作</th>
+					</tr>
+					<volist name="lists" id="vo">
+					<tr>
+						<td>
+							<label class="demo--label">
+						        <input class="demo--radio fl" type="checkbox" name="demo-radio" del="ids" value="{$vo['log_id']}" />
+						        <span class="demo--radioInput radio_fl"></span>
+						        <span class="fc-3 fs-14"><?php echo $key+1;?></span>
+						    </label>
+						</td>
+						<td>{$vo['log_name']}</td>
+						<td>{$vo['log_type']}</td>
+						<td>{$vo['log_action']}</td>
+						<td>{$vo['log_desc']}</td>
+						<td>{$vo['log_ip']}</td>
+						<td>{$vo['log_time']}</td>
+						<td>
+							<a class="fs-14 boxshow03 top-btn poster" action="{:U('del')}" poster-ids="{$vo['log_id']}">删除</a>
+						</td>
+					</tr>
+					</volist>
+				</table>
+			</div>
+			<div class="change-num ">{$page}</div>
+			</form>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 800px;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="table-responsive">
+							<h3 class="padb15"></h3>
+							<table class="table table-bordered table-striped table-list  boxshow02" id="checkList">
+								<tr>
+									<th>用户名</th>
+									<th>姓名</th>
+									<th>性别</th>
+									<th>部门</th>
+									<th>角色</th>
+									<th>联系方式</th>
+									<th>邮箱</th>
+								</tr>
+								<volist name="lists" id="vo">
+								<tr>
+									<td>{$vo['username']}</td>
+									<td>{$vo['name']}</td>
+									<td>{$vo['sex']}</td>
+									<td>{$vo['depart_name']}</td>
+									<td>{$vo['role']}</td>
+									<td>{$vo['tel']}</td>
+									<td>{$vo['email']}</td>
+								</tr>
+								</volist>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//全选、全不选
+		$(".CheckAll").click(function() {
+			if($(this).prop("checked")) { // 全选 
+				$("input[name='demo-radio']").each(function() {
+					$(this).prop("checked", true);
+				});
+			} else { // 取消全选 
+				$("input[name='demo-radio']").each(function() {
+					$(this).prop('checked', false);
+				});
+			}
+		});
+		function BindEnter(e){
+			if(e.keyCode==13){$('form').submit();}
+		}
+	</script>
+</html>

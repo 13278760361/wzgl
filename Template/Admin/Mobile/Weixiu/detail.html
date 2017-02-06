@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产维修查询——详情</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+	</head>
+
+	<body>
+			<include file="Public/header" />
+
+		<ol class="am-breadcrumb">
+		  <li>
+				<a href="#">资产管理</a>
+			</li>
+			<li>
+				<a href="#">资产维修查询</a>
+			</li>
+			<li class="am-active">详情</li>
+			<a href="javascript:history.go(-1)" class="callback_btn">返回</a>
+		</ol>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">单号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['repeat_sn']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo date('Y-m-d',$list[0]['repeat_time'])?></label>
+			</div>
+		</div>
+		<?php foreach($list as $k=>$v):?>
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产代码</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['card_sn'];?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">资产分类</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['cate_name'];?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">物品名称</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['assets_name'];?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">规格型号</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['spec'];?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">金额</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['original_value']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">保管人</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['keeper']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">部门</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['depart_name']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">维修日期</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo date('Y-m-d',$v['time'])?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">维修原因</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $v['reason']?></label>
+			</div>
+		</div>
+		<?php endforeach;?>
+		
+		<div class="asset_postil_box">
+		<?php foreach($auditlist as $v):?>
+			<div class="asset_postil">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">意见</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line audit_begin">
+					            <?php if($v['audit_status']==1):?>
+													待审核
+												<?php elseif($v['audit_status']==4):?>
+												同意
+											<?php else:?>
+												不同意
+											<?php endif;?></label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num"><?php echo $v['depart_name']?></label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line"><?php echo $v['username']?></label>
+				</div>
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-3 am-form-label sys_num">日期</label>
+					<label for="doc-ipt-3" class="am-u-sm-8 am-form-label sys_num back_color postil_line">
+					<?php if($v['audit_time']):?>
+					<?php echo date('Y-m-d',$v['audit_time'])?>
+						<?php endif;?>
+					</label>
+				</div>
+				<div class="cle"></div>
+			</div>
+		<?php endforeach;?>
+		</div>
+		
+		<div class="asset_con_box">
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">维修完成情况</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['situation']?></label>
+			</div>
+			<div class="am-form-group asset_list">
+				<label for="doc-ipt-3" class="am-u-sm-5 am-form-label sys_num">维修金额</label>
+				<label for="doc-ipt-3" class="am-u-sm-7 am-form-label sys_num back_color"><?php echo $list[0]['r_money']?></label>
+			</div>
+		</div>
+	</body>
+
+</html>

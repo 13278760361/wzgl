@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——资产月结</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body style="background: #FFFFFF;">
+ 		<include file="Public/header" />
+		<include file="Public/nav" />
+		<form method="get" action="__SELF__">
+		<div class="mess_search">
+			<a href="{:U('mon')}" class="jia_btn">
+				<img src="__IMG__/jia.png" />
+			</a>
+			<div class="search_box">
+				<input id="search_key" type="text" name="assets_name"  placeholder="输入物品名称进行查询" />
+				<div class="search_ico">
+					<img src="__IMG__/search.png"  onclick="forms[0].submit();" style="cursor:pointer;" />
+				</div>
+			</div>
+		</div>
+		</form>
+		<div class="am-scrollable-horizontal complex_table inner mgrb100">
+			<table class="am-table am-table-bordered am-table-striped am-text-nowrap lists">
+				<thead>
+					<tr>
+						<th rowspan="2">序号</th>
+						<th rowspan="2">资产分类</th>
+						<th rowspan="2">物品名称</th>
+						<th rowspan="2">规格型号</th>
+						<th colspan="2">期初结存</th>
+						<th colspan="2">本期入库</th>
+						<th colspan="2">增值税</th>
+						<th colspan="2">本期出库</th>
+						<th colspan="2">本期报废报损</th>
+						<th colspan="2">本期维修</th>
+						<th colspan="2">本期结算</th>
+					</tr>
+					<tr>
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+						
+						<th>数量</th>
+						<th>金额</th>
+					</tr>
+				</thead>
+				<tbody>
+					  <volist name="list" id="vo"  >
+          <tr>
+            <td>{$i+$index}</td>
+            <td>{$vo.catname}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.spec}</td>
+            <td>{$vo.last_num}</td>
+            <td>{$vo.last_total}</td>
+            <td>{$vo.ent_num}</td>
+            <td>{$vo.ent_total}</td>
+            <td>{$vo.total}</td>
+            <td>{$vo.totaltaxval}</td>
+            <td>{$vo.out_num}</td>
+            <td>{$vo.out_total}</td>
+            <td>{$vo.scrap_num}</td>
+            <td>{$vo.acrap_total}</td>
+            <td>{$vo.repair_num}</td>
+            <td>{$vo.repair_total}</td>
+            <td>{$vo.current_num}</td>
+            <td>{$vo.current_total}</td>
+          </tr>
+        </volist>
+				</tbody>
+			</table>
+		</div>
+		<div style="position: fixed;bottom: 0;background: #FEFFFE;">
+			<div class="monthly_account">
+				<span class="prior_total">上期合计</span>
+				<span>
+					<input type="text" class="prior_total_num" value="{$last_all_total}"/>
+				</span>
+				<span class="prior_total">本期合计</span>
+				<span>
+					<input type="text" class="period_total_num" value="{$current_all_total}"/>
+				</span>
+			</div>
+			
+			<div class="monthly_balance">
+    			<input type="hidden" mon="type" value="1">
+   				 <input type="hidden" nomon="type" value="2">
+                 
+                 
+				<button type="button"     <if condition="$monStatus==0"> poster="mon" action="{:U('monA')}" </if> class="am-btn <if condition="$monStatus==0"> monthly <else/> reverse </if>">月结</button>
+				<button type="button" class="am-btn <if condition="$monStatus==1"> monthly <else/> reverse </if>" <if condition="$monStatus==1"> poster="nomon" action="{:U('monA')}" 
+        </if> >反月结</button>
+			</div>
+		</div>
+	</body>
+	<include file="Public/footer" />
+	<script>
+		$(function() {
+			var page = 1;
+   			// 每页展示5个
+   			//var size = 10;
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/LowCalculate/monApi?p='+page,
+   						dataType: 'json',
+   						success: function(data) {
+//   						alert(page);
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+	   									result += '<tr>' +
+										'<td>' + ({$index}+i*1) + '</td>' +
+	   									'<td>' + data[i].catname + '</td>' +
+	   									'<td>' + data[i].name + '</td>' +
+	   									'<td>' + data[i].spec + '</td>' +
+	   									'<td>' + data[i].last_num + '</td>' +
+	   									'<td>' + data[i].last_total + '</td>' +
+	   									'<td>' + data[i].ent_num + '</td>' +
+	   									'<td>' + data[i].ent_total + '</td>' +
+	   									'<td>' + data[i].total + '</td>' +
+	   									'<td>' + data[i].totaltaxval + '</td>' +
+	   									'<td>' + data[i].out_num + '</td>' +
+	   									'<td>' + data[i].out_total + '</td>' +
+	   									'<td>' + data[i].scrap_num + '</td>' +
+	   									'<td>' + data[i].acrap_total + '</td>' +
+	   									'<td>' + data[i].repair_num + '</td>' +
+	   									'<td>' + data[i].repair_total + '</td>' +
+	   									'<td>' + data[i].current_num + '</td>' +
+	   									'<td>' + data[i].current_total + '</td>' +
+	   									'</tr>';
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+		});
+	</script>
+</html>

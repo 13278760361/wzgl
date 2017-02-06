@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>库存管理——采购查询</title>
+		<link rel="stylesheet" href="__CSS__/dropload.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/asset_set.css" />
+	</head>
+
+	<body style="background: #FFFFFF;" class="inner">
+		<include file="Public/header" />
+		<include file="Public/nav" />
+		<form action="__SELF__" method="get">
+		<div class="mess_search">
+			<a href="{:U('add')}" class="jia_btn">
+				<img src="__IMG__/jia.png" />
+			</a>
+			<div class="search_box">
+				<input id="search_key" type="text" name="key_word" value="{$key_word}" placeholder="输入单号/物品/部门进行查询" />
+				<div class="search_ico" onclick="forms[0].submit();" style="cursor:pointer;">
+					<img src="__IMG__/search.png" />
+				</div>
+			</div>
+		</div>
+		</form>
+		<table class="am-table am-table-bordered am-table-striped table_limit lists">
+			<thead>
+				<tr>
+					<th>采购单号</th>
+					<th>物品名称</th>
+					<th>申请人</th>
+					<th>部门</th>
+				</tr>
+			</thead>
+			<tbody>
+			<volist name="lists" id="vo">
+				<tr>
+					<td><a href="{:U('check',array('shop_id'=>$vo['id']))}">{$vo.order_sn}</a></td>
+					<td>{$vo.goods_name}</td>
+					<td>{$vo.applyer}</td>
+					<td>{$vo.depart}</td>
+				</tr>
+			</volist>	
+			</tbody>
+		</table>
+	</body>
+	<include file="Public/footer" />
+	<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+	<script>
+		$(function() {
+			var page = 1;
+			var size = {$ajaxlen};
+			var key="{$key_word}";
+			$('.inner').dropload({
+				scrollArea: window,
+				domDown: {
+					domClass: 'dropload-down',
+					domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+					domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+					domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+				},
+				loadDownFn: function(me) {
+   					page++;
+   					// 拼接HTML
+   					var result = '';
+   					$.ajax({
+   						type: 'GET',
+   						url: '/Admin/Purchase/ajaxindex/page/'+page+'/size/'+size+'/key_word/'+key,
+   						dataType: 'json',
+   						success: function(data) {
+   							var arrLen = data.length;
+   							if(arrLen > 0) {
+   								for(var i = 0; i < arrLen; i++) {
+	   									result += '<tr>' +
+	   									'<td>' + data[i].order_sn + '</td>' +
+	   									'<td>' + data[i].goods_name + '</td>' +
+	   									'<td>' + data[i].applyer + '</td>' +
+	   									'<td>' + data[i].depart + '</td>' +
+	   									'</tr>';
+   								}
+   								// 如果没有数据
+   							} else {
+   								// 锁定
+   								me.lock();
+   								// 无数据
+   								me.noData();
+   							}
+   							// 为了测试，延迟1秒加载
+   							setTimeout(function() {
+   								// 插入数据到页面，放到最后面
+   								$('.lists').append(result);
+   								// 每次数据插入，必须重置
+   								me.resetload();
+   							}, 1000);
+   						},
+   						error: function(xhr, type) {
+   							// alert('Ajax error!');
+   							// 即使加载出错，也得重置
+   							me.resetload();
+   						}
+   					});
+   				},
+				threshold: 50
+			});
+		});
+	</script>
+</html>

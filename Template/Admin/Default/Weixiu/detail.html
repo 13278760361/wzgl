@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>资产维修申请单-查看</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产维修查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">查看 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn"  data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<!--<div class="detaile-top dtable">-->
+					<!--<div class="ordernum dtcell">-->
+						<!--<span class="fc-2">单号：</span>-->
+						<!--<span class="fc-6"><?php echo $list[0]['repeat_sn']?></span>-->
+					<!--</div>-->
+					<!--<span class="order-tit dtcell">资产维修申请单</span>-->
+					<!--<div class="grounp order-date dtcell">-->
+						<!--<div class="dtable date-calender">-->
+							<!--<span class="date-calender-name">日期：</span>-->
+							<!--<div class="">-->
+								<!--<span></span>-->
+								<!--<input type="text" disabled="disabled" class="date-calender-input" value="<?php echo date('Y-m-d',$list[0]['repeat_time'])?>"/>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+                <div class="detaile-top dtable">
+                    <div class="ordernum dtcell">
+                        <div class="dtable date-calender data_change">
+                            <span class="date-calender-name">日期：</span>
+                            <div class="">
+                                <span></span>
+                                <input type="" disabled="disabled" class="date-calender-input" value="<?php echo date('Y-m-d',$list[0]['repeat_time'])?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="order-tit dtcell">资产维修申请单</span>
+                    <div class="grounp order-date dtcell">
+                        <span class="fc-2">单号：</span>
+                        <span class="fc-6"><?php echo $list[0]['repeat_sn']?></span>
+                    </div>
+                </div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box mrg-t15">
+						<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<!-- <td class='order-td-width01'>序号</td> -->
+							<td class='order-td-width01' field="order_sn">资产代码</td>
+							<td class='order-td-width01' field="cate_name">资产分类</td>
+							<td class='order-td-width01' field="assets_name">物品名称</td>
+							<td class='order-td-width01' field="spec">规格型号</td>
+							<td class='order-td-width01' field="unit">单位</td>
+							<td class='order-td-width01' field="original_value">金额</td>
+							<td class='order-td-width01' field="keeper">使用人</td>
+							<td class='order-td-width01' field="department">部门</td>
+							<td class='order-td-width01' field="store_address">存放地点</td>
+							<td class='order-td-width01' field="reason">维修原因</td>
+							<td class='order-td-width01' field="time">维修日期</td>
+						</tr>
+						<?php foreach($list as $k=>$v):?>
+						<tr id="tr1">
+							<!-- <td>
+								<div class="wid80">
+									<?php echo $k+1;?>
+								</div>
+							</td> -->
+							<td class="position-r">
+							<?php echo $v['card_sn'];?>
+						
+							</td>
+							<td class="position-r">
+								<?php echo $v['cate_name'];?>
+								
+							</td>
+							<td class="position-r">
+								<?php echo $v['assets_name'];?>
+						
+							</td>
+							<td class="position-r">
+								<?php echo $v['spec'];?>
+								
+							</td>
+							<td class="position-r">
+								<?php echo $v['unit'];?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['original_value']?>
+		
+							</td>
+
+							<td class="position-r">
+								<?php echo $v['keeper']?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['depart_name']?>
+
+							</td>
+							<td class="position-r">
+								<?php echo $v['store_address']?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['reason']?>
+							</td>
+							<td class="position-r">
+							<?php if($v['time']):?>
+						<?php echo date('Y-m-d',$v['time'])?>
+						<?php endif;?>
+							</td>
+						</tr>
+						<?php endforeach;?>
+					</table>
+					<table class="table table-bordered">
+						<?php foreach($auditlist as $v):?>
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm">意见</div>
+									<div class="dtcell">
+										<div class="position-r">
+											<textarea class="width-all" rows="3"  readonly="readonly">
+												<?php echo $v['yijian']?>
+											</textarea>
+										</div>
+
+										<div class="width-all padb15">
+											<div class="department">
+												<select name="" class="position-department-sele "  readonly="readonly">
+													<option value=""><?php echo $v['depart_name']?></option>
+												
+												</select>
+												<?php if($v['signature']):?>
+								<span class="fc-2 fs-18"><img src="<?php echo $v['signature']?>" alt=""></span>
+											<?php else:?>
+												<input type="" name="" class="fc-2 fs-18" value="<?php echo $v['username']?>"  readonly="readonly"/>
+												<?php endif;?>
+
+												
+											</div>
+											<div class="text-right padr15">
+												<div class="dsplin fc-8 fs-18 ">
+												<?php if($v['audit_status']==1):?>
+													待审核
+												<?php elseif($v['audit_status']==4):?>
+												同意
+											<?php else:?>
+												不同意
+											<?php endif;?>
+												</div>
+												<div class="dsplin wtd-half change-date-box fs-12 fc-2 ">
+												<?php if($v['audit_time']):?>
+													<span>日期：</span>
+													<input type="text" class="change-date" value="<?php echo date('Y-m-d',$v['audit_time'])?>"  readonly="readonly"/>
+												<?php endif;?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<?php endforeach;?>
+						<tr>
+							<td>维修完成情况</td>
+							<td><?php echo $list[0]['situation']?></td>
+							<td>维修金额</td>
+							<td><?php echo $list[0]['r_money']?></td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<a href="<?php echo U('index')?>"><span class="back-btn dpl fs-16 boxshow03">返回</span></a>
+				</div>
+			</div>
+
+		</div>
+<!-- Modal -->
+<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 85%;">
+    <div class="modal-content">
+     
+      <div class="modal-body">
+        <div class=" order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6"><?php echo $list[0]['repeat_sn']?></span>
+					</div>
+					<span class="order-tit dtcell">资产维修申请单</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<span></span>
+								<input type="text" disabled="disabled" class="date-calender-input" value="<?php echo date('Y-m-d',$list[0]['repeat_time'])?>"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box mrg-t15">
+				<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<!-- <td class='order-td-width01'>序号</td> -->
+							<td class='order-td-width01' field="order_sn">资产代码</td>
+							<td class='order-td-width01' field="cate_name">资产分类</td>
+							<td class='order-td-width01' field="assets_name">物品名称</td>
+							<td class='order-td-width01' field="spec">规格型号</td>
+							<td class='order-td-width01' field="unit">单位</td>
+							<td class='order-td-width01' field="original_value">金额</td>
+							<td class='order-td-width01' field="keeper">使用人</td>
+							<td class='order-td-width01' field="department">部门</td>
+							<td class='order-td-width01' field="store_address">存放地点</td>
+							<td class='order-td-width01' field="reason">维修原因</td>
+							<td class='order-td-width01' field="time">维修日期</td>
+						</tr>
+						<?php foreach($list as $k=>$v):?>
+						<tr id="tr1">
+							<!-- <td>
+								<div class="wid80">
+									<?php echo $k+1;?>
+								</div>
+							</td> -->
+							<td class="position-r">
+							<?php echo $v['card_sn'];?>
+						
+							</td>
+							<td class="position-r">
+								<?php echo $v['cate_name'];?>
+								
+							</td>
+							<td class="position-r">
+								<?php echo $v['assets_name'];?>
+						
+							</td>
+							<td class="position-r">
+								<?php echo $v['spec'];?>
+								
+							</td>
+							<td class="position-r">
+								<?php echo $v['unit'];?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['original_value']?>
+		
+							</td>
+
+							<td class="position-r">
+								<?php echo $v['keeper']?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['depart_name']?>
+
+							</td>
+							<td class="position-r">
+								<?php echo $v['store_address']?>
+							</td>
+							<td class="position-r">
+								<?php echo $v['reason']?>
+							</td>
+							<td class="position-r">
+								<?php echo date('Y-m-d',$v['time'])?>
+							</td>
+						</tr>
+						<?php endforeach;?>
+					</table>
+					<table class="table table-bordered">
+						
+						<?php foreach($auditlist as $v):?>
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm">意见</div>
+									<div class="dtcell">
+										<div class="position-r">
+											<textarea class="width-all" rows="3"  readonly="readonly"><?php echo $v['yijian']?></textarea>
+										</div>
+
+										<div class="width-all padb15">
+											<div class="department">
+												<select name="" class="position-department-sele "  readonly="readonly">
+													<option value=""><?php echo $v['depart_name']?></option>
+												</select>
+												<?php if($v['signature']):?>
+								<span class="fc-2 fs-18"><img src="<?php echo $v['signature']?>" alt=""></span>
+											<?php else:?>
+												<input type="" name="" class="fc-2 fs-18" value="<?php echo $v['username']?>"  readonly="readonly"/>
+												<?php endif;?>
+											</div>
+											<div class="text-right padr15">
+												<div class="dsplin fc-8 fs-18 ">
+													<?php if($v['audit_status']==1):?>
+													待审核
+												<?php elseif($v['audit_status']==4):?>
+												同意
+											<?php else:?>
+												不同意
+											<?php endif;?>
+												</div>
+												<div class="dsplin wtd-half change-date-box fs-12 fc-2 ">
+												<?php if($v['audit_time']):?>
+													<span>日期：</span>
+													<input type="text" class="change-date" value="<?php echo date('Y-m-d',$v['audit_time'])?>"  readonly="readonly"/>
+												<?php endif;?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<?php endforeach;?>
+						<tr>
+							<td>维修完成情况</td>
+							<td><?php echo $list[0]['situation']?></td>
+							<td>维修金额</td>
+							<td><?php echo $list[0]['r_money']?></td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+			</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+	</body>
+
+</html>

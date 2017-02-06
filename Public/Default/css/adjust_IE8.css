@@ -1,0 +1,151 @@
+/*固定资产验收——新增页IE8兼容*/
+.IE_add_ico{
+    background-color: #CEC5C5\9;
+    color: #fff\9;
+    padding:0px 15px\9;
+    cursor: pointer\9;
+}
+/*校验、意见的宽度*/
+.verify_IE{
+    width:150px;
+    width: 150px\9;
+}
+.fl_ie{
+    float: left\9;
+    margin-left: 8px\9;
+}
+.dele_IE{
+    color: #23B8F0\9;
+    cursor: pointer;
+}
+.model_dialog_ie{
+    width:90%\9;
+    margin: 50px auto\9;
+}
+.accept_IE{
+    width:100px;
+    width: 100px\9;
+}
+.mrg-t15_iE{
+    margin-top: 15px\9;
+}
+.padb_8{
+    padding-bottom: 8px\9;
+}
+
+/*卡片管理*/
+.border-show{
+    border: 1px solid #ddd\9;
+}
+.border_none_IE{
+    border:none\9;
+}
+.print_boxshow05{
+    padding: 2px 12px\9;
+    color: #fff\9;
+    cursor: pointer\9;
+    background: #D0CECE\9;
+    border-radius: 5px\9;
+}
+.vertical-top{
+    vertical-align: top !important;
+}
+.exchange_apply{
+    margin: 10px auto;margin-left:43.5%;display: inline-block;text-align: center;
+}
+.width135_h28{
+    width:135px !important;
+    height:28px !important;
+}
+.width195{
+    width:195px !important;
+}
+.width295{
+    width:295px !important;
+}
+.width215{
+    width:215px !important;
+}
+
+.margin-top--20{
+    margin-top: -20px;
+}
+.margin-right-10{
+    margin-right: 10px\9;
+}
+
+.span_aduit{
+    display: inline-block;
+    height: 23px;
+    line-height: 23px;
+}
+
+.absolute_b25{
+    position: absolute\9;
+    bottom: 25px\9;
+}
+
+/*日期单号IE8下不对齐调整*/
+.data_change{
+    position: absolute\9;
+    top: 23px\9;
+}
+
+/*资产盘点*/
+.vertical-align_t-bottom{
+    vertical-align: text-bottom !important;
+}
+
+
+/*库存管理*/
+.width239{
+    width: 239px !important;
+    width: 239px\9 !important;
+}
+.width240{
+    width: 240px !important;
+    width: 240px\9 !important;
+}
+.width120{
+    width: 120px !important;
+    width: 120px\9 !important;
+}
+
+.mrg10{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+
+/*系统设置*/
+.col-sm-3_ie{
+    float: left;
+    text-align: right;
+    width:215px;
+    width: 215px\9;
+}
+
+.col-sm-8_ie{
+    float: left;
+    width:550px;
+    width: 550px\9;
+}
+
+.goods_names{
+    float: left;
+    width:255px;
+    height:34px;
+}
+
+.col-sm-10_ie{
+    float: left;
+    width:690px;
+    width:690px\9;
+}
+
+.width_auto{
+    width:auto !important;
+}
+.flt{
+    float: left;
+}

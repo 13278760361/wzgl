@@ -1,0 +1,279 @@
+@charset "utf-8";
+
+/*不需要打印元素*/
+.prinrH{display: none; width: 900px;}
+@media print {
+	.prinrH{display: block;}
+	.notprint {
+		display: none;
+	}
+	.order-card{
+		border: none;
+		padding: 0;
+		margin: 0;
+		font-size: 12px;
+		font-weight: normal;
+		font-family: '宋体';
+	}
+	.order-td-width03{width: 100px}
+	.table-bordered{border: none !important;}
+	*{font-size: 12px;
+		font-weight: normal;
+		font-family: '宋体';}
+}
+@media (min-width: 768px){
+.modal-dialog {
+    width: 800px;
+    margin: 30px auto;
+}
+.nav-next01 {
+	height: 40px;
+}
+
+/*固定资产验收单&&各种order*/
+.table>tbody>tr>td[class=order-td-width01],
+.table>tbody>tr>td[class=order-td-width02],
+.table>tbody>tr>td[class=order-td-width03],
+.table>tbody>tr>td[class=order-td-width04]{
+	vertical-align: middle;
+}
+.order-td-width01{
+	width: 120px;
+}
+.order-td-width02{
+    width:240px;
+    width:240px\9;
+}
+.order-td-width03{
+	width: 150px;
+}
+.order-td-width04{
+	width: 70%;
+}
+
+.department{
+	text-align: left;
+}
+.department img{width: 120px;height: 50px;}
+.position-department-sele{
+	width: 120px !important;
+	margin:0 15px;
+}
+
+.position-department200{
+	width: 200px !important;
+}
+
+
+/*验收单申请表*/
+.signature01{
+	position: absolute; 
+	top: -15PX;
+}
+
+.sihgt{
+	height: 50px;
+}
+.spanhgt{
+	line-height: 40px;
+}
+
+.form-control-alt01{
+	position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+	
+	
+	display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.input-group-addon-alt01{
+    white-space: nowrap;
+    vertical-align: middle;
+	    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.rqcode-btn{
+	 padding: 2px 12px;
+	 color: #fff;
+	 cursor: pointer;
+}
+.rqcode-btn:hover{
+	 color: #fff;
+}
+/*各种类表页面元素微调*/
+.list-top-inputboxshadow{
+	border: 1px solid #E9E9E9;
+	box-shadow: inset 0px 1px 3px 0px rgba(211,211,211,0.50);
+	-webkit-box-shadow:  0px 1px 3px 0px rgba(211,211,211,0.50);
+	-moz-box-shadow: 0px 1px 3px 0px rgba(211,211,211,0.50);
+	
+}
+
+.list-top-input{
+	width: 120px;
+	padding: 3px 12px;
+}
+.list-top-input150{
+    width: 150px!important;
+}
+.time-interval{
+	padding: 0 8px;
+}
+.addlistrow{
+	bottom: -20px;
+	right: 0;
+	width: 50px;
+	height: 20px;
+	line-height: 20px;
+	background-color: #CEC5C5;
+	color: #fff;
+	cursor: pointer;
+}
+
+
+/*资产维修申请*/
+#maintain_reason{
+	width: 100%;
+	min-height: 150px;
+	border: 1px solid red;
+}
+
+
+.rm20{
+	float: right;margin-top: -20px;
+}
+
+
+/*个人中心*/
+
+.personal-pawdpage{
+	width: 75%;
+	margin: 15px auto;
+	font-size: 14px;
+	color: #323232;
+}
+.person_nav{
+	height: 50px;
+	line-height: 50px;
+	
+}
+.nav-hr{
+	margin:0;
+	border:0; 
+	border-top:1px solid  #E4E4E4;
+	height: 1px;
+
+}
+.person_grade{
+	margin: 0px 5px;
+}
+
+.pserson_box{
+	padding: 50px;
+}
+.pawdeorr{
+	display: block;
+    left: 100%;
+    top: 0;
+    width: 120px;
+    display: none;
+}
+/*个人中心字体设置*/
+.person_box_f{
+	font-size: 14px;
+	color: #646464;
+	font-weight: normal;
+}
+
+.btn_inline{
+	display: inline-block;
+}
+
+.btn_cancle{
+	background: #D0CECE;
+	box-shadow: 0px 2px 4px 0px #D0CECE;
+	border-radius: 5px;
+}
+.warning{
+	display: none;
+	font-size: 12px;
+	color: #DD251C;
+	line-height: 34px;
+}
+.Pmargin_left{
+	margin-left: 25px;
+}
+/*同意行 的 删除操作*/
+.delete-opinion{
+	padding: 5px 0;
+	top: 0;
+
+}
+
+.opinion-dlt-a{
+	text-decoration: underline;
+	color: #23B8F0;
+	cursor: pointer;
+	padding:0 20px;
+}
+/*生成条形码样式*/
+.barcode{
+	width:100px;
+	height: auto;
+}
+.barcode img{
+	max-width:100px;
+}
+/*图标图例下拉*/
+#echart{
+	width: 80%;
+	height: 500px;
+	margin: 0 auto;
+}
+.chartsele{
+	top: 10px; 
+	right: 11%;
+	z-index: 100000;
+}
+.chartsele select{
+	width: 80px;
+	color: #fff;
+	border: none;
+	
+}
+/* 打印预览按钮组  位置布局 */
+.printbtn-layout{
+	right: 0;
+    top: 70px;
+}
+/*卡片管理   下载a标签组*/
+.download-a{
+	color: #0F62AD;
+	text-decoration: underline;
+	padding-right: 20px;
+	cursor: pointer;
+}

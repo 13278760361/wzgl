@@ -1,0 +1,13 @@
+<div id="nav_tit">
+	<div class="Yves">Yves</div>
+	<div class="nav_font">物资管理平台</div>
+	<div class="enve">
+		<img style="cursor:pointer;" src="__IMG__/envelope_ico.png" onclick="redirect('{:U('Index/messages')}')" />
+	</div>
+</div>
+<div id="nav_box">
+	<a class="nav_ico <eq name="nurl" value="Admin/Index/index">nav_active</eq>" href="{:U('Admin/Index/index')}">首页</a>
+	<volist name="menus" id="vo">
+	<a class="nav_ico <eq name="nurl" value="$vo['name']">nav_active</eq>" href="{:U($vo['name'])}">{$vo['title']}</a>
+	</volist>
+</div>

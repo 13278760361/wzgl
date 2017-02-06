@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>系统设置-用户设置</title>
+	<link rel="stylesheet" href="__CSS__/dropload.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_set.css" />
+</head>
+<body style="background: #FFFFFF;" class="inner">
+	<include file="Public/header" />
+	<include file="Public/nav" />
+	<form method="get" action="__SELF__">
+	<div class="mess_search">
+		<a href="{:U('add')}" class="jia_btn">
+			<img src="__IMG__/jia.png" />
+		</a>
+		<div class="search_box">
+			<input id="search_key" type="text" name="key_word" placeholder="用户名/名称/部门/角色" value="{$key_word}" />
+			<div class="search_ico" onclick="forms[0].submit();" style="cursor:pointer;">
+				<img src="__IMG__/search.png" />
+			</div>
+		</div>
+	</div>
+	</form>
+	<table class="am-table am-table-bordered am-table-striped table_limit lists">
+		<thead>
+			<tr>
+				<th>用户名</th>
+				<th>姓名</th>
+				<th>部门</th>
+				<th>角色</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="lists" id="vo">
+			<tr url="{:U('edit',array('id'=>$vo['id']))}">
+				<td>{$vo['username']}</td>
+				<td>{$vo['name']}</td>
+				<td>{$vo['depart_name']}</td>
+				<td>{$vo['role']}</td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+</body>
+<include file="Public/footer" />
+<script type="text/javascript" src="__JS__/dropload.min.js"></script>
+<script>
+$(function() {
+	var page = 1;
+	var size = {$ajaxlen};
+	var key="{$key_word}";
+	$('.inner').dropload({
+		scrollArea: window,
+		domDown: {
+			domClass: 'dropload-down',
+			domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+			domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+			domNoData: '<div class="dropload-noData">没有更多数据了！</div>'
+		},
+		loadDownFn: function(me) {
+				page++;var result = '';
+				$.ajax({
+					type: 'GET',
+					url: '/Admin/User/ajaxindex/page/'+page+'/size/'+size+'/key_word/'+key,
+					dataType: 'json',
+					success: function(data) {
+						var arrLen = data.length;
+						if(arrLen > 0) {
+							for(var i = 0; i < arrLen; i++) {
+								result += '<tr url="/Admin/User/edit/id/'+data[i].id+'">' +
+								'<td>' + data[i].username + '</td>' +
+								'<td>' + data[i].name + '</td>' +
+								'<td>' + data[i].depart_name + '</td>' +
+								'<td>' + data[i].role + '</td>' +
+								'</tr>';
+							}
+						} else {
+							me.lock();me.noData();
+						}
+						setTimeout(function(){$('.lists').append(result);me.resetload();},1000);
+					},
+					error:function(xhr,type){me.resetload();}
+				});
+			},
+		threshold: 50
+	});
+});
+
+</script>
+</html>

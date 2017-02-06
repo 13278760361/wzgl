@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="xx_xh">
+    <!--<link rel="stylesheet" type="text/css" href="__CSS__/calendar.css"/>-->
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css"/>
+    <script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script src="__JS__/calendar.js" type="text/javascript" charset="utf-8"></script>-->
+    <title>
+        <if condition="$tdk">{$tdk['title']}</if>
+    </title>
+</head>
+
+<body onekeydown="BindEnter(event)">
+<div class="container-fluid">
+    <!--页面导航条-->
+    <div class="nav notprint"><a class="nav-item">固定资产管理 </a> <img src="__IMG__/ic_keyboard_arrow_right.png"/> <a
+            class="nav-item">固定资产审核 </a> <img src="__IMG__/ic_keyboard_arrow_right.png"/> <a class="nav-item">资产盘点 </a>
+        <div class="topbtn fr">
+            <span class=" fs-14 boxshow03 top-btn"><a href="javascript:;"onclick="exportera();" style="color:white;">导出Excel</a></span>
+        </div>
+    </div>
+    <!--表格-->
+    <div class="date-table notprint">
+        <div class="sarech-grounp padb15">
+            <form method="get" action="" id="ass">
+
+                <div class="dsplin card-num">
+                    <span>物品名称：</span>
+                    <input type="text" class="associated-drop big-drop list-top-inputboxshadow" name="assets_name"
+                           value="{$assets_name}"/>
+                </div>
+                
+                <span class="fs-14 fc-2">部门：</span>
+                <select name="department" class="associated-drop big-drop
+                 list-top-inputboxshadow" style="width:150px;">
+                    <option value="0">--请选择部门--</option>
+                    <volist name="departs" id="vo">
+                    <option <if condition="$department eq $vo['id']">selected="selected"</if>  value="{$vo.id}">{$vo.fullname}</option>
+                    </volist>
+                </select>
+                   
+                <span class="fs-14 fc-2">物品归类：</span>
+                        <select name="type_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+                            <option value="0">--请选择归类--</option>
+                            <volist name="types" id="vo">
+                                <option <if condition="$type eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.type_name}</option>
+                            </volist>
+                        </select>
+                    
+                        <span class="fs-14 fc-2">物品分类：</span>
+                        <select name="cate_id" class="associated-drop big-drop list-top-inputboxshadow" style="width: 150px;">
+                        <notempty name="cateS">
+                            <volist name="cateS" id="vo">
+                                <option <if condition="$cate_id eq $vo['id']"> selected="selected"</if> value="{$vo.id}" >{$vo.fullname}</option>
+                            </volist>
+                        </notempty>
+                        </select>
+                <select name="year" class="associated-drop" id="year">
+                    <option value="0">年</option>
+                    <foreach name="dateRange.year" item="vo">
+                        <foreach name="vo" item="voo">
+                            <option value="{$voo}"<if condition="$yearr eq $voo">selected<else /></if>>{$voo}年</option>
+                        </foreach>
+                    </foreach>
+                </select>
+
+                <select name="season" class="associated-drop" id="season">
+                    <option value="0">季度</option>
+                    <foreach name="dateRange.season" item="vo">
+                        <option value="{$key}" <if condition="$seasonn eq $key">selected<else /></if>>{$vo}</option>
+                    </foreach>
+                </select>
+
+                <select name="mon" class="associated-drop" id="month">
+                    <option value="0">月份</option>
+                    <for start="1" end="13">
+                        <option value="{$i}" <if condition="$monn eq $i">selected<else /></if>>{$i}月</option>
+                    </for>
+                </select>
+
+                <select class="associated-drop" name="status">
+                    <option value="0">账面</option>
+                    <option value="1"  <if condition="$statuss eq 1">selected<else /></if>>资产增加</option>
+                    <option value="2" <if condition="$statuss eq 2">selected<else /></if>>资产减少</option>
+                </select>
+
+                <div class="grounp-item" style="display:none;">
+                    <div class="sarech-item"><span class="sarech-span">创建人：</span>
+                        <input type="text" name="inputer" class="sarech-input" disabled/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <a class="sarech-btn boxshow01 notprint vertical-align_t-bottom" id="submit"> 搜索 </a>
+        <script>
+    $(function(){
+        $('.sarech-btn').click(function () {
+            $("#ass").submit()
+        });
+        $('#year').change(function () {
+            $('#mon,#season').attr("disabled", false);
+        });
+        var c = ['#season', '#mon'];
+        $('#season,#month').change(function () {
+            for (var i = 0; i < c.length; i++) {
+                //alert(Jquery(c[i]).html());
+                $(c[i]).attr("disabled", true);
+            }
+            $(this).attr("disabled", false);
+        });
+    })
+
+
+        </script>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-list  boxshow02">
+            <thead class="bgc-5">
+            <tr>
+                <th rowspan="2">序号</th>
+                <th rowspan="2">资产代码</th>
+                <th rowspan="2">资产分类</th>
+                <th rowspan="2">物品名称</th>
+                <th rowspan="2">规格型号</th>
+                <th rowspan="2">部门</th>
+                <th rowspan="2">使用时间</th>
+                <th rowspan="2">购置年限</th>
+                <th rowspan="2">单位</th>
+                <th colspan="2">入库</th>
+                <th colspan="2">出库转资产</th>
+                <th colspan="2">增值税</th>
+                <th colspan="2">其中：报废报损</th>
+                <th colspan="2">账面结存</th>
+                <th rowspan="2">盘点</th>
+            </tr>
+            <tr>
+                <th>数量</th>
+                <th>金额</th>
+                <th>数量</th>
+                <th>金额</th>
+                <th>税率</th>
+                <th>税额</th>
+                <th>数量</th>
+                <th>金额</th>
+                <th>数量</th>
+                <th>金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                    <td>{$i+$index}</td>
+                    <td>{$vo.sn}</td>
+                    <td>{$vo.cate_name}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.spec}</td>
+                    <td>{$vo.department}</td>
+                    <td>{$vo.start_date}</td>
+                    <td>{$vo.service_life}</td>
+                    <td>{$vo.unit}</td>
+                    <td>{$vo.inStock_amount}</td>
+                    <td>{$vo.inStock_totalPrice}</td>
+                    <td>{$vo.outStock_amount}</td>
+                    <td>{$vo.outStock_totalPrice}</td>
+                    <td>{$vo.vat_rate}</td>
+                    <td>{$vo.taxval}</td>
+                    <td>{$vo.scrap_num}</td>
+                    <td>{$vo.scrap_total}</td>
+                    <td>{$vo.account_num}</td>
+                    <td>{$vo.account_total}</td>
+                    <td>
+                        <switch name="vo.is_inventory">
+                            <case value="0"><span class="fc-8">未盘点</span></case>
+                            <case value="1">已盘点</case>
+                            <default/>
+                            <span class="fc-8">未盘点</span>
+                        </switch>
+                    </td>
+                </tr>
+            </volist>
+            <tr>
+          
+              <td colspan="9">当页数量统计/当页金额统计</td>
+              <td colspan="1">{$ep_num}</td>
+              <td colspan="1">{$ep_total}</td>
+              <td colspan="1">{$op_num}</td>
+              <td colspan="1">{$op_total}</td>
+              <td colspan="2"></td>
+              <td colspan="1">{$fp_num}</td>
+              <td colspan="1">{$fp_total}</td>
+              <td colspan="1">{$zp_num}</td>
+              <td colspan="1">{$zp_total}</td>
+              <td colspan="1"></td>
+            </tr>
+            <tr>
+          
+              <td colspan="9">总数量统计/总金额统计</td>
+              <td colspan="1">{$es_num}</td>
+              <td colspan="1">{$es_total}</td>
+              <td colspan="1">{$os_num}</td>
+              <td colspan="1">{$os_total}</td>
+              <td colspan="2"></td>
+              <td colspan="1">{$fs_num}</td>
+              <td colspan="1">{$fs_total}</td>
+              <td colspan="1">{$zs_num}</td>
+              <td colspan="1">{$zs_total}</td>
+              <td colspan="1"></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="bgc-5">合计</td>
+                <td colspan="15">{$current_total}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="change-num notprint"> {$page}</div>
+    </div>
+</body>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.report.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    function BindEnter(obj){
+        if(obj.keyCode == 13)
+        {
+            $("#submit").click()
+        }
+    }
+    var page=1;
+    var xl = new Report({'name':'资产盘点导出数据','padding':1,'space':1});
+    function exportera()
+    {
+        if(page==1){loader();}
+        var ff=function(d){
+            console.log(d);
+            if(d&&$.isArray(d))
+            {
+                xl.addrows(d);
+                page++;exportera();
+            }else{
+                //'id'=>'序号','cate_sn'=>'资产编码','type'=>'所属分类','assets_name'=>'资产名称','p_org_name'=>'所属单位','org_name'=>'使用部门','user'=>'使用人','spec'=>'规格型号','add_method'=>'增加方式','use_status'=>'使用状态','unit'=>'单位','original_value'=>'原值','start_date'=>'会计投入使用时间','service_life'=>'会计预计使用年限','depr_method'=>'折旧方法','mon_depr_amount'=>'会计月折旧额','mon_depr_sum'=>'会计累计折旧','k_net_worth'=>'会计折余折旧','net_salvage'=>'会计净残值率','net_residual_value'=>'会计净残值','keeper'=>'保管人','store_address'=>'保管地点','department'=>'保管部门','company_name'=>'供应商','tel_phone'=>'供应商联系电话','contacts'=>'供应商联系人','inputer'=>'添加人','taxpayer_type'=>'纳税人类型','vat_rate'=>'增值税税率'
+                xl.grid({'sn':'资产代码','name':'物品名称','spec':'规格型号','department':'部门','start_date':'使用时间','service_life':'购置年限','unit':'单位',
+                    'inStock_amount':'数量','inStock_totalPrice':'金额','outStock_amount':'数量','outStock_totalPrice':'金额','vat_rate':'税率',
+                    'taxval':'税额','scrap_num':'数量','scrap_total':'金额',
+                    'account_num':'数量','account_total':'金额','is_inventory':'盘点'
+                }).head('<tr><td field="inStock_amount" colspan="2">	入库</td>' +
+                        '<td field="outStock_amount" colspan="2">	出库转资产	</td>' +
+                        '<td field="vat_rate" colspan="2">	增值税</td>' +
+                        '<td field="scrap_num" colspan="2">	其中：报废报损	</td>' +
+                        '<td field="account_num" colspan="2">	账面结存</td></tr>'
+                ).exporter();
+                unmask();
+            }
+        }
+        submiter({type:'get',url:"{:U('ass')}",data:{page:page,assets_name:"{$assets_name}",year:"{$yearr}",mon:"{$monn}",status:"{$statuss}",season:"{$seasonn}",type:"2"},call:ff});
+    }
+$('[name="type_id"]').change(function(){
+    loader();
+    $('select[name="cate_id"]').html('');
+    $v=$(this).find('option:checked').val();
+    var ff=function(d){
+        if(d&&$.isArray(d)){
+            var h='';
+            for (var i = 0; i < d.length; i++) {
+                h+='<option value="'+d[i]['id']+'">'+d[i]['fullname']+'</option>'
+            }
+            $('select[name="cate_id"]').html(h);
+        }
+        unmask();
+    }
+    submiter({type:'get',url:"{:U('ajaxgetcate')}",data:{type_id:$v},call:ff});
+})
+</script>
+</html>

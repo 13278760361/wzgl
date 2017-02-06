@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户设置——新增</title>
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" href="__CSS__/common.css" />
+		<link rel="stylesheet" href="__CSS__/pages-sty.css" />
+        <link rel="stylesheet" href="__CSS__/adjust_ie8.css" />
+	</head>
+
+	<body class="bgc-2">
+		<!--个人中心中间部分-->
+		<div id="person_mid">
+			<div class="nav">
+				<a class="nav-item">系统设置 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">用户设置 </a>
+
+			</div>
+			<div class="pserson_box">
+				<form class="form-horizontal bgc-1 padt30 padb30" style="width: 900px;margin: 0 auto;padding: 30px;" role="form">
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">用户名</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="text" class="form-control" user="username" placeholder="用户名" value="{$info['username']}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">密码</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="password" class="form-control" user="password" placeholder="密码，不填默认不修改">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">姓名</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="text" class="form-control" user="name" placeholder="姓名" value="{$info['name']}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">性别</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<!--<label class="demo&#45;&#45;label person_box_f">-->
+						        <!--<input class="demo&#45;&#45;radio" type="radio" user="sex" <eq name="info['sex']" value="1">checked="checked"</eq> name="sex" value="1">-->
+						        <!--<span class="demo&#45;&#45;radioInput"></span>男-->
+						    <!--</label>-->
+						    <!--<label class="demo&#45;&#45;label Pmargin_left person_box_f">-->
+						        <!--<input class="demo&#45;&#45;radio" type="radio" user="sex" <eq name="info['sex']" value="2">checked="checked"</eq> name="sex" value="2">-->
+						        <!--<span class="demo&#45;&#45;radioInput"></span>女-->
+						    <!--</label>-->
+                             <span class="demospan on <eq name="info['sex']" value="1">on_radio</eq>">
+                             <input type="radio" user="sex" <eq name="info['sex']" value="1">checked="checked"</eq> name="sex" value="1" class="demo21">
+                           </span><label for="demo21">男</label>
+                            <span class="demospan on <eq name="info['sex']" value="2">on_radio</eq>">
+                             <input type="radio" user="sex" <eq name="info['sex']" value="2">checked="checked"</eq> name="sex" value="2" class="demo21">
+                           </span><label for="demo21">女</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">部门</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<select class="form-control" user="depart_id">
+								<volist name="depts" id="vo">
+								<option value="{$vo['id']}" <eq name="info['depart_id']" value="$vo['id']">selected="selected"</eq>>{$vo['fullname']}</option>
+								</volist>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">审核权</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<!--<label class="demo&#45;&#45;label person_box_f">-->
+						        <!--<input class="demo&#45;&#45;radio" type="radio" user="is_auditer" <eq name="info['is_auditer']" value="1">checked="checked"</eq>  name="demo-radio" value="1">-->
+						        <!--<span class="demo&#45;&#45;radioInput"></span>有-->
+						    <!--</label>-->
+						    <!--<label class="demo&#45;&#45;label Pmargin_left person_box_f">-->
+						        <!--<input class="demo&#45;&#45;radio" type="radio" user="is_auditer" <eq name="info['is_auditer']" value="0">checked="checked"</eq> name="demo-radio" value="0">-->
+						        <!--<span class="demo&#45;&#45;radioInput"></span>无-->
+						    <!--</label>-->
+                            <span class="demospan on <eq name="info['is_auditer']" value="1">on_radio</eq> ">
+                             <input type="radio" class="demo21" user="is_auditer" <eq name="info['is_auditer']" value="1">checked="checked"</eq>  name="demo-radio" value="1">
+                           </span><label for="demo21">有</label>
+
+                            <span class="demospan on <neq name="info['is_auditer']" value="1">on_radio</neq> ">
+                             <input type="radio" class="demo21" user="is_auditer" <neq name="info['is_auditer']" value="1">checked="checked"</neq> name="demo-radio" value="0">
+                           </span><label for="demo21">无</label>
+						</div>
+					</div>
+					<if condition="$is_supper">
+						<div class="form-group">
+							<label class="col-sm-3 col-sm-3_ie control-label person_box_f">数据权限</label>
+							<div class="col-sm-5 col-sm-8_ie">
+								<select class="form-control" user="is_supper">
+									<option value="0" <eq name="info['is_supper']" value="0">selected="selected"</eq> >所属公司数据</option>
+									<option value="1" <eq name="info['is_supper']" value="1">selected="selected"</eq> >所有公司数据</option>
+								</select>
+							</div>
+						</div>
+					</if>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">节点权限</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<select class="form-control" user="group_id">
+								<option value="0">请选择</option>
+								<volist name="roles" id="vo">
+								<option value="{$vo['id']}" <eq name="info['groupid']" value="$vo['id']">selected="selected"</eq>>{$vo['title']}</option>
+								</volist>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">联系电话</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="text" class="form-control" user="tel" placeholder="联系电话" value="{$info['tel']}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">邮箱号码</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="text" class="form-control" user="email" placeholder="邮箱号码" value="{$info['email']}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 col-sm-3_ie control-label person_box_f">签章</label>
+						<div class="col-sm-8 col-sm-8_ie">
+							<input type="text" class="form-control" user="signature" placeholder="点击上传签章" uploader="pt" action="{:U('Upload/img')}" pt="val" value="{$info['signature']}">
+						</div>
+					</div>
+					
+					<div class="textcenter mrg-t50 notprint">
+						<input type="hidden" user="id" value="{$info['id']}">
+						<span class="back-btn dpl fs-16 boxshow03 mrg-rg30 btn_inline" poster="user" action="__SELF__" style="display: inline-block;">保存</span>
+						<a class="back-btn dpl fs-16 boxshow03 mrg-lf30 btn_inline btn_cancle" href="{:U('index')}" style="display: inline-block;background: #D0CECE;">取消</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--个人中心中间部分结束-->
+	</body>
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.form.js"></script>
+<script type="text/javascript" src="__JS__/ronshn.js"></script>
+    <script>
+        $(function() {
+            $(".demospan").bind("click", function() {
+                $(this).addClass("on_radio").siblings().removeClass("on_radio");
+                if($(this).hasClass("on_radio")){
+                    $(this).children("input").attr("checked","checked");
+                    $(this).siblings(".demospan").children("input").removeAttr("checked","checked");
+                }
+            })
+        })
+    </script>
+</html>

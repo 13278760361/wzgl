@@ -1,0 +1,29 @@
+<include file="header" />
+<div class="login_content">
+	<!--做背景图片-->
+	<img src="__IMG__/system_log.jpg" class="system_log_bg" />
+	<!--主页-->
+	<div class="login_content_popup" style="display:none;">
+		<span class="popup_message">消息提示</span>
+		<div class="popup_message_box">
+			<ul></ul>
+		</div>
+	</div>
+</div>
+<include file="footer" />
+<script type="text/javascript">
+$(function(){
+	submiter({url:"{:U('ajaxmessages')}",call:_returndata});
+	timer.add({url:"{:U('ajaxmessages')}",call:_returndata,time:10});
+});
+function _returndata(d)
+{
+	if(!d.status){$('.login_content_popup').hide().find('ul').html('');return false;}
+	d=d['info'];var str='';
+	for(var i=0;i<d.length;i++)
+	{
+		str+='<li>'+(i+1)+'、您有一条<a href="/Admin/Main/index#'+d[i].url+'" class="message_a">'+d[i].title+'</a>，请前往查看。</li>';
+	}
+	$('.login_content_popup').show().find('ul').html(str);
+}
+</script>

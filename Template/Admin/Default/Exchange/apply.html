@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>固定资产变更单-新增</title>
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+	</head>
+		<style type="text/css">
+			.modal .prinrH{display: block;}
+		</style>
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid notprint">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">资产变更查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<!-- <span class=" fs-14 boxshow03 top-btn">预览</span> -->
+					<span class=" fs-14 boxshow03 top-btn"  data-toggle="modal" data-target="#myModal" onclick="showH()">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="printH();//window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<span></span>
+								<input ni-o="date" class="date-calender-input" id="datetime" value="" />
+							</div>
+							<!-- <if condition="$isSupper eq 1">
+							<form method="get" name="depart" action="{:U('apply')}">
+							<span class="date-calender-name">部门：</span>
+							<div class="">
+							<select name="org" class="position-department-sele bgimg-select" ni-o="org_id" onchange="$('form[name=depart]').submit();">
+								<option value="0">请选选择部门</option>
+								<volist name="topDepart" id='td'>
+									<option value="{$td.id}" <if condition="$org eq $td[id]"> selected </if>>{$td.depart_name}</option>
+								</volist>
+							</select>
+							</div>
+							</form>
+							</if> -->
+						</div>
+					</div>
+					<span class="order-tit dtcell">固定资产变更单</span>
+					<div class="grounp order-date dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6" ni-o="ordersn">{$order_sn}</span>
+					</div>
+				</div>
+
+                <div class="exchange_apply">
+                    <if condition="$isSupper eq 1">
+                        <form method="get" action="{:U('apply')}" class="width195">
+                            <span class="date-calender-name fl span_aduit">部门：</span>
+                            <div class="">
+                                <select name="org" class="position-department-sele bgimg-select" style="width: 150px;" ni-o="org_id"
+                                        onchange="$('form.width195').submit();">
+                                    <option value="0">请选选择部门</option>
+                                    <volist name="topDepart" id='td'>
+                                        <option value="{$td.id}" <if condition="$org eq $td[id]"> selected='selected' </if>>{$td.depart_name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <div class="clear_both"></div>
+                        </form>
+                    </if>
+                </div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r">
+					<table class="table table-bordered" id="addList">
+						<tr>
+							<th class="order-td-width01 notprint"></th>
+							<th class="order-td-width01" field="order_sn">资产代码</th>
+							<th class="order-td-width01" field="assets_name">物品名称</th>
+							<th class="order-td-width01" field="cate_name">资产分类</th>
+							<th class="order-td-width01" field="spec">规格型号</th>
+							<th class="order-td-width01 notprint" field="unit">单位</th>
+							<th class="order-td-width01" field="keeper">原使用人</th>
+							<th class="order-td-width01" field="department">原部门</th>
+							<th class="order-td-width01" field="original_value">金额</th>
+							<th class="order-td-width01" field="cur_user">现使用人</th>
+							<th class="order-td-width01" field="cur_department" break='true'>现部门</th>
+						</tr>
+						<tr>
+							<td class="notprint">
+								<div class="wid80 notprint">
+									<span class="jia_ico" onclick="addrow()"> + </span>
+									<span class="jian_ico" onclick="delrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" <elt name="org" value='0'> disabled="disabled" </elt> >
+							</td>
+							<td class="position-r">
+								<input type="text" d class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r notprint">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td">
+							</td>
+							<td class="position-r">
+								<!-- <input type="text" class="input-td"> -->
+								<select style="max-width: 150px;">
+                                    <option value="0">请选择</option>
+									<volist name="list_dep" id='ld'>
+										<option value="{$ld.id}">{$ld.fullname}</option>
+									</volist>
+								</select>
+							</td>
+						</tr>
+						<notempty  name="goods">
+						<tr>
+							<td class="notprint">
+								<div class="wid80 notprint">
+									<span class="jia_ico" onclick="addrow()"> + </span>
+									<span class="jian_ico" onclick="delrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" ni-e1='order_sn' value="{$goods.order_sn}">
+							</td>
+							<td class="position-r">
+								<input type="text" d class="input-td" ni-e1='assets_name' readonly="true" value="{$goods.assets_name}">
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true" value="{$goods.cate_name}"  ni-e1='cate_name'>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true" value="{$goods.spec}" ni-e1='spec'>
+							</td>
+							<td class="position-r notprint">
+								<input type="text" class="input-td" readonly="true" value="{$goods.unit}" ni-e1='unit'>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true" value="{$goods.keeper}" ni-e1='keeper'>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true" value="{$goods.department}" ni-e1='department'>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true" value="{$goods.original_value}" ni-e1='original_value'>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  ni-e1='cur_user'>
+							</td>
+							<td class="position-r">
+								<!-- <input type="text" class="input-td"> -->
+								<select style="max-width: 150px;"  ni-e1='cur_department'>
+                                    <option value="0">请选择</option>
+									<volist name="list_dep" id='ld'>
+										<option value="{$ld.id}">{$ld.fullname}</option>
+									</volist>
+								</select>
+							</td>
+						</tr>
+						</notempty>
+					</table>
+					<table class="table table-bordered" id="opinin">
+						<tr>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width03 bord-r dtcell vtm width240"> 变更说明 </div>
+									<div class="dtcell vtm pad15">
+										<textarea class="width-all" ni-o="remark" rows="2"></textarea>
+									</div>
+
+								</div>
+							</td>
+						</tr>
+						<tr  id="add" class="not_dele">
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm width240">意见</div>
+									<div class="dtcell pad15 bord-r">
+
+										<div class="width-all">
+											<div class="position-r">
+												<span class="prompt-text position-a fc-7 notprint">原因说明</span>
+												<textarea class=" textarea-block bgc-2" rows="3" disabled="disabled"></textarea>
+											</div>
+
+											<div class="width-all">
+												<div class="department">
+													<select name="" class="position-department-sele bgimg-select120 fl bgimg-select" ni-o="department_id">
+													<option value="0">请选择部门</option>
+													<volist name="list_dep" id='ld'>
+														<option value="{$ld.id}">{$ld.fullname}</option>
+													</volist>
+													</select>
+													<div class="dsplin signature notprint fl_ie">
+														<div class="signature01" style="top: 0;">
+															<span class="signature-mask spanhgt">自动签章</span>
+															<input type="" readonly="true" class="signature-input sihgt" onkeyup="changePlacehoder(this)" />
+															<input type="text" style="display:none;">
+														</div>
+														<input type="" placeholder="vvvvvv" name="" id="" value="" />
+													</div>
+												</div>
+												<div class="text-right padr15">
+													<div class="audit-person">
+														<div class="radiocheckitem  fs-16 notprint">
+															<input type="radio" id="agree"  name="agreeyorn" value="agree">
+															<label name="agreeyorn" class="label-agree" for="agree" disable>同意</label>
+														</div>
+														<div class="radiocheckitem fs-16 notprint">
+															<input type="radio" id="disagree" name="agreeyorn" value="disagree">
+															<label class="label-agree" name="agreeyorn" for="disagree" disable>不同意</label>
+														</div>
+														<div class="dsplin change-date-box fs-12 fc-2">
+															<span>日期：</span>
+															<input type="text" class="change-date Prdate" readonly />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+                                    <div class="dtcell position-r notprint width120">
+                                        <div class="bgc-2 position-a position-a_top0 width-all delete-opinion">操作</div>
+                                        <div>
+                                            <a class="opinion-dlt-a dele_IE">删除</a>
+                                        </div>
+                                    </div>
+								</div>
+							</td>
+						</tr>
+
+					</table>
+					<div class="addlistrow text-center fs-20 fr IE_add_ico margin-top--20" onclick="addOpinion('#add','#opinin')" disabled="disabled">+</div>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dsplin fs-16 boxshow03" action="{:U('apply')}" poster="ni">保存</span>
+					<span class="back-btn dsplin fs-16 boxshow03" onclick="window.history.go(-1);" style="margin-left:15px">返回</span>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog model_dialog_ie"  style="width: 90%;">
+    <div class="modal-content">
+		<div class="modal-body">
+
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+</html>
+
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+<script type="text/javascript" src="__JS__/ronshn.table.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+        $("#opinin").on("click","a.opinion-dlt-a", function() {
+            if ( $(this).parents('tr').hasClass('not_dele') ) {
+                return;
+            }
+            $(this).parents('tr').remove();
+        });
+		$('#datetime').datetimepicker({
+			format: 'yyyy-mm-dd',
+			language:"zh-CN",
+			minView:2,
+			todayBtn:  1,
+			autoclose:true
+		});
+		radioChecked("changeCase");
+		radioChecked("agreeyorn");
+	})
+var t=new Table('#addList',{submit:'ni',input:'order_sn',datawidth:'900px',data:"{:U('goodsList',array('org'=>$org))}"}).addrow();
+function delrow(o){
+	t.delrow(o.closest('tr'));
+}
+function addrow(){
+	t.addrow();
+}
+function printH() {
+	var selectarr=[];//克隆出来的select没有选中状态
+	$('select').each(function(){
+		var c=$(this).find('option:selected');
+		if (c.val()&&c.val()!=0) {
+			selectarr.push($(this).find('option:selected').text())
+		}else{
+			selectarr.push(' ')
+		}
+		
+	})
+	var pr=$('.prinrH');
+	if (pr.size()>0) {
+		pr.html('');
+	}else{
+		pr=$('<div class="prinrH"></div>');
+		$('body').append(pr);
+	}
+
+	var html=$('.order-card').clone(true);
+	html.removeClass('order-card')
+	pr.append(html);
+	pr.find('.notprint').remove();
+	pr.find('input').each(function(){
+		var type=$(this).attr('type');
+		if (type=='radio') {
+			return true;
+		}else{
+			if ($(this).hasClass('Prdate')) {
+				$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+			}else{
+				$(this).replaceWith($(this).val())
+			}
+		}
+	});
+	pr.find('textarea').each(function(){
+		$(this).replaceWith('<div style="height:70px"></div>')
+	});
+	pr.find('select').each(function(i){
+		$(this).replaceWith('<span>部门：'+selectarr[i]+'</span>')
+	});
+	pr.find('table').each(function(){
+		$(this).removeClass('.table-bordered');
+		$(this).attr({'border':'1'})
+	});
+	pr.find('td').each(function(){
+		$(this).css('border','none');
+	});
+	window.print();
+}
+function showH(){
+	$('#myModal .modal-body .showHtml').remove();
+	var selectarr=[];//克隆出来的select没有选中状态
+	$('select').each(function(){
+		var c=$(this).find('option:selected');
+		if (c.val()&&c.val()!=0) {
+			selectarr.push($(this).find('option:selected').text())
+		}else{
+			selectarr.push(' ')
+		}
+		
+	})
+	var pr=$('.showHtml');
+	if (pr.size()>0) {
+		pr.html('');
+	}else{
+		pr=$('<div class="showHtml"></div>');
+		$('#myModal .modal-body').append(pr);
+	}
+
+	var html=$('.order-card').clone(true);
+	html.removeClass('order-card');
+	pr.append(html);
+	pr.find('.notprint').remove();
+	pr.find('input').each(function(){
+		var type=$(this).attr('type');
+		if (type=='radio') {
+			return true;
+		}else{
+			if ($(this).hasClass('Prdate')) {
+				$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+			}else{
+				$(this).replaceWith($(this).val())
+			}
+		}
+	});
+	pr.find('textarea').each(function(){
+		$(this).replaceWith('<div style="height:70px"></div>')
+	});
+	pr.find('select').each(function(i){
+		$(this).replaceWith('<span>部门：'+selectarr[i]+'</span>')
+	});
+	// pr.find('table').each(function(){
+	// 	$(this).removeClass('.table-bordered');
+	// 	$(this).attr({'border':'1'})
+	// });
+	// pr.find('td').each(function(){
+	// 	$(this).css('border','none');
+	// });
+
+}
+</script>
+

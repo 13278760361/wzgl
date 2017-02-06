@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap-datetimepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/pages-sty.css" />
+		<link rel="stylesheet" href="../../css/purchaseSty.css" />
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<title>领用-查看</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid" id="purchase_con">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">领用查询 </a>
+				<img src="../../images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">查看</a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6">512488623</span>
+					</div>
+					<span class="order-tit dtcell">领用申请表</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<input type="" class="date-calender-input" id="datetime" value="2016-11-25" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="proposer_de">
+					<label>
+						<span class="fs-14 fc-2">申请人：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly="readonly"/>
+					</label>
+					<label>
+						<span class="fs-14 fc-2">部门：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly="readonly"/>
+					</label>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r">
+					<table class="table table-bordered check_table" id="NewOpinion">
+						<thead>
+							<tr>
+								<td class=order-td-width02>序号</td>
+								<td class=order-td-width02>物品名称</td>
+								<td class=order-td-width02>规格型号</td>
+								<td class=order-td-width02>单位</td>
+								<td class=order-td-width01>数量</td>
+								<td class=order-td-width02>单价</td>
+								<td class=order-td-width02>金额</td>
+								<td class=order-td-width01>备注</td>
+							</tr>
+						</thead>
+						<tr>
+							<td class="position-r">
+								10001
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">合计</td>
+							<td colspan="6">
+								<input type="text" class="purchase_total" readonly="readonly"/>
+							</td>
+						</tr>
+						<tr class="purchase_remark">
+							<td colspan="2">备注</td>
+							<td colspan="6">
+								<textarea rows="5" readonly="readonly"></textarea>
+							</td>
+						</tr>
+						<tr class="not_dele">
+							<td colspan="2" class="purchase_rem">意见</td>
+							<td colspan="6">
+								<div class="opinion-row dtable width-all">
+									<div class="dtcell">
+										<div class="position-r">
+											<textarea class="width-all" rows="3"  readonly="readonly">原因说明</textarea>
+										</div>
+
+										<div class="width-all padb15">
+											<div class="department left_280">
+												<span class="p_check_depar">研发部：</span>
+												<input type="" name="" class="fc-2 fs-18" value="李四"  readonly="readonly"/>
+											</div>
+											<div class="dsplin fc-8 fs-18 mrg-rg30">同意</div>
+											<div class="text-left right_200">
+												<div class="dsplin change-date-box fs-12 fc-2 ">
+													<span>日期：</span>
+													<input type="text" class="change-date" value="2016-11-25"  readonly="readonly"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03">返回</span>
+				</div>
+			</div>
+		</div>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 85%;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class=" order-card bgc-1">
+							<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6">512488623</span>
+					</div>
+					<span class="order-tit dtcell">领用申请表</span>
+					<div class="grounp order-date dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div class="">
+								<input type="" class="date-calender-input" id="datetime" value="2016-11-25" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="proposer_de">
+					<label>
+						<span class="fs-14 fc-2">申请人：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly="readonly"/>
+					</label>
+					<label>
+						<span class="fs-14 fc-2">部门：</span>
+						<input type="text" class="associated-drop big-drop list-top-inputboxshadow" readonly="readonly"/>
+					</label>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r">
+					<table class="table table-bordered check_table" id="NewOpinion">
+						<thead>
+							<tr>
+								<td class=order-td-width02>序号</td>
+								<td class=order-td-width02>物品名称</td>
+								<td class=order-td-width02>规格型号</td>
+								<td class=order-td-width02>单位</td>
+								<td class=order-td-width01>数量</td>
+								<td class=order-td-width02>单价</td>
+								<td class=order-td-width02>金额</td>
+								<td class=order-td-width01>备注</td>
+							</tr>
+						</thead>
+						<tr>
+							<td class="position-r">
+								10001
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+							<td class="position-r">
+								
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">合计</td>
+							<td colspan="6">
+								<input type="text" class="purchase_total" readonly="readonly"/>
+							</td>
+						</tr>
+						<tr class="purchase_remark">
+							<td colspan="2">备注</td>
+							<td colspan="6">
+								<textarea rows="5" readonly="readonly"></textarea>
+							</td>
+						</tr>
+						<tr class="not_dele">
+							<td colspan="2" class="purchase_rem">意见</td>
+							<td colspan="6">
+								<div class="opinion-row dtable width-all">
+									<div class="dtcell">
+										<div class="position-r">
+											<textarea class="width-all" rows="3"  readonly="readonly">原因说明</textarea>
+										</div>
+
+										<div class="width-all padb15">
+											<div class="department left_280">
+												<span class="p_check_depar">研发部：</span>
+												<input type="" name="" class="fc-2 fs-18" value="李四"  readonly="readonly"/>
+											</div>
+											<div class="dsplin fc-8 fs-18 mrg-rg30">同意</div>
+											<div class="text-left right_200">
+												<div class="dsplin change-date-box fs-12 fc-2 ">
+													<span>日期：</span>
+													<input type="text" class="change-date" value="2016-11-25"  readonly="readonly"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<!--表单内容部分 end-->
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script>
+		$(function(){
+			$(".pur_operation_det").on("click",function(){
+				$(this).parent().remove();
+			});
+		});
+	</script>
+</html>

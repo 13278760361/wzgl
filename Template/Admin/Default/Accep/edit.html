@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="xx_xh">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css"/>
+    <script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+    <title>资产验收-查看</title>
+</head>
+
+<body>
+<!--页面内容-->
+<div class="container-fluid">
+    <!--页面导航条-->
+    <div class="nav notprint">
+        <a class="nav-item">固定资产管理 </a>
+        <img src="__IMG__/ic_keyboard_arrow_right.png"/>
+        <a class="nav-item">固定资产查询 </a>
+        <img src="__IMG__/ic_keyboard_arrow_right.png"/>
+        <a class="nav-item">资产验收 </a>
+        <img src="__IMG__/ic_keyboard_arrow_right.png"/>
+        <a class="nav-item">查看 </a>
+        <div class="topbtn fr">
+            <span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal">预览</span>
+            <span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+        </div>
+    </div>
+    <!--内容-->
+    <div class="boxshow02 order-card bgc-1">
+        <!--表单标题部分 start-->
+        <div class="detaile-top dtable">
+            <div class="ordernum dtcell">
+                <div class="dtable date-calender" style="width:210px">
+                    <span class="date-calender-name">部门：</span>
+                    <input type="text" readonly="" value="{$info.depart_name}">
+                </div>
+            </div>
+            <span class="order-tit dtcell">固定资产验收单</span>
+            <div class="grounp order-date dtcell">
+
+                <span class="fc-2">单号：</span>
+                <span class="fc-6">{$info.order_sn}</span>
+            </div>
+        </div>
+        <!--表单标题部分 end-->
+        <!--表单内容部分 start-->
+        <div class="table-order-box mrg-t15">
+            <table class="table table-bordered check_table" id="addList">
+                <tr>
+                    <td class=order-td-width01>供应商</td>
+                    <td class=order-td-width01>物品名称</td>
+                    <td class=order-td-width01>规格型号</td>
+                    <td class=order-td-width01>单位</td>
+                    <td class=order-td-width01>数量</td>
+                    <td class=order-td-width01>单价</td>
+                    <td class=order-td-width01>金额</td>
+                    <td class=order-td-width01>采购人</td>
+                    <td class=order-td-width01>到货日期</td>
+                    <td class=order-td-width01>存放地点</td>
+                    <td class=order-td-width01>使用年限</td>
+                    <td class=order-td-width01>备注</td>
+                </tr>
+                <volist name="lists" id="vo">
+                    <tr>
+                        <td class="position-r">
+                            {$vo.supper}
+                        </td>
+                        <td class="position-r">
+                            {$vo.assets_name}
+                        </td>
+                        <td class="position-r">
+                            {$vo.spec}
+                        </td>
+                        <td class="position-r">
+                            {$vo.unit}
+                        </td>
+                        <td class="position-r">
+                            {$vo.goods_num}
+                        </td>
+                        <td class="position-r">
+                            {$vo.price}
+                        </td>
+                        <td class="position-r">
+                            {$vo.total}
+                        </td>
+                        <td class="position-r">
+                            {$vo.buyer}
+                        </td>
+                        <td class="position-r">
+                            {$vo.enter_time|date="Y-m-d",###}
+                        </td>
+                        <td class="position-r">
+                            {$vo.address}
+                        </td>
+                        <td class="position-r">
+                            {$vo.live_time}
+                        </td>
+                        <td class="position-r">
+                            {$vo.remark}
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+            <table class="table table-bordered check_table" id="opinin">
+                <tr>
+                    <td colspan="6" style="padding: 0 ;">
+                        <div class="opinion-row dtable">
+                            <div class="order-td-width03 bord-r dtcell vtm verify_IE">检验内容</div>
+                            <div class="bord-r dtcell">
+                                <textarea class="" rows="3" cols="" readonly="readonly">{$info.check_content}</textarea>
+                            </div>
+                            <div class="order-td-width03 bord-r dtcell vtm verify_IE">验收结论与意见</div>
+                            <div class="dtcell padb5">
+                                <textarea class="width-all" rows="3" cols=""
+                                          readonly="readonly">{$info.opinion}</textarea>
+                                <div class="dtable">
+                                    <div class="dtcell wtd-half">
+                                        <div class="dtable width-all">
+                                            <span class="dtcell dtcl-span">验收人：</span>
+                                            <input type="" class="dtcl-input dtcell bord-none" value="{$info.checker}"
+                                                   readonly="readonly"/>
+                                        </div>
+
+                                    </div>
+                                    <div class="dtcell wtd-half">
+                                        <div class="dtable ">
+                                            <span class="dtcell dtcl-span">日期：</span>
+                                            <input type="" class="dtcl-input dtcell bord-none"
+                                                   value="{$info.check_date|date='Y-m-d',###}" readonly="readonly"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <volist name="departs" id="vo">
+                    <tr>
+
+                        <td colspan="6" style="padding: 0 ;">
+                            <div class="opinion-row dtable width-all">
+                                <div class="order-td-width02 bord-r dtcell vtm verify_IE">意见</div>
+                                <div class="dtcell">
+                                    <div class="position-r">
+                                        <textarea class="width-all" rows="3" readonly="readonly"></textarea>
+                                    </div>
+
+                                    <div class="width-all padb15">
+                                        <div class="department fl" style="margin-top: 12px;">
+                                            <!--<span class="date-calender-name" style="border:1px solid red;">部门：</span>-->
+
+
+                                            <input type="text" class="fc-2 fs-16" readonly="" value="{$vo.depart_name}">
+                                            <if condition="$vo['signature'] eq ''">
+                                            <input type="" name="" class="fc-2 fs-16" value="{$vo.name}"
+                                                   readonly="readonly"/>
+                                            <else/>
+                                            <img src="{$vo.signature}" width="120" height="50" />
+                                            </if>
+                                            <div class="clear_both"></div>
+                                        </div>
+                                        <div class="text-right padr15">
+                                            <div class="radiocheckitem  fs-16">
+                                                <input type="radio" id="agree" checked="checked" name="agreeyorn"
+                                                       accep="status" value="1">
+                                                <label name="agreeyorn" class="label-checked label-agree"
+                                                       for="agree">同意</label>
+                                            </div>
+                                            <div class="radiocheckitem fs-16">
+                                                <input type="radio" accep="status" id="disagree" name="agreeyorn"
+                                                       value="0">
+                                                <label class="label-agree" name="agreeyorn" for="disagree">不同意</label>
+                                            </div>
+                                            <div class="dsplin wtd-half change-date-box fs-12 fc-2 ">
+                                                <span>日期：</span>
+                                                <input type="text" class="change-date" readonly="readonly"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+        </div>
+        <!--表单内容部分 end-->
+        <div class="textcenter mrg-t50 notprint">
+            <span class="back-btn dpl fs-16 boxshow03" onclick="JavaScript:history.back(-1);">返回</span>
+        </div>
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog model_dialog_ie" style="width: 90%;">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="detaile-top dtable">
+                    <div class="ordernum dtcell">
+                        <div class="dtable date-calender" style="width:210px">
+                            <span class="date-calender-name">部门：</span>
+                            <input type="text" readonly="" value="{$info.applicant}">
+                        </div>
+                    </div>
+                    <span class="order-tit dtcell">固定资产验收单</span>
+                    <div class="grounp order-date dtcell">
+
+                        <span class="fc-2">单号：</span>
+                        <span class="fc-6">{$info.order_sn}</span>
+                    </div>
+                </div>
+                <!--表单标题部分 end-->
+                <!--表单内容部分 start-->
+                <div class="table-order-box">
+                    <table class="table table-bordered check_table" id="addList">
+                        <tr>
+                            <td class=order-td-width01>供应商</td>
+                            <td class=order-td-width01>物品名称</td>
+                            <td class=order-td-width01>规格型号</td>
+                            <td class=order-td-width01>单位</td>
+                            <td class=order-td-width01>数量</td>
+                            <td class=order-td-width01>单价</td>
+                            <td class=order-td-width01>金额</td>
+                            <td class=order-td-width01>采购人</td>
+                            <td class=order-td-width01>到货日期</td>
+                            <td class=order-td-width01>存放地点</td>
+                            <td class=order-td-width01>使用年限</td>
+                            <td class=order-td-width01>备注</td>
+                        </tr>
+                        <volist name="lists" id="vo">
+                            <tr>
+                                <td class="position-r">
+
+                                </td>
+                                <td class="position-r">
+                                    {$vo.assets_name}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.spec}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.unit}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.goods_num}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.price}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.total}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.buyer}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.enter_time|date="Y-m-d",###}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.address}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.live_time}
+                                </td>
+                                <td class="position-r">
+                                    {$vo.remark}
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <table class="table table-bordered check_table" id="opinin">
+                        <tr>
+                            <td colspan="6" style="padding: 0 ;">
+                                <div class="opinion-row dtable">
+                                    <div class="order-td-width03 bord-r dtcell vtm verify_IE">检验内容</div>
+                                    <div class="bord-r dtcell">
+                                        <textarea class="" rows="3" cols=""
+                                                  readonly="readonly">{$info.check_content}</textarea>
+                                    </div>
+                                    <div class="order-td-width03 bord-r dtcell vtm verify_IE">验收结论与意见</div>
+                                    <div class="dtcell padb5">
+                                        <textarea class="width-all" rows="3" cols=""
+                                                  readonly="readonly">{$info.opinion}</textarea>
+                                        <div class="dtable">
+                                            <div class="dtcell wtd-half">
+                                                <div class="dtable width-all">
+                                                    <span class="dtcell dtcl-span">验收人：</span>
+                                                    <input type="" class="dtcl-input dtcell bord-none"
+                                                           value="{$info.checker}" readonly="readonly"/>
+                                                </div>
+                                            </div>
+                                            <div class="dtcell wtd-half">
+                                                <div class="dtable ">
+                                                    <span class="dtcell dtcl-span">日期：</span>
+                                                    <input type="" class="dtcl-input dtcell bord-none"
+                                                           value="{$info.check_date|date='Y-m-d',###}"
+                                                           readonly="readonly"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" style="padding: 0 ;">
+                                <div class="opinion-row dtable width-all">
+                                    <div class="order-td-width02 bord-r dtcell vtm verify_IE">意见</div>
+                                    <div class="dtcell">
+                                        <div class="position-r">
+                                            <textarea class="width-all" rows="3" readonly="readonly">{$info.agree_content}</textarea>
+                                        </div>
+
+                                        <div class="width-all padb15">
+                                            <div class="department fl" style="margin-top: 12px;">
+                                                <!--<span class="date-calender-name">部门：</span>-->
+                                                <!--<input type="text" readonly="" value="{$info.department}">-->
+                                                <!--<input type="" name="" class="fc-2 fs-18" value="李四"  readonly="readonly"/>-->
+                                                <input type="text" class="fc-2 fs-16" readonly="" value="理事会办公室">
+                                                <input type="" name="" class="fc-2 fs-16" value="李四"
+                                                       readonly="readonly"/>
+                                                <div class="clear_both"></div>
+                                            </div>
+                                            <div class="text-right padr15">
+                                                <div class="radiocheckitem  fs-16">
+                                                    <input type="radio" id="agree" checked="checked" name="agreeyorn"
+                                                           accep="status" value="1">
+                                                    <label name="agreeyorn" class="label-checked label-agree"
+                                                           for="agree">同意</label>
+                                                </div>
+                                                <div class="radiocheckitem fs-16">
+                                                    <input type="radio" accep="status" id="disagree" name="agreeyorn"
+                                                           value="0">
+                                                    <label class="label-agree" name="agreeyorn"
+                                                           for="disagree">不同意</label>
+                                                </div>
+                                                <div class="dsplin wtd-half change-date-box fs-12 fc-2 ">
+                                                    <span>日期：</span>
+                                                    <input type="text" class="change-date"
+                                                           value="{$info.time|date='Y-m-d',###}" readonly="readonly"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>

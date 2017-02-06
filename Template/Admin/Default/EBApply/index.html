@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+    	<meta name="author" content="xx_xh">
+    	<title>入库申请审核</title>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/calendar.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css"/>
+    	<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css"/>
+    	<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    	<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body onkeydown="BindEnter(event)">
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">库存审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item">入库申请审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png"/>
+				<a class="nav-item" id="endnode">
+					<if condition="$_GET['status'] eq 1">
+						未审核
+					<elseif condition="$_GET['status'] eq 2"/>
+						审核中
+					<elseif condition="$_GET['status'] eq 'do'"/>
+						已审核
+					<else/>
+						历史
+					</if>
+				</a>
+			</div>
+
+			<form method="get">
+			<!--表格-->
+			<div class="date-table">
+				<div class="data-table-head fc-1">
+				   <a  href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>1))}" class="tab-table <if condition="($_GET['status'] eq 1 )">tab-active</if>">未审核</a>
+					<a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>2))}" class="tab-table <if condition="$_GET['status'] eq 2">tab-active</if>">审核中</a>
+					<!-- <a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>3))}" class="tab-table <if condition="$_GET['status'] eq 3">tab-active</if>">未通过</a> -->
+					<a href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>'do'))}" class="tab-table <if condition="$_GET['status'] eq 'do'">tab-active</if> ">已审核</a>
+					<a  href="{:U('index',array('order_sn'=>$order_sn,'creater'=>$creater,'time'=>$time,'status'=>'all'))}" class="tab-table <if condition="$_GET['status'] eq 'all'  OR $_GET['status'] eq null">tab-active</if>">历史</a>
+				</div>
+				<div class="sarech-grounp vtm fr">
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">单号：</span>
+							<input type="text" class="sarech-input" name="order_sn" value="{$order_sn}" />
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">提交日期：</span>
+							<input type="text" class="sarech-input" name="time" id="time" value="{$time}"/>
+						</div>
+					</div>
+					<div class="grounp-item">
+						<div class="dtable">
+							<span class="sarech-span">创建人：</span>
+							<input type="text" class="sarech-input" name="creater" value="{$creater}" />
+						</div>
+					</div>
+					<a class="sarech-btn boxshow01" id="submit">
+						查询
+					</a>
+				</div>
+
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+					
+						<th>单号</th>
+						<!-- <th>金额</th> -->
+						<th>提交时间</th>
+						<!-- <th>最后改动时间</th> -->
+						<th>创建人</th>
+						<th>审核状态</th>
+						<if condition="$_GET['status'] eq 1">
+						<th>操作</th>
+						</if>
+					</tr>
+                    
+                   <volist name="lists" id="vo">
+						<tr>
+							<td>{$vo.id}</td>
+							
+							<td><a href="{:U('info',array('id'=>$vo['id']))}" class="fc-10 a-dtl">{$vo.cancel_sn}</a></td>
+							<!-- <td>{$vo.total_price}</td> -->
+							<td>{$vo.apply_time|date="Y-m-d H:i",###}</td>
+							<!-- <td>{$vo.last_op_time|date="Y-m-d H:i",###}</td> -->
+							<td>{$vo.applyer}</td>
+							<td>
+								<div class="audit_status">
+									    <if condition="$vo['status'] eq 1">
+									    <img src="__IMG__/noshenghe.png"/>
+										<a href="{:U('info',array('id'=>$vo['id']))}" class="fc-5">未审核</a> 
+										<elseif condition="$vo['status'] eq 2"/>
+										<img src="__IMG__/shengheing.png"/>
+								        <a href="{:U('info',array('id'=>$vo['id']))}" class="fc-10">审核中</a>
+										<elseif condition="$vo['status'] eq 3"/>
+										<img src="__IMG__/nopass.png"/>
+										<a href="{:U('info',array('id'=>$vo['id']))}" class="fc-6">未通过</a>
+										<else/>
+										<img src="__IMG__/shenghe.png"/>
+										<a href="{:U('info',array('id'=>$vo['id']))}" class="fc-4">通过</a>
+										</if>
+								</div>
+								
+							</td>
+
+							   <if condition="$_GET['status'] eq 1 AND $_SESSION['admin']['info']['id'] eq $vo['applyer_id']">
+							<td><a href="{:U('EBApply/edit',array('id'=>$vo['id']))}" class="fc-10 a-dtl">编辑</a></td>
+							</if>
+						</tr>
+					</volist>
+				<!-- 	<tr>
+						<td>2</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/noshenghe.png"/>
+								<a class="fc-5">未审核</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>e</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>eee</td>
+						<td>eee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>ee</td>
+						<td>e</td>
+						<td>
+							<div class="audit_status">
+								<img src="__IMG__/nopass.png"/>
+								<a class="fc-6">未通过</a>
+							</div>
+						</td>
+					</tr> -->
+				</table>
+			</div>
+			<div class="change-num ">
+				{$page}
+			</div>
+
+		 </form>	
+
+		</div>
+	</body>
+
+</html>
+
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+
+
+<script>
+		$(function() {			
+				$('#time').datetimepicker({
+					format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+
+			    $('#submit').click(function(){
+			    	$("form").submit();
+			    })
+			  
+			})
+			function BindEnter(obj){
+				if(obj.keyCode == 13)
+
+				    {
+				        $("#submit").click()
+				    }
+				}
+</script>

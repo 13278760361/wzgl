@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>卡片管理</title>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">固定资产管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">固定资产审核 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">卡片管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">二维码下载</a>
+				<div class="topbtn fr">
+					
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+					
+				</div>
+			</div>
+			<!--表格-->
+			
+			<!--表格内容-->
+			<div class="table-responsive">
+				<!-- <table class="table table-bordered table-striped table-list  boxshow02">
+
+					<tr>
+						<th>序号</th>
+						<th>卡片单号</th>
+						<th>资产分类</th>
+						<th>物品名称</th>
+						<th>规格型号</th>
+						<th>供应商</th>
+						<th>部门</th>
+						<th>保管人</th>
+						<th>存放地点</th>
+						<th>金额</th>
+						<th>开始使用时间</th>
+					</tr>
+				    <foreach name="list" item="vo" key="k">
+					<tr>
+						<td>{$k+1}</td>
+						<td><a href="{:U('edit',array('id'=>$vo[id]))}">{$vo.order_sn}</a></td>
+						<td>{$vo.cate_name}</td>
+						<td>{$vo.assets_name}</td>
+						<td>{$vo.spec}</td>
+						<td>{$vo.company_name}</td>
+						<td>{$vo.department}</td>
+						<td>{$vo.keeper}</td>
+						<td>{$vo.store_address}</td>
+						<td>{$vo.original_value}</td>
+						<td>{$vo.start_date}</td>
+					</tr>
+					</foreach>
+				</table> -->
+				<!--卡片管理   角标a标签-->
+				
+					<volist name="lists" id="vo">
+						<table class="table table-bordered" style="width:49%;float:left;">
+						<tbody>
+						<tr>
+							<td rowspan="6" class="order-td-width02">
+								<img src="/{$vo.qrcode}" width="120px">
+							</td>
+						</tr>
+						<tr>
+							<td conspan="2">卡片单号</td>
+							<td>{$vo.order_sn}</td>
+						</tr>
+						<tr>
+							<td conspan="2">物品名称</td>
+							<td>{$vo.assets_name}</td>
+						</tr>
+						<tr>
+							<td conspan="2">规格型号</td>
+							<td>{$vo.spec}</td>
+						</tr>
+						<tr>
+							<td conspan="2">部门</td>
+							<td>{$vo.department}</td>
+						</tr>
+						<tr>
+							<td conspan="2">存放地点</td>
+							<td>{$vo.store_address}</td>
+						</tr>
+					</tbody>
+					</table>
+					</volist>
+				
+			</div>
+			<div class="change-num notprint padt30">
+				{$page}
+			</div>
+		</div>
+	</body>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+
+<script type="text/javascript">
+	$(function() {
+			$('#str_time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		    $('#end_time').datetimepicker({
+		        format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+		    });
+		   
+		});
+	$("#seach").click(function(){
+		$('#seach_form').submit();
+	});
+
+</script>
+</html>

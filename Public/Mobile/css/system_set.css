@@ -1,0 +1,52 @@
+body{background: #F0F0F0;}
+/*系统设置*/
+#system_content{height: auto;padding:15px 10px;}
+.system_t{font-size: 14px;color: #777777;line-height: 25px;}
+.system_set_box{display: block;font-size: 17px;color: #076FCC;line-height: 50px;border: 1px solid #CCCCCC;background: #FFFFFF;text-indent: 1em;border-radius: 4px;}
+.system_set_boxf{display: flex;height:50px;font-size: 17px;color: #076FCC;line-height: 50px;border: 1px solid #CCCCCC;background: #FFFFFF;text-indent: 1em;border-radius: 4px;}
+.system_set_boxf a{color: #076FCC;}
+.system_classify,.system_goods,.system_department{flex: 1;}
+.system_odd{margin-right: 1em;}
+.back_btn{margin:0 auto;margin-left:5%;margin-top:40px;width:90%;max-width:640px;height: 40px;font-size:16px;text-align:center;line-height:40px;color:#FFFFFF;background: #23B8F0 !important;box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.26);border-radius: 4px;}
+
+/*权限设置*/
+.am-breadcrumb{font-size: 14px;background: #EEEEEE;margin-bottom: 0;padding:8px 5px;padding-bottom: 0px;}
+.am-breadcrumb a{color: #076FCC;}
+.am-breadcrumb>li+li:before {padding: 0 5px;color: #ccc; content: "》";}
+.mess_search{height: 35px;display: flex;margin: 5px 0px;}
+.jia_btn{display:block;width:22px;height:22px;margin: 6px 10px;}
+.search_box{flex: 1;border: 1px solid #CCCCCC;height:35px;border-radius: 4px;}
+#search_key{float:left;width: 88%;font-size:14px;height: 33px;background: #F0F0F0;border: 0px solid #E0E0E0;text-indent: 1em;}
+.search_ico{float: left;width: 12%;height: 33px;background: #0F62AD;text-align: center;margin}
+.search_ico img{vertical-align: middle;margin-top: 8px;}
+.table_limit{font-size: 12px;}
+
+/*新增权限,新增用户*/
+.callback_btn{display:block;float: right;background: url(../images/back_ico.png) no-repeat;background-position: left center;width: 50px;text-align: right;color: #333333 !important;}
+.sys_num{font-size: 16px;font-weight: normal;padding-top: 7px !important;color: #777777;}
+.form_color_white{background: #FFFFFF;padding: 15px 0;}
+.am-form-group{margin-bottom: 0.8rem;}
+
+
+/*单号*/
+.font12{font-size: 12px !important;padding: 0.9rem !important;}
+
+.goods_select,option{font-size: 16px !important;color: #AAAAAA !important;}
+
+/*资产分类*/
+.s_asset_add{display:flex;padding: 8px;margin-bottom: 5px;height: 42px;}
+.asset_add_box{width:65px;height: 25px;margin-right:5px;border: 1px solid #E0E0E0;text-indent: 0.5em;line-height: 25px;background: url(../images/xiala.png) no-repeat center right;cursor: pointer;}
+.asset_lable_s{flex: 1;font-weight: normal;line-height: 25px;}
+.asset_lable_s input{width:60%;border: 1px solid #E0E0E0;text-indent: 3px;}
+
+.asset_add_box ul{padding:0;margin:0;width: 100%;text-indent: 0;text-align: center;}
+.asset_add_box ul li{border: 1px solid #CCCCCC;margin-bottom: 5px;border-radius: 4px;}
+.s_asset_add_list{position: relative;z-index: 1;display: none;}
+
+.s_asset_add_box{height: auto;}
+
+.classify_upbtn_box{height: 35px;line-height: 35px;text-align: center;}
+
+.classify_upbtn{display:inline-block;width: 72px;background: #23B8F0;border-radius: 4px;color: #FFFFFF;cursor: pointer;}
+.classify_det{display:inline-block;margin-left:20px;width: 72px;background: #FFFFFF;border: 1px solid #CCCCCC;border-radius: 4px;cursor: pointer;}
+.system_set_box:hover{color: #076FCC;}

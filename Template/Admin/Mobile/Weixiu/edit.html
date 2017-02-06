@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资产管理——维修——编辑</title>
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<!--日期控件依赖的css-->
+		<link href="__PUBLIC__/css/datecss/mobiscroll_002.css" rel="stylesheet" type="text/css">
+		<link href="__PUBLIC__/css/datecss/mobiscroll.css" rel="stylesheet" type="text/css">
+		<link href="__PUBLIC__/css/datecss/mobiscroll_003.css" rel="stylesheet" type="text/css">
+		<!--日期控件依赖的css-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/amazeui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicsty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/asset_set.css" />
+		<link rel="stylesheet" href="__PUBLIC__/css/inventory.css" />
+		<style type="text/css">
+		.search_html{
+			position:absolute;
+			margin-left: 1%;
+			width:88%;
+			max-height:200px;
+			border:1px solid #ccc;
+			background:white;
+			display:none;
+		}
+		.search_html li{
+			padding: 6px 0;
+			list-style: none;
+			text-indent: 0.5em;
+			cursor: pointer;
+		}
+		.search_html li:hover{
+			background: #23B8F0;
+			color: #FFF;
+		}
+	</style>
+	</head>
+
+	<body>
+			<include file="Public/header" />
+		<ol class="am-breadcrumb">
+		  <li><a href="{:U('Menus/assets')}">资产管理</a></li>
+		  <li><a href="{:U('Weixiu/index')}">资产维修查询</a></li>
+		  <li class="am-active">编辑</li>
+		  <a href="javascript:history.go(-1)" class="callback_btn">返回</a>
+		</ol>
+
+		<form class="am-form am-form-horizontal">
+			<div class="form_color_white">
+				<div class="am-form-group">
+					<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">单号</label>
+					<div class="am-u-sm-8">
+						<input type="text" id="doc-ipt-3 sys_input" placeholder="自动生成" value="<?php echo $list[0]['repeat_sn']?>" info-o="ordersn" readonly disabled="disabled">
+					</div>
+				</div>
+
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">日期</label>
+					<div class="am-u-sm-8">
+					<!-- id="appDate" -->
+						<input name="appDate"  type="text" placeholder="请选择日期" value="<?php echo date('Y-m-d',$list[0]['repeat_time'])?>" readonly info-o="date" disabled="disabled">
+					</div>
+				</div>
+				<?php if($is_supper==1):?>
+				<div class="am-form-group">
+					<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">选择部门</label>
+					<div class="am-u-sm-8">
+					<select info-o="org_id" class="position-department-sele bgimg-select" id='departmentClickBtn'>
+									<option value="">选择部门</option>
+									<?php foreach($departlist as $v):?>
+									<option <?php if($did==$v['id']):?>selected="selected"<?php endif;?>value="<?php echo $v['id']?>"><?php echo $v['depart_name']?></option>
+								<?php endforeach;?>
+								</select>
+					</div>
+				</div>
+			<?php endif;?>
+			</div>
+
+			
+			<div id="goods_add_box" class="bord_top_ddd m-box">
+
+
+	<div class="form_color_white goods_add_box m-sub">
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">资产代码</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" field="order_sn" >
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品名称</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" placeholder="请输入" value=""  field="assets_name" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">规格型号</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="spec" value="" disabled="disabled">
+						</div>
+					</div>
+
+					<div class="am-form-group" style="display: none;">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">金额</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="original_value" disabled="disabled">
+						</div>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">单位</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="unit" value="" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">使用人</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" placeholder="请输入" field="keeper"  value="" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">部门</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="depart_name" value="" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">维修日期</label>
+						<div class="am-u-sm-8">
+							<input name="appDate" type="text" placeholder="请输入" field="time" value="" >
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">维修原因</label>
+						<div class="am-u-sm-8">
+							<div class="am-form-group am-form-select">
+								<input type="text" field="reason" class="startDate" placeholder="请输入" field="reason" value="" >
+							</div>
+							<span id="delete_goods" onclick="delete_goods(this)">删除</span>
+						</div>
+					</div>
+				</div>
+
+<?php foreach($list as $k=>$v):?>
+
+				<div class="form_color_white goods_add_box m-sub">
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">资产代码</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" field="order_sn"  info-e{$k}="order_sn"  <?php if($isReadyChecked==1):?>disabled="disabled"<?php endif;?> value="<?php echo $v['card_sn']?>">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">物品名称</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" placeholder="请输入" value="<?php echo $v['assets_name']?>" info-e{$k}="assets_name" field="assets_name" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">规格型号</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="spec" value="<?php echo $v['spec']?>" info-e{$k}="spec" disabled="disabled">
+						</div>
+					</div>
+
+					<div class="am-form-group" style="display: none;">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">金额</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="original_value" value="<?php echo $v['original_value']?>" info-e{$k}="original_value" disabled="disabled">
+						</div>
+					</div>
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">单位</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="unit" info-e{$k}="unit" value="<?php echo $v['unit']?>" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">使用人</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" placeholder="请输入" field="keeper" info-e{$k}="keeper" value="<?php echo $v['keeper']?>" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">部门</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-pwd-2" placeholder="请输入" field="depart_name" value="<?php echo $v['depart_name']?>" info-e{$k}="depart_name" disabled="disabled">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">维修日期</label>
+						<div class="am-u-sm-8">
+							<input name="appDate" type="text" placeholder="请输入" field="time" <?php if($v['time']):?>value="<?php echo date('Y-m-d',$v['time'])?>"<?php endif;?> info-e{$k}="time">
+						</div>
+					</div>
+	
+					<div class="am-form-group">
+						<label for="doc-ipt-pwd-2" class="am-u-sm-4 am-form-label sys_num">维修原因</label>
+						<div class="am-u-sm-8">
+							<div class="am-form-group am-form-select">
+								<input type="text" field="reason" class="startDate" placeholder="请输入" field="reason" value="<?php echo $v['reason']?>" info-e{$k}="reason">
+							</div>
+							<span id="delete_goods" onclick="delete_goods(this)">删除</span>
+						</div>
+					</div>
+				</div>
+					<?php endforeach;?>
+			</div>
+	
+			<?php if($isReadyChecked==1):?>
+				<?php else:?>
+			<div id="goods_add_btn" class="bord_top_ddd bord_no_bottom">
+				<img src="__PUBLIC__/images/jia.png" />
+					<span>增加物品</span>
+			</div>
+			<?php endif;?>
+				<?php foreach($auditlist as $k=>$v):?>
+			<div id="audit_add_box">
+				<div class="audit_add_box a_box">
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">审核</label>
+						<div class="am-u-sm-8">
+							<div class="am-form-group am-form-select">
+								<select class="goods_select" info-o="department_id" <?php if($isReadyChecked==1):?>disabled="disabled" <?php endif;?>>
+								<volist name="list_dep" id='ld'>
+									<option <?php if($ld['id']==$v['depart_id']):?>selected="selected"<?php endif;?> value="{$ld.id}">{$ld.fullname}</option>
+								</volist>
+								</select>
+							</div>
+							<span id="delete_asset" onclick="delete_aduit(this)">删除</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php endforeach;?>
+			<?php if($isReadyChecked==1):?>
+				<?php else:?>
+			<div id="audit_add_btn">
+				<img src="__PUBLIC__/images/jia.png" />
+					<span>增加审核</span>
+			</div>
+			<?php endif;?>
+			<div class="asset_finishbox btm_padb15">
+				<form class="am-form am-form-horizontal">
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label fs12">维修完成情况</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input" disabled="disabled">
+						</div>
+					</div>
+					
+					<div class="am-form-group">
+						<label for="doc-ipt-3" class="am-u-sm-4 am-form-label sys_num">维修金额</label>
+						<div class="am-u-sm-8">
+							<input type="text" id="doc-ipt-3 sys_input"  disabled="disabled">
+						</div>
+					</div>
+				</form>
+			</div>
+			<?php if($isReadyChecked==2):?>
+				<input type="hidden" info='id' value="{$id}">
+				<input type="hidden" info='org_id' value="{$org_id}">
+				<input type="button" class="back_btn" value="编辑" poster="info" action="<?php echo U('edit')?>"></input>
+				<?php else:?>
+			<a href="{:U('Weixiu/index')}"><input type="button" class="back_btn" value="返回"></input></a>
+				<?php endif;?>
+		</form>
+	</body>
+	<!--日期控件依赖的js-->
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js" ></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_004.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datejs/mobiscroll_005.js" type="text/javascript"></script>
+	<!--日期控件依赖的js-->
+	<script type="text/javascript" src="__PUBLIC__/js/sercher.js"></script>
+	<script type="text/javascript">
+		//日期
+		var goods_len=$(".a_box").length;
+        $(function () {
+        	/*************************************************\
+			 * 实例化根据资产代码添加物品
+			\*************************************************/
+			var weburl="/Admin/Weixiu/goodsList?org_id={$did}";
+// var t=new Table('#addList',{submit:'ni',input:'order_sn',data:weburl}).addrow();
+			tab = new Sercher({box:'.m-box',sub:'.m-sub',inputer:'order_sn',submit:'info',url:weburl});
+
+			/*************************************************\
+			 * 点击增加物品按钮——添加物品
+			\*************************************************/
+			$("#goods_add_btn").click(function(){
+				tab.add();
+			});
+			var currYear = (new Date()).getFullYear();	
+			var opt={};
+			opt.date = {preset : 'date'};
+			opt.datetime = {preset : 'datetime'};
+			opt.time = {preset : 'time'};
+			opt.default = {
+				theme: 'android-ics light', //皮肤样式
+		        display: 'modal', //显示方式 
+		        mode: 'scroller', //日期选择模式
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+		        startYear: currYear - 10, //开始年份
+		        endYear: currYear + 10 //结束年份
+			};
+		  	$("#appDate").mobiscroll($.extend(opt['date'], opt['default']));
+		  	$("#startDate").mobiscroll($.extend(opt['date'], opt['default']));
+        //增加审核
+	 	//增加审核
+			$("#audit_add_btn").click(function() {
+				var audit_box=("#audit_add_box");
+				var copy_aduit = $(".a_box").eq(0).clone(true);
+				copy_aduit.appendTo(audit_box);
+				goods_len = $(".a_box").length;
+			});
+		});
+    	$('#departmentClickBtn').change(function(event) {
+			/* Act on the event */
+			var id=$(this).val();
+			var url="/Admin/Weixiu/add?did="+id;
+			// layer.open(url);
+			window.location.href=url;
+		});
+        		/*************************************************\
+		 * 删除物品
+		\*************************************************/
+		function delete_goods(o){
+			tab.del(o);
+		}
+		function delete_aduit(d){
+
+			if(goods_len == 1){
+				return;
+			}else{
+				$(d).closest(".audit_add_box").remove();
+				goods_len = $(".audit_add_box").length;
+			}
+			goods_len--;
+		}
+    </script>
+</html>

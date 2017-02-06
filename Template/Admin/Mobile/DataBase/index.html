@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>系统设置-新增角色</title>
+	<link rel="stylesheet" type="text/css" href="__CSS__/amazeui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/publicsty.css" />
+	<link rel="stylesheet" type="text/css" href="__CSS__/system_set.css" />
+</head>
+<body>
+	<include file="Public/header" />
+	<include file="Public/nav" />
+	<form class="am-form am-form-horizontal">
+		<div class="form_color_white">
+			<div class="am-form-group">
+				<input type="button" class="back_btn poster" value="备份数据库" poster-sn="1" action="{:U('backup')}" />
+			</div>
+
+			<div class="am-form-group">
+				<input type="button" class="back_btn poster" value="回复数据库" poster-sn="1" action="{:U('recover')}" />
+			</div>
+		</div>
+	</form>
+</body>
+<include file="Public/footer" />
+</html>

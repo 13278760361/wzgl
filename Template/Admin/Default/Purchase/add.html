@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap-datetimepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/common.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/pages-sty.css" />
+        <link rel="stylesheet" type="text/css" href="__CSS__/adjust_IE8.css" />
+		<link rel="stylesheet" href="__CSS__/purchaseSty.css" />
+
+		<title>采购-新增</title>
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid" id="purchase_con">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">库存管理 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">库存查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">采购查询 </a>
+				<img src="__IMG__/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+					<span class=" fs-14 boxshow03 top-btn" data-toggle="modal" data-target="#myModal" onclick="showH()">预览</span>
+					<span class=" fs-14 boxshow03 top-btn" onclick="window.print()">打印</span>
+				</div>
+			</div>
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<!--<div class="detaile-top dtable">-->
+					<!--<div class="ordernum dtcell">-->
+						<!--&lt;!&ndash; <span class="fc-2">单号：</span>-->
+						<!--<span class="fc-6">512488623</span> &ndash;&gt;-->
+					<!--</div>-->
+					<!--<span class="order-tit dtcell">采购申请表</span>-->
+					<!--<div class="grounp order-date dtcell">-->
+						<!--<div class="dtable date-calender">-->
+							<!--<span class="date-calender-name">日期：</span>-->
+							<!--<input type="" purchase-shop="apply_time" class="date-calender-input" id="apply_time" value="" />-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="proposer_de" style="float:left;">-->
+					<!--<label>-->
+						<!--<span class="fs-14 fc-2">申请人：</span>-->
+						<!--<input type="text" purchase-shop="applyer" class="associated-drop big-drop list-top-inputboxshadow"/>-->
+					<!--</label>-->
+					<!--<if condition="$is_supper eq 1">-->
+					<!--<label>-->
+						<!--<span class="fs-14 fc-2">部门：</span>-->
+						<!--<select purchase-shop="depart">-->
+							<!--<option value="0">&#45;&#45;请选择部门&#45;&#45;</option>-->
+							<!--<volist name="top_departs" id="vo">-->
+								<!--<option value="{$vo.id}">{$vo.fullname}</option>-->
+							<!--</volist>-->
+						<!--</select>-->
+					<!--</label>-->
+					<!--</if>-->
+				<!--</div>-->
+
+                <div class="detaile-top dtable">
+                    <div class="ordernum dtcell">
+                        <div class="dtable date-calender" style="float: left;">
+                            <span class="date-calender-name">日期：</span>
+                            <div class="">
+                                <input type="" purchase-shop="apply_time" class="date-calender-input" id="apply_time" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <span class="order-tit dtcell">采购申请表</span>
+                    <div class="grounp order-date dtcell">
+                        <span class="fc-2">单号：</span>
+                        <span class="fc-6" purchase-shop="order_sn">{$order_sn}</span>
+                       
+                    </div>
+                </div>
+
+                <div class="proposer_de">
+                    <label>
+                        <span class="fs-14 fc-2">申请人：</span>
+                        <input type="text" purchase-shop="applyer" class="associated-drop big-drop list-top-inputboxshadow"/>
+                    </label>
+                    <if condition="$is_supper eq 1">
+
+                    <label>
+                    <form method="get" action="{:U('add')}" class="width195 width_auto">
+                        <span class="fs-14 fc-2 mrg-lf15">部门：</span>
+                        <select purchase-shop="depart" name="org" class="width_auto" onchange="$('form.width195').submit();">
+                            <option value="0">--请选择部门--</option>
+                            <volist name="top_departs" id="vo">
+                            <option value="{$vo.id}" <if condition="$org eq $vo[id]"> selected='selected' </if>>{$vo.fullname}</option>
+                            </volist>
+                        </select>
+                       </form>
+                    </label>
+                    </if>
+                </div>
+
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box position-r mrgt15">
+					<table class="table table-bordered" id="addList">
+						<thead>
+							<tr>
+								<td class="order-td-width01"></td>
+								<td class=order-td-width02 field="goods_id" style="display:none;">物品ID</td>
+								<td class=order-td-width02 field="assets_name">物品名称</td>
+								<td class=order-td-width02 field="spec">规格型号</td>
+								<td class=order-td-width02 field="unit">单位</td>
+								<td class=order-td-width01 field="num">数量</td>
+								<td class=order-td-width02 field="bud_price">预算单价</td>
+								<td class=order-td-width02 field="bud_total">预算金额</td>
+								<td class=order-td-width01 field="type_name">归类</td>
+							</tr>
+						</thead>
+						<tr>
+							<td>
+								<div class="wid80 order-td-width01">
+									<span class="jia_ico" onclick="addrow()"> + </span>
+									<span class="jian_ico" onclick="delrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r" style="display:none;">
+								<input type="text" class="input-td"/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  />
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true"/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" name="num"/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" name="price" />
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" name="total" />
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" readonly="true"/>
+							</td>
+						</tr>
+						</table>
+						<table class="table table-bordered check_table" id="NewOpinion">
+						<tr>
+							<td class="width240">合计</td>
+							<td colspan="7">
+								<input type="text" purchase-shop="total_price" class="purchase_total" />
+							</td>
+						</tr>
+						<tr class="purchase_remark">
+							<td class="width240">备注</td>
+							<td colspan="7">
+								<textarea rows="5" purchase-shop="remark"></textarea>
+							</td>
+						</tr>
+						<!--<tr class="not_dele" id="option">-->
+							<!--<td colspan="2" class="purchase_rem">意见</td>-->
+							<!--<td colspan="6">-->
+								<!--<div class="width-all">-->
+									<!--<div class="position-r">-->
+										<!--<span class="prompt-text position-a fc-7">原因说明</span>-->
+										<!--<textarea class=" textarea-block bgc-2" rows="3" readonly=""></textarea>-->
+
+										<!--<input type="text" style="display:none;">-->
+									<!--</div>-->
+
+									<!--<div class="width-all">-->
+										<!--<div class="department">-->
+											<!--<select purchase-shop="audit" class="position-department-sele bgimg-select">-->
+												<!--<volist name="departs" id="vo">-->
+													<!--<option value="{$vo.id}">{$vo.fullname}</option>-->
+												<!--</volist>-->
+											<!--</select>-->
+											<!--<div class="dsplin signature">-->
+												<!--<div class="signature01" style="top: 0;">-->
+													<!--<span class="signature-mask spanhgt">自动签章</span>-->
+													<!--<input type="" class="signature-input sihgt"  />-->
+													<!--<input type="text" style="display:none;">-->
+												<!--</div>-->
+												<!--<input type="" placeholder="vvvvvv" name="" id="" value="" />-->
+											<!--</div>-->
+										<!--</div>-->
+										<!--<div class="text-right padr15">-->
+											<!--<div class="audit-person">-->
+												<!--<div class="radiocheckitem  fs-16">-->
+													<!--<input type="radio" id="agree" name="agreeyorn" value="agree" readonly="">-->
+													<!--<label name="agreeyorn" class="label-checked label-agree" for="agree">同意</label>-->
+												<!--</div>-->
+												<!--<div class="radiocheckitem fs-16">-->
+													<!--<input type="radio" id="disagree" name="agreeyorn" value="disagree" readonly="">-->
+													<!--<label class="label-agree" name="agreeyorn" for="disagree">不同意</label>-->
+												<!--</div>-->
+												<!--<div class="dsplin change-date-box fs-12 fc-2">-->
+													<!--<span>日期：</span>-->
+													<!--<input type="text" class="change-date" readonly />-->
+												<!--</div>-->
+											<!--</div>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</td>-->
+							<!--<td class="operaction_box_p">-->
+								<!--<span class="pur_operation_f">操作</span>-->
+								<!--<a href="javascript:;" class="pur_operation_det ">删除</a>-->
+							<!--</td>-->
+						<!--</tr>-->
+                            <tr id="option" class="not_dele">
+                                <td colspan="9" style="padding: 0 ;">
+                                    <div class="opinion-row dtable width-all">
+                                        <div class="bord-r dtcell vtm width239">意见</div>
+                                        <div class="dtcell pad15 bord-r">
+                                            <div class="position-r">
+                                                <span class="prompt-text position-a fc-7 notprint">原因说明</span>
+                                                <textarea class=" textarea-block bgc-2" rows="3" readonly=""  onkeyup="changePlacehoder(this)" ></textarea>
+                                                <input type="text" style="display:none;">
+                                            </div>
+
+                                            <div class="width-all">
+                                                <div class="department">
+                                                    <select purchase-shop="audit" class="position-department-sele bgimg-select120 fl bgimg-select">
+                                                        <volist name="list_dep" id="vo">
+                                                        <option value="{$vo.id}">{$vo.fullname}</option>
+                                                        </volist>
+                                                    </select>
+                                                    <div class="dsplin signature notprint fl_ie">
+                                                        <div class="signature01">
+                                                            <span class="signature-mask spanhgt">自动签章</span>
+                                                            <input type="" class="signature-input sihgt"  onkeyup="changePlacehoder(this)" readonly />
+                                                            <input type="text" style="display:none;">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="text-right padr15">
+                                                    <div class="audit-person">
+                                                        <div class="radiocheckitem  fs-16">
+                                                            <input type="radio" id="agree"   value="agree">
+                                                            <label  class="label-agree" for="agree" disabled="disabled">同意</label>
+                                                        </div>
+                                                        <div class="radiocheckitem fs-16">
+                                                            <input type="radio" id="disagree"  value="disagree">
+                                                            <label class="label-agree"  for="disagree" disabled="disabled">不同意</label>
+                                                        </div>
+                                                        <div class="dsplin change-date-box fs-12 fc-2">
+                                                            <span>日期：</span>
+                                                            <input type="text" class="change-date" readonly/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dtcell position-r notprint" style="width: 120px;">
+                                            <div class="bgc-2 position-a position-a_top0 width-all delete-opinion">操作</div>
+                                            <div>
+                                                <a class="opinion-dlt-a dele_IE">删除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+					</table>
+					<div class="addlistrow text-center fs-20 fr IE_add_ico" onclick="addOpinion('#option','#NewOpinion')">+</div>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+					<span class="back-btn dpl fs-16 boxshow03" action="{:U('add')}" poster="purchase">提交</span>
+				</div>
+			</div>
+		</div>
+		<!--model-->
+		<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog model_dialog_ie"  style="width: 90%;">
+		    <div class="modal-content">
+				<div class="modal-body">
+
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</body>
+<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+<script src="__JS__/ronshn.table.js" type="text/javascript"></script>
+
+<!-- 时间插件 -->
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/datetimepicker_blue.css" />
+<link rel="stylesheet" href="__JS__/datetimepicker/css/dropdown.css" />
+<script src="__JS__/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="__JS__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!-- 时间插件 -->
+	<script>
+		$(function() {
+			$("#NewOpinion").on("click","a.opinion-dlt-a", function() {
+			if ( $(this).parents('tr').hasClass('not_dele') ) {
+					return;
+				}
+				$(this).parents('tr').remove();
+			});
+			$('#apply_time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+			});
+			$('#time').datetimepicker({
+				format: 'yyyy-mm-dd',
+				language:"zh-CN",
+				minView:2,
+				todayBtn:  1,
+				autoclose:true
+			});
+			radioChecked("changeCase");
+			//radioChecked("agreeyorn");
+		});
+		
+		var t=new Table('#addList',{submit:'purchase',input:'assets_name',data:"{:U('get_goods')}",datatype:'post'}).addrow();
+		function delrow(o){
+			t.delrow(o.closest('tr'));
+		}
+		function addrow(){
+			t.addrow();
+		}
+		$("#addList").on("blur","input[name='price']",function(){ //失焦计算金额 并且计算合计
+
+	 	     var price  = $(this).val();
+             
+             var num = $(this).parents("tr").find("input[name='num']").val();
+
+             var total = price * num;
+
+             $(this).parents("tr").find("input[name='total']").val(total.toFixed(2));
+
+            var total = 0;
+			var inpt = $("#addList tr input[name='total']");
+			for(var i=0;i<inpt.length;i++){
+				total+=Number(inpt.eq(i).val());
+			}
+			$("input[purchase-shop='total_price']").val(total.toFixed(2));
+		});
+		$("input[purchase-shop='total_price']").focus(function(){
+			var total = 0;
+			var inpt = $("#addList tr input[name='total']");
+			for(var i=0;i<inpt.length;i++){
+				total+=Number(inpt.eq(i).val());
+			}
+			$(this).val(total.toFixed(2));
+		});
+		$("#addList").on("blur","input[name='total']",function(){ //失焦计算合计
+
+			    var total = 0;
+					var inpt = $("#addList tr input[name='total']");
+					for(var i=0;i<inpt.length;i++){
+						total+=Number(inpt.eq(i).val());
+					}
+					$("input[name='total_price']").val(total.toFixed(2));
+			 })
+		function showH(){
+			$('#myModal .modal-body .showHtml').remove();
+			var selectarr=[];//克隆出来的select没有选中状态
+			$('select').each(function(){
+				var c=$(this).find('option:selected');
+				if (c.val()&&c.val()!=0) {
+					selectarr.push($(this).find('option:selected').text())
+				}else{
+					selectarr.push(' ')
+				}
+				
+			})
+			var pr=$('.showHtml');
+			if (pr.size()>0) {
+				pr.html('');
+			}else{
+				pr=$('<div class="showHtml"></div>');
+				$('#myModal .modal-body').append(pr);
+			}
+
+			var html=$('.order-card').clone(true);
+			html.removeClass('order-card');
+			pr.append(html);
+			pr.find('.notprint').remove();
+			pr.find('input').each(function(){
+				var type=$(this).attr('type');
+				if (type=='radio') {
+					return true;
+				}else{
+					if ($(this).hasClass('Prdate')) {
+						$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+					}else{
+						$(this).replaceWith($(this).val())
+					}
+				}
+			});
+			pr.find('textarea').each(function(){
+				$(this).replaceWith('<div style="height:70px"></div>')
+			});
+			pr.find('select').each(function(i){
+				$(this).replaceWith('<span>'+selectarr[i]+'</span>')
+			});
+			// pr.find('table').each(function(){
+			// 	$(this).removeClass('.table-bordered');
+			// 	$(this).attr({'border':'1'})
+			// });
+			// pr.find('td').each(function(){
+			// 	$(this).css('border','none');
+			// });
+
+		}
+	</script>
+
+</html>

@@ -1,0 +1,178 @@
+﻿/*************** new-tree *************/
+.ztree li {
+    }
+
+         .ztree li span.button {
+            background-image:url(../images/zTreeStandard-1.png);
+        }
+
+             .ztree li span.button.roots_docu {
+                background-position: -1px 0;
+            }
+
+             .ztree li span.button.roots_open {
+                background-position: -37px 0;
+            }
+
+             .ztree li span.button.roots_close {
+                background-position: -19px 0;
+                height: 40px !important;
+            }
+
+             .ztree li span.button.center_open {
+                background-position: -37px -20px;
+                height: 50px !important;
+                margin-top: -10px;
+            }
+
+             .ztree li span.button.center_close {
+                background-position: -19px -20px;
+                height: 50px !important;
+                margin-top: -10px;
+            }
+
+             .ztree li span.button.center_docu {
+                background-position: -1px -20px;
+                height: 50px !important;
+                margin-top: -10px;
+            }
+
+             .ztree li span.button.bottom_docu,
+             .ztree li span.button.bottom_open {
+                background-position: -1px -50px;
+                height: 50px !important;
+                margin-top: -10px;
+            }
+
+             .ztree li span.button.switch {
+                height: 30px;
+            }
+
+         .ztree li a {
+            height: auto;
+            border: solid 1px #ddd;
+            padding: 6px 8px;
+            border-radius: 4px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+         .ztree li span.button.ico_open:before,
+         .ztree li span.button.ico_close:before {
+            /*content: "\f1ad";*/
+            color: #F3D10A;
+        }
+
+         .ztree li span.button.ico_docu:before {
+            /*content: "\f0c0";*/
+            font-size: 12px;
+            color: #bbb;
+        }
+
+         .ztree li a:hover,
+         .ztree li a.curSelectedNode {
+            height: auto;
+            border: solid 1px #ddd;
+            padding: 6px 8px;
+            background: #f4f4f4;
+            color: #000;
+        }
+
+         .ztree li a.curSelectedNode {
+            background: #3c8dbc;
+            color: #fff;
+            border-color: #3c8dbc;
+        }
+
+             .ztree li a.curSelectedNode span.button.ico_open:before,
+             .ztree li a.curSelectedNode span.button.ico_close:before,
+             .ztree li a.curSelectedNode span.button.ico_docu:before {
+                color: #fff;
+            }
+
+         .ztree li span.button.ico_open {
+            vertical-align: middle;
+        }
+
+         .ztree li ul.line {
+            margin-top: -10px;
+            padding-top: 2px;
+        }
+
+.box-header .form-group {
+    width: 260px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0px;
+    border: solid 1px #eee;
+}
+
+    .box-header .form-group .control-label {
+        font-size: 14px;
+        padding-right: 0px;
+        padding: 5px 8px;
+        margin-top: 4px;
+        border-right: solid 1px #ddd;
+    }
+
+    .box-header .form-group:focus .control-label {
+        border-color: #3c8dbc;
+    }
+
+    .box-header .form-group .form-control {
+        display: inline-block;
+        border: none;
+        width: auto;
+        padding: 6px 4px;
+    }
+
+.box-header .input-box {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.box-header .gray {
+    background-color: #eee;
+}
+
+#dialogExtensionField #extensiongrid .k-grid-content {
+    max-height: 314px;
+}
+
+#dialogExtensionField .modal-body {
+    max-height: inherit;
+    overflow-y: inherit;
+}
+
+#dialogEdit .form-group .control-label,
+#dialogAddOther .form-group .control-label,
+#dialogCreate .form-group .control-label {
+    height: 34px;
+}
+#dialogCreate .modal-body {
+    padding-bottom:0px;
+}
+#dialogCreate .btn-addField {
+    margin-bottom:20px;
+}
+.k-header .k-header-column-menu.k-state-active,
+.k-header .k-grid-filter.k-state-active {
+    background-color: #bbb;
+    border-color: #ccc;
+    color: #333;
+    padding: 4px 3px;
+    border-radius: 4px;
+    margin: -0.5em -0.5em -0.4em;
+}
+.k-header .k-grid-filter.k-state-active {
+    height: 12px;
+    padding-top: 5px !important;
+    padding-bottom: 10px !important;
+    margin-top: -6px !important;
+}
+.k-header .k-header-column-menu.k-state-active .k-icon{}
+.k-header .k-header-column-menu.k-state-active .k-icon:before,
+.k-header .k-grid-filter.k-state-active .k-icon:before{
+    color:#fff;
+}

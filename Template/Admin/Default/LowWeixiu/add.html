@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="">
+		<meta name="author" content="xx_xh">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/publicSty.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/page_element.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pages-sty.css" />
+		<script src="__PUBLIC__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/page_sty_is.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/ronshn.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/ronshn.table.js"></script>
+	<!-- 时间插件 -->
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/datetimepicker_blue.css" />
+	<link rel="stylesheet" href="__PUBLIC__/js/datetimepicker/css/dropdown.css" />
+	<script src="__PUBLIC__/js/datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+	<!-- 时间插件 -->
+		<title>低值品维修申请单-新增</title>
+		
+	</head>
+
+	<body>
+		<!--页面内容-->
+		<div class="container-fluid notprint">
+			<!--页面导航条-->
+			<div class="nav notprint">
+				<a class="nav-item">低值品管理 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">低值品查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">低值品维修查询 </a>
+				<img src="__PUBLIC__/images/ic_keyboard_arrow_right.png" />
+				<a class="nav-item">新增 </a>
+				<div class="topbtn fr">
+				 	<!--<span class=" fs-14 boxshow03 top-btn"  data-toggle="modal" data-target="#myModal" onclick="showH()">预览</span>-->
+					<span class=" fs-14 boxshow03 top-btn"  onclick="printH()">打印</span>
+				</div>
+			</div>
+			<form action="" method="post">
+			<!--内容-->
+			<div class="boxshow02 order-card bgc-1">
+				<!--表单标题部分 start-->
+				<div class="detaile-top dtable">
+					<div class="ordernum dtcell">
+						<div class="dtable date-calender">
+							<span class="date-calender-name">日期：</span>
+							<div>
+								<span></span>
+								<input type="" id="starttime" class="date-calender-input" value="<?php echo date('Y-m-d',$timedate)?>" readonly ni-o="date"/>
+							</div>
+							<?php if($is_supper==1):?>
+							<span class="date-calender-name">部门：</span>
+							<div>
+								<span></span>
+								<select ni-o="org_id" class="position-department-sele bgimg-select" id='departmentClickBtn' <?php if($from==1):?>disabled="disabled"<?php endif;?>>
+									<option value="">选择部门</option>
+									<?php foreach($departlist as $v):?>
+									<option <?php if($did==$v['id']):?>selected="selected"<?php endif;?>value="<?php echo $v['id']?>"><?php echo $v['depart_name']?></option>
+								<?php endforeach;?>
+								</select>
+							</div>
+						<?php endif;?>
+						</div>
+
+					</div>
+					<span class="order-tit dtcell">低值品维修申请单</span>
+					<div class="grounp order-date dtcell">
+						<span class="fc-2">单号：</span>
+						<span class="fc-6" ni-o="ordersn"><?php echo $order_sn;?></span>	
+					</div>
+				</div>
+				<!--表单标题部分 end-->
+				<!--表单内容部分 start-->
+				<div class="table-order-box mrg-t15">
+					<table class="table table-bordered check_table" id="addList">
+						<tr>
+							<td class='order-td-width01'></td>
+							<td class='order-td-width01' field="order_sn">资产代码</td>
+							<td class='order-td-width01' field="cate_name">低值品分类</td>
+							<td class='order-td-width01' field="assets_name">物品名称</td>
+							<td class='order-td-width01' field="spec">规格型号</td>
+							<td class='order-td-width01' field="unit">单位</td>
+							<td class='order-td-width01' field="original_value">金额</td>
+							<td class='order-td-width01' field="keeper">使用人</td>
+							<td class='order-td-width01' field="depart_name">部门</td>
+							<td class='order-td-width01' field="store_address">存放地点</td>
+							<td class='order-td-width01' field="reason">维修原因</td>
+							<td class='order-td-width01' field="time">维修日期</td>
+						</tr>
+						<tr id="tr1">
+							<td>
+								<div class="wid80">
+									<span class="fs-18" <?php if($did==''&&$is_supper==1):?><?php else:?>onclick="addrow()"<?php endif;?>> + </span>
+									<span class="fs-20" onclick="delrow(this)">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?> />
+						
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+								
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+						
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+								
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" disabled="disabled"/>
+					
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+		
+							</td>
+
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?>/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?>/>
+							</td>
+						</tr>
+						<?php foreach($lists as $k=>$v):?>
+						<tr>
+							<td>
+								<div class="wid80">
+									<span class="fs-18" <?php if($did==''&&$is_supper==1):?><?php else:?>onclick="addrow()"<?php endif;?>> + </span>
+									<span class="fs-20">-</span>
+								</div>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?> value="{$v['order_sn']}" ni-e{$k}="order_sn"/>
+						
+							</td>
+					
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['cate_name']?>" ni-e{$k}="cate_name" disabled="disabled"/>
+						
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['assets_name']?>" ni-e{$k}="assets_name" disabled="disabled"/>
+								
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" value="<?php echo $v['spec']?>" ni-e{$k}="spec" disabled="disabled"/>
+					
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['unit']?>" ni-e{$k}="unit" disabled="disabled"/>
+		
+							</td>
+
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['original_value']?>" ni-e{$k}="original_value" disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" value="<?php echo $v['keeper']?>" ni-e{$k}="keeper" disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['depart_name']?>" ni-e{$k}="depart_name" disabled="disabled"/>
+
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td"  value="<?php echo $v['store_address']?>" ni-e{$k}="store_address" disabled="disabled"/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" ni-e{$k}="reason" value="<?php echo $v['reason']?>" <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?>/>
+							</td>
+							<td class="position-r">
+								<input type="text" class="input-td" ni-e{$k}="time" value="" <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?>/>
+							</td>
+						</tr>
+						<?php endforeach;?>
+					</table>
+					<table class="table table-bordered check_table" id="opinin">
+						<tr id="add" key='0'>
+							<td colspan="6" style="padding: 0 ;">
+								<div class="opinion-row dtable width-all">
+									<div class="order-td-width02 bord-r dtcell vtm">意见</div>
+									<div class="dtcell pad15 bord-r">
+
+										<div class="width-all">
+											<div class="position-r">
+												<span class="prompt-text position-a fc-7">原因说明</span>
+												<textarea class=" textarea-block bgc-2" rows="3" onkeyup="changePlacehoder(this)" disabled="disabled"></textarea>
+												<input type="text" style="display:none;">
+											</div>
+											<div class="width-all">
+												<div class="department">
+													<select  onchange="changeSelect($(this))" class="position-department-sele bgimg-select departmentSelect" ni-o="department_id" <?php if($did==''&&$is_supper==1):?>disabled="disabled"<?php endif;?>>
+													<option value="">请选择</option>
+														<volist name="list_dep" id='ld'>
+														<option value="{$ld.id}">{$ld.fullname}</option>
+														</volist>
+													</select>
+													<div class="dsplin signature">
+														<div class="signature01" style="top: 0;">
+															<span class="signature-mask spanhgt signatureText">自动签章</span>
+															<input type="text" class="signature-input sihgt pad15 width-all" onkeyup="changePlacehoder(this)" />
+															<input type="text" style="display:none;">
+														</div>
+														<input type="" placeholder="vvvvvv" name="" id="" value="" />
+													</div>
+												</div>
+												<div class="text-right padr15">
+													<div class="audit-person">
+														<div class="radiocheckitem  fs-16">
+															<input type="radio" id="agree"   value="agree">
+															<label  class="label-agree" for="agree" disabled="disabled">同意</label>
+														</div>
+														<div class="radiocheckitem fs-16">
+															<input type="radio" id="disagree"  value="disagree">
+															<label class="label-agree"  for="disagree" disabled="disabled">不同意</label>
+														</div>
+														<div class="dsplin change-date-box fs-12 fc-2">
+															<span>日期：</span>
+															<input type="text" readonly class="change-date" />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="dtcell position-r">
+										<div class="bgc-2 position-a width-all delete-opinion"  >操作</div>
+										<div>
+											<a onclick="delTr(this)" class="opinion-dlt-a">删除</a>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td>维修完成情况</td>
+							<td><input type="text" class="width-all" value="" disabled="disabled" /></td>
+							<td>维修金额</td>
+							<td><input type="text" class="width-all" value="" disabled="disabled" /></td>
+						</tr>
+					</table>
+					<div class="addlistrow text-center fs-20 rm20" <?php if($did==''&&$is_supper==1):?><?php else:?>onclick="addOpinion('#add','#opinin')"<?php endif;?>>+</div>
+				</div>
+				<!--表单内容部分 end-->
+				<div class="textcenter mrg-t50 notprint">
+				<?php if($did==''&&$is_supper==1):?>
+						<a href="{:U('index')}"><span class="back-btn dpl fs-16 boxshow03" >返回</span></a>
+				<?php else:?>
+					<span class="back-btn dpl fs-16 boxshow03" poster="ni" action="<?php echo U('add')?>">提交</span>
+				<?php endif;?>
+				</div>
+			</div>
+		</div>
+</form>
+	<div class="modal fade notprint" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog"  style="width: 95%;">
+	    <div class="modal-content">
+			<div class="modal-body">
+
+			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</body>
+
+<script>
+	$(function(){
+
+		$('#departmentClickBtn').change(function(event) {
+			/* Act on the event */
+			var id=$(this).val();
+			var url="/Admin/LowWeixiu/add?did="+id+'&card_id={$card_id}';
+			// layer.open(url);
+			window.location.href=url;
+		});
+		radioChecked("changeCase");
+		radioChecked("agreeyorn");
+	})
+	function delTr(obj){
+		var ls=$('#opinin').find('tr').length
+
+				if ( ls==1 ) {
+					return;
+				}
+               $(obj).parents('tr').remove();
+			}
+	$('#starttime').datetimepicker({
+			        format: 'yyyy-mm-dd',
+					language:"zh-CN",
+					minView:2,
+					todayBtn:  1,
+					autoclose:true
+			    });
+	// var dd={$lists};
+// var t=new Table('#addList',{submit:'ni',input:'order_sn',data:dd}).addrow();
+var weburl="/Admin/LowWeixiu/goodsList?org_id={$did}";
+var t=new Table('#addList',{submit:'ni',input:'order_sn',data:weburl}).addrow();
+function changeSelect(_this){
+	/* 异步调取签名图 */
+			var id=_this.val();
+			var obj=_this.parent().find('.signatureText');
+			// alert(obj.html())
+			$.post('<?php echo U("ajaxSignature")?>',{'uid':id},function(data){
+				if(data!=''){
+					var str='<img src="'+data+'">';
+					obj.html(str);
+				}else{
+					obj.html('自动签章');
+				}
+			});
+}
+function delrow(o){
+	t.delrow(o.closest('tr'));
+}
+function addrow(){
+	t.addrow();
+}
+function printH() {
+				var selectarr=[];//克隆出来的select没有选中状态
+				$('select').each(function(){
+					var c=$(this).find('option:selected');
+					if (c.val()&&c.val()!=0) {
+						selectarr.push($(this).find('option:selected').text())
+					}else{
+						selectarr.push(' ')
+					}
+					
+				})
+				var pr=$('.prinrH');
+				if (pr.size()>0) {
+					pr.html('');
+				}else{
+					pr=$('<div class="prinrH"></div>');
+					$('body').append(pr);
+				}
+
+				var html=$('.order-card').clone(true);
+				html.removeClass('order-card')
+				pr.append(html);
+				pr.find('.notprint').remove();
+				pr.find('input').each(function(){
+					var type=$(this).attr('type');
+					if (type=='radio') {
+						return true;
+					}else{
+						if ($(this).hasClass('Prdate')) {
+							$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+						}else{
+							$(this).replaceWith($(this).val())
+						}
+					}
+				});
+				pr.find('textarea').each(function(){
+					$(this).replaceWith('<div style="height:70px"></div>')
+				});
+				pr.find('select').each(function(i){
+					$(this).replaceWith('<span>部门：'+selectarr[i]+'</span>')
+				});
+				pr.find('table').each(function(){
+					$(this).removeClass('.table-bordered');
+					$(this).attr({'border':'1'})
+				});
+				pr.find('td').each(function(){
+					$(this).css('border','none');
+				});
+				window.print();
+			}
+			function showH(){
+				$('#myModal .modal-body .showHtml').remove();
+				var selectarr=[];//克隆出来的select没有选中状态
+				$('select').each(function(){
+					var c=$(this).find('option:selected');
+					if (c.val()&&c.val()!=0) {
+						selectarr.push($(this).find('option:selected').text())
+					}else{
+						selectarr.push(' ')
+					}
+					
+				})
+				var pr=$('.showHtml');
+				if (pr.size()>0) {
+					pr.html('');
+				}else{
+					pr=$('<div class="showHtml"></div>');
+					$('#myModal .modal-body').append(pr);
+				}
+
+				var html=$('.order-card').clone(true);
+				html.removeClass('order-card');
+				pr.append(html);
+				pr.find('.notprint').remove();
+				pr.find('input').each(function(){
+					var type=$(this).attr('type');
+					if (type=='radio') {
+						return true;
+					}else{
+						if ($(this).hasClass('Prdate')) {
+							$(this).replaceWith('<p style="display:inline-block;width:130px"></p>')
+						}else{
+							$(this).replaceWith($(this).val())
+						}
+					}
+				});
+				pr.find('textarea').each(function(){
+					$(this).replaceWith('<div style="height:70px"></div>')
+				});
+				pr.find('select').each(function(i){
+					$(this).replaceWith('<span style="line-height: 34px">'+selectarr[i]+'</span>')
+				});
+				
+
+			}
+</script>
+</html>
